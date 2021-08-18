@@ -1,0 +1,49 @@
+@import "../../variables";
+
+.Logo {
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: $fontFamily3;
+
+  &__icon {
+    width: 100px;
+    height: 50px;
+  }
+
+  &__text {
+    margin-top: -10px;
+  }
+
+  &__prefix {
+    margin-right: 5px;
+    color: #949596;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 24px;
+    color: #6badb0;
+
+
+  }
+}
+
+.cls1 {
+  fill: #a7a9ac;
+}
+
+.cls2 {
+  fill: #808285;
+}
+
+.cls3 {
+  fill: #eecb2f;
+}
+
+.cls4 {
+  fill: #92ccce;
+}
