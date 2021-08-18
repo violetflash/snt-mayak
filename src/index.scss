@@ -1,0 +1,155 @@
+@import "variables";
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: $fontFamily;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  color: $blue-1;
+  background: $mainSectionBgColor;
+
+  &.js-overflow {
+    overflow: hidden;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+button {
+  outline: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+input {
+  outline: transparent;
+}
+
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+// Accessibility?
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+// Оболочка
+.site-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+// Главный контейнер
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  width: 100%;
+  max-width: $maxWidthContainer + px;
+}
+
+//loader
+
+.loader-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.ldio-bjmq8f3lyph div {
+  position: absolute;
+  animation: ldio-bjmq8f3lyph 1s linear infinite;
+  width: 80px;
+  height: 80px;
+  top: 10px;
+  left: 10px;
+  border-radius: 50%;
+  box-shadow: 0 2px 0 0 #5b8be1;
+  transform-origin: 40px 41px;
+}
+
+.loadingio-spinner-eclipse-lexqcs4gh8 {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+
+.ldio-bjmq8f3lyph {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+
+  div {
+    box-sizing: content-box;
+  }
+}
+
+@keyframes ldio-bjmq8f3lyph {
+  0% {transform: rotate(0deg)}
+
+  50% {transform: rotate(180deg)}
+
+  100% {transform: rotate(360deg)}
+}

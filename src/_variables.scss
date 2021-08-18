@@ -1,0 +1,31 @@
+// цвета сайта
+$mainColor: #000;
+$secondColor: #8f8f8f;
+
+$blue-1: #1f3f68;
+$blue-2: #316099;
+$blue-3: #356ead;
+$blue-4: #5a98d0;
+$blue-5: #98c3e8;
+$marvel: #F0131E;
+$captainAmerica: #1849CA;
+$white: #fff;
+$gradient: rgba($blue-5, 0.2);
+
+$overlay: rgba(#000, 0.4);
+
+$error: rgba(#f00, 0.8);
+$valid: rgba(green, 0.8);
+
+// <Шрифт по умолчанию>========================
+$fontFamily: "Roboto", sans-serif;
+$fontFamily2: "Cuprum", sans-serif;
+
+// <Переменные контейнера>=====================
+$minWidth: 320;
+$maxWidth: 1400;
+$maxWidthContainer: 1230;
+$md1: $maxWidthContainer + 12;
+$md2: 991.98;
+$md3: 767.98;
+$md4: 479.98;
