@@ -15,35 +15,46 @@
   }
 
   &__text {
+    position: relative;
     margin-top: -10px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      border-radius: 0 0 10px 10px;
+      width: 100%;
+      height: 3px;
+      background-color: $lightGrey;
+    }
+
   }
 
   &__prefix {
     margin-right: 5px;
-    color: #949596;
+    color: rgba($mainColor, 0.6);
   }
 
   &__title {
     font-weight: 700;
     font-size: 24px;
-    color: #6badb0;
-
-
+    color: rgba($mainColor, 0.7);
   }
 }
 
 .cls1 {
-  fill: #a7a9ac;
+  fill: $lightGrey;
 }
 
 .cls2 {
-  fill: #808285;
+  fill: $grey;
 }
 
 .cls3 {
-  fill: #eecb2f;
+  fill: $yellow;
 }
 
 .cls4 {
-  fill: #92ccce;
+  fill: $lightBlue;
 }
