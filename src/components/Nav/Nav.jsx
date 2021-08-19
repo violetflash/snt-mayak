@@ -29,8 +29,9 @@ const Nav = () => {
                 key={id}
                 to={route}
                 onClick={() => linkHandler(id)}
+                data-alt={title}
             >
-                {title}
+                <span>{title}</span>
             </Link>
         )
     });
