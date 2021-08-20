@@ -53,8 +53,48 @@
 
 .cls3 {
   fill: $yellow;
+  animation: beacon 6s infinite;
 }
 
 .cls4 {
   fill: $lightBlue;
+}
+
+@keyframes beacon {
+  0% {
+    fill: $yellow;
+    opacity: 1;
+  }
+
+  30% {
+    fill: $yellow;
+    opacity: 1;
+  }
+
+  40% {
+    fill: #bebe73;
+    opacity: 0.75;
+  }
+
+  50% {
+    fill: $grey;
+    opacity: 0.5;
+  }
+
+  60% {
+    fill: #bebe73;
+    opacity: 0.75;
+  }
+
+  70% {
+    fill: $yellow;
+    opacity: 1;
+    box-shadow: 4px 4px 19px 16px rgba(238, 203, 47, 1);
+  }
+
+  100% {
+    fill: $yellow;
+    opacity: 1;
+    box-shadow: 4px 4px 19px 16px rgba(238, 203, 47, 1);
+  }
 }

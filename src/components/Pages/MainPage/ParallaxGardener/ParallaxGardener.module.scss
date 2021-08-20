@@ -1,0 +1,30 @@
+.Gardener {
+  position: relative;
+  width: 296px;
+  height: 500px;
+
+  &__girl,
+  &__bg,
+  &__tree,
+  &__bushes {
+    position: absolute;
+  }
+
+  &__girl {
+    z-index: 10;
+  }
+
+  &__tree {
+    z-index: 9;
+  }
+
+  &__bushes {
+    z-index: 8;
+    bottom: 0;
+  }
+
+  &__bg {
+    z-index: 1;
+  }
+
+}
