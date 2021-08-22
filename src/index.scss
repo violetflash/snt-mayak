@@ -1,4 +1,4 @@
-@import "variables";
+@import "./variables";
 
 html {
   height: 100%;
@@ -20,7 +20,8 @@ body {
   font-size: 16px;
   line-height: 1.2;
   letter-spacing: 1px;
-  color: $mainColor;
+  color: var(--mainColor);
+  background-color: var(--bgColor);
 
   &.js-overflow {
     overflow: hidden;
@@ -101,6 +102,17 @@ a {
   width: 100%;
   max-width: $maxWidthContainer + px;
 }
+
+.lightTheme {
+  --mainColor: #000;
+  --bgColor: #fff;
+}
+
+.darkTheme {
+  --mainColor: #fff;
+  --bgColor: #000;
+}
+
 
 //loader
 

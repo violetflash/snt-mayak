@@ -33,13 +33,14 @@
 
   &__prefix {
     margin-right: 5px;
-    color: rgba($mainColor, 0.6);
+    color: var(--logoTitle);
   }
 
   &__title {
     font-weight: 700;
     font-size: 24px;
-    color: rgba($mainColor, 0.7);
+    //color: rgba($mainColor, 0.7);
+    color: var(--logoTitle);
   }
 }
 

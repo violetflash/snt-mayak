@@ -1,0 +1,12 @@
+.MainPage {
+
+  &__content {
+    height: auto;
+  }
+
+  &__hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

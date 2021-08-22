@@ -1,17 +1,20 @@
 import React from 'react';
 
-import ParallaxGardener from "./ParallaxGardener";
+import NewsSlider from "./NewsSlider/";
+import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
 
-import s from "../AboutPage/AboutPage.module.scss";
+import s from "./MainPage.module.scss";
 
 const MainPage = () => {
     return (
         <section className={s.MainPage}>
             <div className="container">
                 <div className={s.MainPage__content}>
-                    <h2>Main Page: Новости, какая-то другая инфа</h2>
+                    <div className={s.MainPage__hero}>
+                        <NewsSlider />
+                        <GardenerGirl />
+                    </div>
 
-                    <ParallaxGardener />
                 </div>
             </div>
         </section>
