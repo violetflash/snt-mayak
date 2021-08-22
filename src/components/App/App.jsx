@@ -10,6 +10,7 @@ import DocumentsPage from '../Pages/DocumentsPage/';
 import PaymentsPage from '../Pages/PaymentsPage/';
 import OffersPage from '../Pages/OffersPage/';
 import ContactsPage from '../Pages/ContactsPage/';
+import LoginPage from "../Pages/LoginPage";
 
 import s from './App.module.scss';
 
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path="/payments" component={PaymentsPage} />
                     <Route path="/offers" component={OffersPage} />
                     <Route path="/contacts" component={ContactsPage} />
+                    <Route path="/login" component={LoginPage} />
                     <Redirect to="/main" />
                 </Switch>
             </div>

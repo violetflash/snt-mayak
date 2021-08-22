@@ -1,7 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-// import firebaseui from "firebaseui";
+import firebaseui from "firebaseui";
+import 'firebaseui/dist/firebaseui.css'
 
 const MAIN_REF = "main";
 
