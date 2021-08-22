@@ -103,19 +103,7 @@ a {
   max-width: $maxWidthContainer + px;
 }
 
-.lightTheme {
-  --mainColor: #000;
-  --bgColor: #fff;
-}
-
-.darkTheme {
-  --mainColor: #fff;
-  --bgColor: #000;
-}
-
-
 //loader
-
 .loader-wrapper {
   display: flex;
   align-items: center;

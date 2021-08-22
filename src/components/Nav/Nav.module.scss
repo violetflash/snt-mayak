@@ -20,7 +20,7 @@
     color: $navTextColor;
     animation-duration: 1s;
     animation-fill-mode: both;
-    transition: all 0.3s ease 0s;
+    transition: all 0.3s;
 
     &:not(:last-child) {
       margin-right: 20px;
