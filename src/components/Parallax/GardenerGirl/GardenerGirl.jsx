@@ -17,7 +17,7 @@ class GardenerGirl extends Component {
         return (
             <figure className={s.GardenerGirl} ref={el => this.scene = el}>
                 <img className={s.GardenerGirl__girl} src={sprite + "#girl"} alt="gardener" data-depth="0" />
-                <img className={s.GardenerGirl__bushes} src={sprite + "#bushes"} alt="gardener" data-depth="0.3" />
+                <img className={s.GardenerGirl__bushes} src={sprite + "#bushes"} alt="gardener" data-depth="0.2" />
                 <img className={s.GardenerGirl__tree} src={sprite + "#tree-plain"} alt="gardener" data-depth="0.2" />
                 <img className={s.GardenerGirl__bg} src={sprite + "#bg"} alt="gardener" data-depth="0.5" />
             </figure>
