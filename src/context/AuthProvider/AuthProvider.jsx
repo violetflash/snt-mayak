@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
-import firebaseui from "firebaseui";
-import 'firebaseui/dist/firebaseui.css'
 
 const MAIN_REF = "main";
 
@@ -16,22 +14,15 @@ firebase.initializeApp({
     storageBucket: process.env.REACT_APP_FB_BUCKET,
     messagingSenderId: process.env.REACT_APP_FB_SENDER,
     appId: process.env.REACT_APP_FB_APP,
-    measurementId: process.envREACT_APP_FB_MEASUREMENT
+    measurementId: process.env.REACT_APP_FB_MEASUREMENT
 });
 
-const database = firebase.database();
-
 const AuthContext = createContext();
+console.log(firebase.apps.length);
 
 //Hook for child components to get the auth object and re-render when it changes
 const useAuth = () => {
     return useContext(AuthContext);
-};
-
-
-//Functions
-const createUserWithEmailAndPassword = () => {
-
 };
 
 //Provider hook that creates auth object and handles state
@@ -40,44 +31,104 @@ const AuthProvider = ({ children }) => {
     const [isAuthenticating, setIsAuthenticating] = useState(null);
 
     //Wrap any firebase methods we want to use
-    const createUserWithEmailAndPassword = (email, password) => {
-        return firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                setUser(user);
-                return true;
-                // ...
+    const emailExists = email => {
+        firebase.auth().signInWithEmailAndPassword(email, 'some-random-password')  // Password should be really long to avoid actually logging in :)
+            .then((response) => {
+                // TODO : Avoid this block
             })
             .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
+                if(error.code === 'auth/wrong-password'){
+                    console.log('Exists!');
+                    return;
+                }
+
+                if(error.code === 'auth/user-not-found'){
+                    console.log('No such email registered! Add password then to create account!');
+                    return;
+                }
+
+                console.log(error);
+            })
+    }
+
+    const signUpWithEmailPassword = (email, password) => {
+        // [START auth_signup_password]
+        firebase.auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(result => {
+                setUser(result.user);
+                return true;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
+            });
+        // [END auth_signup_password]
+    }
+
+    const signInWithEmailAndPassword = (email, password) => {
+        // [START auth_signin_password]
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(result => {
+                setUser(result.user);
+                console.log(user);
+                return true;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+        // [END auth_signin_password]
+    }
+
+    const writeUserDataToDB = (userId, name, email, password, imageUrl) => {
+        firebase.database()
+            .ref(`${MAIN_REF}/users/` + userId)
+            .set({
+                username: name,
+                password,
+                email,
+                profile_picture : imageUrl
+            });
+    }
+
+    const logout = () => {
+        return firebase
+            .auth()
+            .signOut()
+            .then(() => {
+                setUser(null);
             });
     };
 
-    const writeUserDataToDB = (userId, name, email, imageUrl) => {
-        database.ref(`${MAIN_REF}/users/` + userId).set({
-            username: name,
-            email: email,
-            profile_picture : imageUrl
+    useEffect(() => {
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            setUser(user);
+            setIsAuthenticating(false);
         });
-    }
+
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    }, []);
 
     const values = {
         user,
         isAuthenticating,
-        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
         writeUserDataToDB,
+        emailExists,
+        signUpWithEmailPassword,
+        logout
     }
 
     return (
         <AuthContext.Provider value={values}>
             {!isAuthenticating && children}
         </AuthContext.Provider>
-    )
+    );
 };
 
+export default AuthProvider;
 export { useAuth };

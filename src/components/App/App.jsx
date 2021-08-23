@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeProvider/ThemeProvider";
 import { addConditionedStyle } from "../../functions/functions";
+
 import Header from '../Header/';
 import Nav from "../Nav/";
 import MainPage from '../Pages/MainPage/';
@@ -10,7 +11,7 @@ import DocumentsPage from '../Pages/DocumentsPage/';
 import PaymentsPage from '../Pages/PaymentsPage/';
 import OffersPage from '../Pages/OffersPage/';
 import ContactsPage from '../Pages/ContactsPage/';
-import LoginPage from "../Pages/LoginPage";
+import LoginPage from "../Pages/LoginPage/";
 
 import s from './App.module.scss';
 
