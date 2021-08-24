@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Logo from '../Logo/';
-import { Link } from "react-router-dom";
+import Context from '../../context/context';
 
 import ThemeSwitcher from "./ThemeSwitcher/";
 // import Loader from "../Loader/";
@@ -10,13 +10,16 @@ import { useAuth } from "../../context/AuthProvider/AuthProvider";
 
 const Header = () => {
     const { user, name, logout } = useAuth();
-    // console.log(user);
-
+    const { setLoginIsOpened } = useContext(Context);
+    console.log(setLoginIsOpened);
+    const openLogin = () => {
+        setLoginIsOpened(true);
+    };
 
     const ActiveUser = user?.displayName ? <h2>{user.displayName}</h2> :
         user ? <h2>{name}</h2> : null;
     const logoutBtn = <button onClick={logout}>Выйти</button>
-    const Login = user ? logoutBtn : <Link className={s.Header__login} to="/login"><span>Войти</span></Link>;
+    const Login = user ? logoutBtn : <button className={s.Header__login} onClick={openLogin}><span>Войти</span></button>;
 
     return (
         <header className={s.Header}>

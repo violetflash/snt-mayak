@@ -33,21 +33,15 @@ const AuthProvider = ({ children }) => {
 
     //Wrap any firebase methods we want to use
     const writeUserDataToDB = (userId, name, email) => {
-        firebase.database().ref(`${MAIN_REF}/users/`)
-            .get()
-            .then((snapshot) => {
-                firebase.database()
-                    .ref(`${MAIN_REF}/users/` + userId)
-                    .set({
-                        userId,
-                        username: name,
-                        email
-                    });
+        firebase.database().ref(`${MAIN_REF}/users/` + userId)
+            .set({
+                userId,
+                username: name,
+                email
             })
             .catch((error) => {
                 console.error(error);
             });
-
     }
 
 

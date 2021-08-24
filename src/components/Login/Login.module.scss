@@ -1,0 +1,17 @@
+.Login {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.opened {
+  opacity: 1;
+  visibility: visible;
+}

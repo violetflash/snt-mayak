@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
-import { useAuth } from "../../../context/AuthProvider/AuthProvider";
+import Context from '../../context/context';
+import { useAuth } from "../../context/AuthProvider/AuthProvider";
+import { addConditionedStyle } from '../../functions/functions';
+import LoginPopup from "./LoginPopup/";
+import s from './Login.module.scss';
 
-import s from './LoginPage.module.scss';
-
-const LoginPage = () => {
+const Login = () => {
     const {
         signUpWithEmailPassword,
         logout,
         emailExists,
         signInWithEmailAndPassword
     } = useAuth();
+
+    const { loginIsOpened } = useContext(Context);
 
     const [isGoogleAuth, setIsGoogleAuth] = useState(false);
     const [name, setName] = useState("");
@@ -65,17 +69,13 @@ const LoginPage = () => {
         <div><button onClick={checkEmailHandler}>CheckEmailExist</button></div>
     </div>;
 
+    const LoginClass = addConditionedStyle(loginIsOpened, [s.Login], s.opened)
+
     return (
-        <section className={s.Login}>
-            <div className="container">
-                <div className={s.Login__content}>
-                    Login
-                    {!isGoogleAuth && <button onClick={setByEmail}>Войти по адресу электр. почты</button>}
-                    <button onClick={setByGoogle}>Войти, используя Google аккаунт </button>
-                </div>
-            </div>
+        <section className={LoginClass.join(' ')}>
+            <LoginPopup />
         </section>
     )
 };
 
-export default LoginPage;
+export default Login;

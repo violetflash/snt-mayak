@@ -1,0 +1,91 @@
+.LoginPopup {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  width: 100%;
+  max-width: 768px;
+  min-width: 320px;
+  margin-bottom: 60px;
+  transform: translate(-50%);
+  color: white;
+
+
+
+  &__header {
+    position: relative;
+  }
+
+  &__close {
+    position: absolute;
+    right: -1px;
+    top: -10px;
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    background-color: rgba(68, 83, 126, 0.5);
+    z-index: 10;
+
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      right: 7px;
+      top: 16px;
+      width: 20px;
+      height: 2px;
+      background-color: #fff;
+      transform: rotate(45deg);
+
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__tabs {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+
+    button {
+      flex-basis: 50%;
+      font-size: 16px;
+    }
+  }
+}
+
+.opened {
+  position: unset;
+  margin: 60px auto 0;
+  border-radius: 4px;
+  padding: 25px 14px;
+  max-width: 400px;
+  width: 100%;
+  background-color: #171d30;
+  transform: unset;
+  z-index: 15;
+  animation: rotate-open 0.35s;
+
+  @keyframes rotate-open {
+    0% {
+      transform: perspective(900px) rotateY(-90deg);
+    }
+
+    50% {
+      transform: perspective(900px) rotateY(10deg);
+    }
+
+    75% {
+      transform: perspective(900px) rotateY(-10deg);
+    }
+
+    100% {
+      transform: perspective(900px) rotateY(0);
+    }
+  }
+}
