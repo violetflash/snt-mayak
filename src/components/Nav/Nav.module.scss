@@ -35,13 +35,13 @@
       display: inline;
       text-align: center;
       color: var(--mainColor);
-      transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
     span {
       display: block;
       opacity: 1;
-      transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
     //&:hover {
@@ -55,17 +55,17 @@
 .active {
   background-color: var(--bgColor);
 
-  span {
-    animation: swap 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    animation-fill-mode: forwards;
-  }
-
   &::after {
-    animation: hide 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: swap 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     animation-fill-mode: forwards;
   }
 
-  @keyframes swap {
+  span {
+    animation: hide 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes hide {
     0% {
       opacity: 1;
       transform: translateY(0);
@@ -77,9 +77,13 @@
     }
   }
 
-  @keyframes hide {
+  @keyframes swap {
     0% {
       transform: translateY(0);
+    }
+
+    90% {
+      transform: translateY(155%);
     }
 
     100% {
