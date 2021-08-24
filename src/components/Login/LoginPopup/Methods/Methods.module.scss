@@ -1,0 +1,43 @@
+@import "../../../../variables";
+
+.Methods {
+
+  &__label {
+    color: rgba(#fff, 0.8);
+
+    span {
+      margin-left: 10px;
+    }
+  }
+
+  &__input {
+    margin: 5px 0 10px;
+    padding: 0 15px;
+    width: 100%;
+    height: 40px;
+    background-color: $popupInputBgColor;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    color: #fff;
+    font-size: 16px;
+  }
+
+  &__forgot {
+    color: rgba(#fff, 0.4);
+    transition: all 0.2s;
+
+    &:hover {
+      color: rgba(#fff, 0.7);
+    }
+  }
+
+  &__submit {
+    margin-top: 30px;
+    padding: 10px;
+    width: 100%;
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: paleturquoise;
+  }
+}

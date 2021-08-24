@@ -1,8 +1,8 @@
 .App {
   color: var(--mainColor);
   background-color: var(--bgColor);
-  transition: all 0.3s ease-in-out;
   min-height: 100vh;
+  transition: all 0.3s ease-in-out;
 }
 
 .lightTheme {
@@ -12,6 +12,6 @@
 
 .darkTheme {
   --mainColor: #fff;
-  --bgColor: #282c34;
+  --bgColor: #1e2131;
   --logoTitle: #eee;
 }
