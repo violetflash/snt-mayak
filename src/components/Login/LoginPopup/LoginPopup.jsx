@@ -32,7 +32,7 @@ const LoginPopup = () => {
             <div className={s.LoginPopup__tabs}>
                 {tabsButtons}
             </div>
-            <Methods activeTab={activeTab}/>
+            <Methods activeTab={activeTab} loginIsOpened={loginIsOpened}/>
             {/*{!isGoogleAuth && <button className={s.Login__byEmail} onClick={setByEmail}>Войти по адресу электр. почты</button>}*/}
             {/*<button className={s.Login__byGoogle} onClick={setByGoogle}>Войти, используя Google аккаунт </button>*/}
         </div>
