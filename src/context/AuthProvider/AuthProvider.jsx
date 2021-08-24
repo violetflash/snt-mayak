@@ -18,7 +18,6 @@ firebase.initializeApp({
 });
 
 const AuthContext = createContext();
-console.log(firebase.apps.length);
 
 //Hook for child components to get the auth object and re-render when it changes
 const useAuth = () => {

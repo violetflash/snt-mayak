@@ -2,6 +2,7 @@
 
 .Methods {
 
+
   &__label {
     color: rgba(#fff, 0.8);
 
@@ -20,6 +21,11 @@
     border: 1px solid transparent;
     color: #fff;
     font-size: 16px;
+    transition: all 0.3s ease-in-out;
+
+    &:focus {
+      border-color: $blue-5;
+    }
   }
 
   &__forgot {
@@ -33,11 +39,44 @@
 
   &__submit {
     margin-top: 30px;
-    padding: 10px;
+    padding: 15px;
     width: 100%;
     color: #000;
+    font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     background-color: paleturquoise;
+
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: rgba(paleturquoise, 0.8);
+
+    }
+  }
+
+  &__byGoogle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 16px;
+    padding: 10px 0 10px 30px;
+    width: 100%;
+
+    color: #4b4b4b;
+    background-color: #fff;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      width: 20px;
+      height: 20px;
+      background-image: url('./icons/google.svg');
+      background-position: 0 0;
+      background-repeat: no-repeat;
+    }
   }
 }

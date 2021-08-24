@@ -11,7 +11,6 @@ import { useAuth } from "../../context/AuthProvider/AuthProvider";
 const Header = () => {
     const { user, name, logout } = useAuth();
     const { setLoginIsOpened } = useContext(Context);
-    console.log(setLoginIsOpened);
     const openLogin = () => {
         setLoginIsOpened(true);
     };
