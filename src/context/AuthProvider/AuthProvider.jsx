@@ -104,7 +104,7 @@ const AuthProvider = ({ children }) => {
         // [END auth_signup_password]
     }
 
-    const signInWithEmailAndPassword = (email, password) => {
+    const signInWithEmailAndPassword = (email, password, func = null) => {
         // [START auth_signin_password]
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(result => {
@@ -117,6 +117,11 @@ const AuthProvider = ({ children }) => {
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
                 setError(error.code);
+
+                if (func) {
+                    func(error);
+                }
+
             });
         // [END auth_signin_password]
     }
