@@ -57,7 +57,15 @@
 
     &:hover {
       background-color: rgba(paleturquoise, 0.8);
+    }
 
+    &:disabled {
+      background-color: #ccc;
+      cursor: default;
+
+      &:hover {
+        background-color: #ccc;
+      }
     }
   }
 
@@ -100,34 +108,47 @@
     top: 70px;
     font-size: 13px;
     text-align: right;
-    color: firebrick;
+    color: $popupInputError;
     opacity: 0;
     visibility: hidden;
     transform: translateX(-20px);
     transition: all 0.3s ease-in-out;
   }
 
-  &__errorMessage {
-    display: block;
-    margin: 20px 0;
-    padding: 5px 5px 5px 15px;
+  &__notifier {
+    margin: 40px 0 10px;
+    text-align: center;
+  }
+
+  &__errorMessage,
+  &__successMsg {
+    display: none;
+    border-right: 5px solid $popupErrorMsgColor;
+    border-left: 5px solid $popupErrorMsgColor;
     border-radius: 4px;
-    border-left: 10px solid orangered;
-    border-right: 10px solid orangered;
-    visibility: hidden;
-    opacity: 0;
-    color: orangered;
+    padding: 5px 15px;
     font-size: 14px;
     text-align: center;
+    color: $popupErrorMsgColor;
+    background-color: #312e2e;
+  }
+
+  &__successMsg {
+    border-color: $popupSuccessMsgColor;
+    color: $popupSuccessMsgColor;
   }
 }
 
 .hasError {
-  border-color: firebrick;
+  border-color: $popupInputError;
 }
 
 .active {
   opacity: 1;
   visibility: visible;
   transform: translateX(0);
+}
+
+.showNotify {
+  display: inline-block;
 }

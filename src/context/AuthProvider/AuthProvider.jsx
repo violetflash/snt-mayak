@@ -27,9 +27,7 @@ const useAuth = () => {
 //Provider hook that creates auth object and handles state
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [isAuthenticating, setIsAuthenticating] = useState(null);
     const [name, setName] = useState(null);
-    const [error, setError] = useState(null);
 
     //Wrap any firebase methods we want to use
     const writeUserDataToDB = (userId, name, email) => {
@@ -109,19 +107,14 @@ const AuthProvider = ({ children }) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(result => {
                 setUser(result.user);
-                console.log(user);
+
+                console.log(result.user);
                 return true;
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-                setError(error.code);
-
                 if (func) {
-                    func(error);
+                    func(error.code);
                 }
-
             });
         // [END auth_signin_password]
     }
@@ -135,12 +128,29 @@ const AuthProvider = ({ children }) => {
             });
     };
 
+    const resetEmail = (email, errFunc = null, successFunc = null) => {
+        firebase.auth()
+            .sendPasswordResetEmail(email)
+            .then(() => {
+                if (successFunc) {
+                    successFunc();
+                }
+            })
+            .catch((error) => {
+
+                if (errFunc) {
+                    errFunc(error.code);
+                }
+
+            });
+    };
+
+
     // Subscribe to user on mount
     // Because this sets state in the callback it will cause any component that utilizes this hook to re-render with the latest auth object.
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged(user => {
             setUser(user);
-            setIsAuthenticating(false);
         });
 
         // Cleanup subscription on unmount
@@ -150,18 +160,17 @@ const AuthProvider = ({ children }) => {
     const values = {
         user,
         name,
-        isAuthenticating,
-        error,
         signInWithEmailAndPassword,
         writeUserDataToDB,
         emailExists,
         signUpWithEmailPassword,
         logout,
+        resetEmail
     }
 
     return (
         <AuthContext.Provider value={values}>
-            {!isAuthenticating && children}
+            {children}
         </AuthContext.Provider>
     );
 };

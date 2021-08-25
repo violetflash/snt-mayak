@@ -16,7 +16,7 @@ const Header = () => {
     };
 
     const ActiveUser = user?.displayName ? <h2>{user.displayName}</h2> :
-        user ? <h2>{name}</h2> : null;
+        user ? <h2>{name}</h2> : user ? <h2>{user.email}</h2> : null;
     const logoutBtn = <button onClick={logout}>Выйти</button>
     const Login = user ? logoutBtn : <button className={s.Header__login} onClick={openLogin}><span>Войти</span></button>;
 

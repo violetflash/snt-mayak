@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
 
-import s from './Methods.module.scss';
 import {useAuth} from "../../../../context/AuthProvider/AuthProvider";
 import { addConditionedStyle, capitalizer } from "../../../../functions/functions";
 
-const Methods = ({ activeTab, loginIsOpened }) => {
+import s from './Methods.module.scss';
+
+const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
 
     const {
         signUpWithEmailPassword,
         logout,
-        emailExists,
-        error,
-        signInWithEmailAndPassword
+        user,
+        signInWithEmailAndPassword,
+        resetEmail
     } = useAuth();
 
     // const [isGoogleAuth, setIsGoogleAuth] = useState(false);
@@ -23,26 +24,61 @@ const Methods = ({ activeTab, loginIsOpened }) => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     //errors hooks
-    const [errors, setErrors] = useState(new Set([]));
-    const [errorMessage, setErrorMessage] = useState(null);
-    // const [emailErrorDesc, setEmailErrorDesc] = useState(null);
-    // const [passwordErrorDesc, setPasswordErrorDesc] = useState(null);
+    const [errors, setErrors] = useState(new Set([])); //validation errors hook
+    const [errorMessage, setErrorMessage] = useState(null); //firebase auth errors hook
 
-    //ошибки в результате отправки на сервер аутентификации
-    // useEffect(() => {
-    //
-    //     const handleErrors = () => {
-    //         if (error === 'auth/user-not-found') {
-    //             setEmailErrorDesc('Нет такого пользователя');
-    //         } else if (error === 'auth/wrong-password') {
-    //             setPasswordErrorDesc('Неправильный пароль');
-    //         }
-    //     };
-    //     handleErrors();
-    //
-    // }, [error, emailErrorDesc, passwordErrorDesc]);
+    //success notifier hook
+    const [notifier, setNotifier] = useState(null);
+
+    //utility functions
+    const resetInputs = () => {
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+    }
+
+    const resetNotifier = () => {
+        setNotifier(null);
+        setErrorMessage(null);
+    };
+
+    const checkErrAndSetErrMsg = (msg) => {
+        if (msg === "auth/wrong-password") {
+            setErrorMessage("Неправильный пароль");
+            return;
+        }
+
+        if (msg === 'auth/user-not-found') {
+            setErrorMessage("Данный email не зарегистрирован.");
+            return;
+        }
+
+        if (msg === 'auth/too-many-requests') {
+            setErrorMessage("Аккаунт временно заблокирован. Попробуйте позже или смените пароль.");
+            return;
+        }
+    };
+
+    //instructions
+    useEffect(() => {
+        if (user) {
+            setLoginIsOpened(false);
+            resetInputs();
+            resetNotifier();
+        }
+    }, [user, setLoginIsOpened]);
+
+    useEffect(() => {
+        if (!loginIsOpened) {
+            resetInputs();
+            resetNotifier();
+        }
+    }, [loginIsOpened]);
 
 
+
+    //handlers
     const submitForm = (e) => {
         e.preventDefault();
 
@@ -53,39 +89,22 @@ const Methods = ({ activeTab, loginIsOpened }) => {
             return;
         }
 
-        if (e.target.name === 'signIn') {
-            console.log('форма входа');
-
-            signInWithEmailAndPassword(email, password, (err) => {
-                if (err.code === "auth/wrong-password") {
-                    setErrorMessage(() => {
-                        return "Неправильный пароль";
-                    });
-                    return;
-                }
-
-                if (err.code === 'auth/user-not-found') {
-                    setErrorMessage(() => {
-                        return "Нет такого пользователя";
-                    });
-                    return;
-                }
-            });
+        if (activeTab === 'login') {
+            signInWithEmailAndPassword(email, password, (msg) => checkErrAndSetErrMsg(msg));
         } else {
             console.log('форма регистрации');
+
         }
 
-
-        // console.log("Успешно");
     };
 
     const inputHandler = (e) => {
         const target = e.target;
         setErrorMessage(null);
+        setNotifier(null);
 
 
         if (target.name === "email") {
-            console.log('hit');
             target.value = target.value.replace(/\s/, '').replace(/./gi, match => match.toLowerCase());
             setEmail(target.value);
         }
@@ -159,8 +178,22 @@ const Methods = ({ activeTab, loginIsOpened }) => {
         setErrors(() => {
             return new Set([...errors, "email"]);
         });
-
     };
+
+    const resetHandler = (e) => {
+        e.preventDefault();
+
+        setErrorMessage(null);
+
+        if (!email) {
+            setErrorMessage("Введите email")
+            return;
+        }
+
+        resetEmail(email, (msg) => checkErrAndSetErrMsg(msg), () => {
+            setNotifier("Инструкция для сброса пароля успешно отправлена.")
+        });
+    }
 
     //classes
     const emailError = errors.has('email');
@@ -170,11 +203,21 @@ const Methods = ({ activeTab, loginIsOpened }) => {
     const nameError = errors.has('name');
     const nameNotifier = addConditionedStyle(nameError, [s.Methods__notifyError], s.active);
 
-    const errorMessageClass = addConditionedStyle(errorMessage, [s.Methods__errorMessage], s.active);
+    const errorMessageClass = addConditionedStyle(errorMessage, [s.Methods__errorMessage], s.showNotify);
+
+    const isDisabled = errors.size || !email || !password;
+
+    const successMessageClass = addConditionedStyle(notifier, [s.Methods__successMsg], s.showNotify);
+
+    const errorMessageNotifier = <span className={errorMessageClass.join(' ')}>{errorMessage}</span>;
+    const successMessage = <span className={successMessageClass.join(' ')}>{notifier}</span>;
 
     const signIn =
-        <div>
-            <span className={errorMessageClass.join(' ')}>{errorMessage}</span>
+        <>
+            <div className={s.Methods__notifier}>
+                {errorMessageNotifier}
+                {successMessage}
+            </div>
             <form name="signIn" onSubmit={submitForm}>
                 <label className={s.Methods__label}>
                     <span>Эл. почта:</span>
@@ -196,67 +239,73 @@ const Methods = ({ activeTab, loginIsOpened }) => {
                         name="password"
                         type="password"
                         onChange={inputHandler}/>
-                    <button className={s.Methods__forgot}>Забыли пароль?</button>
+                    <button className={s.Methods__forgot} onClick={resetHandler}>Забыли пароль?</button>
                 </label>
 
-                <button className={s.Methods__submit}>Войти</button>
+                <button className={s.Methods__submit} disabled={isDisabled}>Войти</button>
             </form>
             <button className={s.Methods__byGoogle}>Или войти через Google</button>
-        </div>
+        </>
 
     const signUp =
-        <form name="signUp" onSubmit={submitForm}>
-            <label className={s.Methods__label}>
-                <span>Ваше имя:</span>
-                <input
-                    className={s.Methods__input}
-                    value={name}
-                    name="name"
-                    type="text"
-                    onChange={inputHandler}
-                    onBlur={validateNameOnBlur}
-                />
-                <span className={nameNotifier.join(' ')}>Не меньше 3-х букв в имени</span>
-            </label>
-            <label className={s.Methods__label}>
-                <span>Эл. почта:</span>
-                <input
-                    className={emailClass.join(' ')}
-                    value={email}
-                    name="email"
-                    type="text"
-                    onBlur={validateEmail}
-                    onChange={inputHandler}
-                />
-                <span className={emailNotifier.join(' ')}>Некорректный email</span>
-            </label>
-            <label className={s.Methods__label}>
-                <span>Пароль:</span>
-                <input
-                    className={s.Methods__input}
-                    value={password}
-                    name="password"
-                    type="password"
-                    onChange={inputHandler}/>
-            </label>
-            <label className={s.Methods__label}>
-                <span>Подтверждение пароля:</span>
-                <input
-                    className={s.Methods__input}
-                    value={confirmPassword}
-                    name="confirmPassword"
-                    type="password"
-                    onChange={inputHandler}/>
-            </label>
-            <button className={s.Methods__submit}>Зарегистрировать</button>
-        </form>
+        <>
+            <div className={s.Methods__notifier}>
+                <span className={errorMessageClass.join(' ')}>{errorMessage}</span>
+            </div>
+            <form name="signUp" onSubmit={submitForm}>
+                <label className={s.Methods__label}>
+                    <span>Ваше имя:</span>
+                    <input
+                        className={s.Methods__input}
+                        value={name}
+                        name="name"
+                        type="text"
+                        onChange={inputHandler}
+                        onBlur={validateNameOnBlur}
+                    />
+                    <span className={nameNotifier.join(' ')}>Не меньше 3-х букв в имени</span>
+                </label>
+                <label className={s.Methods__label}>
+                    <span>Эл. почта:</span>
+                    <input
+                        className={emailClass.join(' ')}
+                        value={email}
+                        name="email"
+                        type="text"
+                        onBlur={validateEmail}
+                        onChange={inputHandler}
+                    />
+                    <span className={emailNotifier.join(' ')}>Некорректный email</span>
+                </label>
+                <label className={s.Methods__label}>
+                    <span>Пароль:</span>
+                    <input
+                        className={s.Methods__input}
+                        value={password}
+                        name="password"
+                        type="password"
+                        onChange={inputHandler}/>
+                </label>
+                <label className={s.Methods__label}>
+                    <span>Подтверждение пароля:</span>
+                    <input
+                        className={s.Methods__input}
+                        value={confirmPassword}
+                        name="confirmPassword"
+                        type="password"
+                        onChange={inputHandler}/>
+                </label>
+                <button className={s.Methods__submit}>Зарегистрировать</button>
+            </form>
+        </>
+
 
     const method = activeTab === 'login' ? signIn : signUp;
 
     return (
-        <div className={s.Methods}>
+        <>
             {method}
-        </div>
+        </>
     );
 };
 
