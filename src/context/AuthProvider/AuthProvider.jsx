@@ -29,6 +29,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticating, setIsAuthenticating] = useState(null);
     const [name, setName] = useState(null);
+    const [error, setError] = useState(null);
 
     //Wrap any firebase methods we want to use
     const writeUserDataToDB = (userId, name, email) => {
@@ -115,6 +116,7 @@ const AuthProvider = ({ children }) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
+                setError(error.code);
             });
         // [END auth_signin_password]
     }
@@ -144,6 +146,7 @@ const AuthProvider = ({ children }) => {
         user,
         name,
         isAuthenticating,
+        error,
         signInWithEmailAndPassword,
         writeUserDataToDB,
         emailExists,

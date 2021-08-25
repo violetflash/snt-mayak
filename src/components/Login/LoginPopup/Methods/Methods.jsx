@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import s from './Methods.module.scss';
 import {useAuth} from "../../../../context/AuthProvider/AuthProvider";
-import {addConditionedStyle} from "../../../../functions/functions";
+import { addConditionedStyle, capitalizer } from "../../../../functions/functions";
 
 const Methods = ({ activeTab, loginIsOpened }) => {
 
@@ -10,35 +10,105 @@ const Methods = ({ activeTab, loginIsOpened }) => {
         signUpWithEmailPassword,
         logout,
         emailExists,
+        error,
         signInWithEmailAndPassword
     } = useAuth();
 
     // const [isGoogleAuth, setIsGoogleAuth] = useState(false);
+
+    //inputs hooks
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    //errors hooks
     const [errors, setErrors] = useState(new Set([]));
+    const [emailErrorDesc, setEmailErrorDesc] = useState(null);
+    const [passwordErrorDesc, setPasswordErrorDesc] = useState(null);
+
+    //ошибки в результате отправки на сервер аутентификации
+    useEffect(() => {
+
+        const handleErrors = () => {
+            if (error === 'auth/user-not-found') {
+                setEmailErrorDesc('Нет такого пользователя');
+            } else if (error === 'auth/wrong-password') {
+                setPasswordErrorDesc('Неправильный пароль');
+            }
+
+
+        };
+        handleErrors();
+
+    }, [error, emailErrorDesc, passwordErrorDesc]);
+
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log(e.target.name);
+
+        if (errors.size) return;
+
+        if (!email) {
+            setErrors(() => {
+                return new Set([...errors, "email"]);
+            });
+            return;
+        }
+
+        if (!password) {
+            setErrors(() => {
+                return new Set([...errors, "password"]);
+            });
+            return;
+        }
+
+        if (e.target.name === 'signIn') {
+            console.log('форма входа');
+
+            signInWithEmailAndPassword(email, password);
+            console.log(error);
+
+
+        } else {
+            console.log('форма регистрации');
+        }
+
+
+        // console.log("Успешно");
     };
 
     const inputHandler = (e) => {
         const target = e.target;
 
         if (target.name === "email") {
-            target.value = target.value.replace(/\s/, '');
+            console.log('hit');
+            target.value = target.value.replace(/\s/, '').replace(/./gi, match => match.toLowerCase());
             setEmail(target.value);
         }
 
         if (target.name === "password") {
+            const newSet = new Set([...errors]);
+            newSet.delete('password');
+            setErrors(newSet);
             setPassword(target.value);
+            setPasswordErrorDesc(null);
         }
 
         if (target.name === "name") {
-            setName(target.value);
+            const nameValue = target.value
+                .replace(/^[\s|-]/gi, '')
+                .replace(/[^a-zA-Zа-яА-Я- ]/gi, '')
+                .replace(/\s{2}/gi, ' ')
+                .replace(/-{2}/gi, '-')
+                .replace(/(?<=-)\s/gi, '')
+                .replace(/(?<=\s)-/gi, '')
+                .replace(/./gi, match => match.toLowerCase())
+                .replace(/^./gi, match => capitalizer(match))
+                .replace(/(?<=\s)[a-zA-Zа-яА-Я]/gi, match => capitalizer(match))
+                .replace(/(?<=-)[a-zA-Zа-яА-Я]/gi, match => capitalizer(match))
+            ;
+            setName(nameValue);
         }
 
         if (target.name === "confirmPassword") {
@@ -46,10 +116,30 @@ const Methods = ({ activeTab, loginIsOpened }) => {
         }
     };
 
+    const validateNameOnBlur = (e) => {
+
+        if ( (!e.target.value && errors.has("name")) || (e.target.value.length > 2 && errors.has("name")) ) {
+            const newSet = new Set([...errors]);
+            newSet.delete('name');
+            setErrors(newSet);
+            return;
+        }
+
+        if (!e.target.value) {
+            return;
+        }
+
+        if (e.target.value.length < 2) {
+            setErrors(() => {
+                return new Set([...errors, "name"]);
+            });
+        }
+    };
+
     const validateEmail = (e) => {
         const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!e.target.value && errors.has("email")) {
+        if ( (!e.target.value && errors.has("email")) || (reg.test(email) && errors.has("email")) ) {
             const newSet = new Set([...errors]);
             newSet.delete('email');
             setErrors(newSet);
@@ -60,13 +150,6 @@ const Methods = ({ activeTab, loginIsOpened }) => {
             return;
         }
 
-        if (reg.test(email) && errors.has("email")) {
-            const newSet = new Set([...errors]);
-            newSet.delete('email');
-            setErrors(newSet);
-            return;
-        }
-
         if (reg.test(email)) {
             return;
         }
@@ -74,12 +157,21 @@ const Methods = ({ activeTab, loginIsOpened }) => {
         setErrors(() => {
             return new Set([...errors, "email"]);
         });
+
+        setEmailErrorDesc(null);
     };
+
+
 
     //classes
     const emailError = errors.has('email');
     const emailClass = addConditionedStyle(emailError, [s.Methods__input], s.hasError);
-    const emailNotifier = addConditionedStyle(emailError, [s.Methods__emailError], s.active);
+    const emailNotifier = addConditionedStyle(emailError, [s.Methods__notifyError], s.active);
+
+    const nameError = errors.has('name');
+    const nameNotifier = addConditionedStyle(nameError, [s.Methods__notifyError], s.active);
+
+    const emailNotFound = addConditionedStyle(emailErrorDesc, [s.Methods__notifyError], s.active);
 
     const signIn =
         <div>
@@ -94,7 +186,8 @@ const Methods = ({ activeTab, loginIsOpened }) => {
                         onBlur={validateEmail}
                         onChange={inputHandler}
                     />
-                    <span className={emailNotifier.join(' ')}>Некорректный формат email</span>
+                    <span className={emailNotifier.join(' ')}>Некорректный email</span>
+                    <span className={emailNotFound.join(' ')}>Нет такого пользователя</span>
                 </label>
                 <label className={s.Methods__label}>
                     <span>Пароль:</span>
@@ -121,7 +214,10 @@ const Methods = ({ activeTab, loginIsOpened }) => {
                     value={name}
                     name="name"
                     type="text"
-                    onChange={inputHandler}/>
+                    onChange={inputHandler}
+                    onBlur={validateNameOnBlur}
+                />
+                <span className={nameNotifier.join(' ')}>Не меньше 3-х букв в имени</span>
             </label>
             <label className={s.Methods__label}>
                 <span>Эл. почта:</span>
@@ -133,7 +229,7 @@ const Methods = ({ activeTab, loginIsOpened }) => {
                     onBlur={validateEmail}
                     onChange={inputHandler}
                 />
-                <span className={emailNotifier.join(' ')}>Некорректный формат email</span>
+                <span className={emailNotifier.join(' ')}>Некорректный email</span>
             </label>
             <label className={s.Methods__label}>
                 <span>Пароль:</span>
@@ -153,7 +249,6 @@ const Methods = ({ activeTab, loginIsOpened }) => {
                     type="password"
                     onChange={inputHandler}/>
             </label>
-
             <button className={s.Methods__submit}>Зарегистрировать</button>
         </form>
 
