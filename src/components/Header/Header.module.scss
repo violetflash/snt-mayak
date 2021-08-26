@@ -10,5 +10,16 @@
 
   &__login {
     margin-left: auto;
+    padding: 5px 15px;
+    border-radius: 4px;
+    border: 2px solid var(--mainColor);
+    color: var(--mainColor);
+    background-color: var(--bgColor);
+    transition: all 0.2s;
+
+    &:hover {
+      color: var(--bgColor);
+      background-color: var(--mainColor);
+    }
   }
 }

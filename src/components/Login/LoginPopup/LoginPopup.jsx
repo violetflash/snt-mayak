@@ -29,7 +29,7 @@ const LoginPopup = () => {
         <div className={popupClassName.join(' ')}>
             <header className={s.LoginPopup__header}>
                 {closeButton}
-                <Logo />
+                <Logo className={s.LoginPopup__logo}/>
             </header>
             <div className={s.LoginPopup__tabs}>
                 {tabsButtons}

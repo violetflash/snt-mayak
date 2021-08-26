@@ -17,6 +17,7 @@
   &__text {
     position: relative;
     margin-top: -10px;
+    color: $logoText;
 
     &::before {
       content: "";

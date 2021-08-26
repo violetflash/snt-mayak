@@ -24,12 +24,13 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    //errors hooks
+    //messages hooks
     const [errors, setErrors] = useState(new Set([])); //validation errors hook
     const [errorMessage, setErrorMessage] = useState(null); //firebase auth errors hook
-
-    //success notifier hook
     const [notifier, setNotifier] = useState(null);
+
+    //isLoading Hook
+    const [isLoading, setIsLoading] = useState(false);
 
     //utility functions
     const resetInputs = () => {
@@ -72,7 +73,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     }, [user, setLoginIsOpened, activeTab, loginIsOpened]);
 
     //handlers
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault();
 
         if (errors.size) return;
@@ -83,7 +84,15 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
         }
 
         if (activeTab === 'login') {
-            signInWithEmailAndPassword(email, password, (msg) => checkErrAndSetErrMsg(msg));
+            try {
+                setIsLoading(true);
+                console.log(isLoading);
+                await signInWithEmailAndPassword(email, password, (msg) => checkErrAndSetErrMsg(msg));
+            } catch {
+
+            }
+
+            setIsLoading(false);
         } else {
             console.log('форма регистрации');
 
@@ -210,7 +219,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     const errorMessageNotifier = <span className={errorMessageClass.join(' ')}>{errorMessage}</span>;
     const successMessage = <span className={successMessageClass.join(' ')}>{notifier}</span>;
 
-    const logInDisabled = errors.size || !email || !password;
+    const logInDisabled = errors.size || !email || !password || isLoading;
     const registerDisabled = errors.size || !email || !password || !confirmPassword || !name;
     const recoveryDisabled = errors.size || !email;
 

@@ -28,6 +28,7 @@ const useAuth = () => {
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [name, setName] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     //Wrap any firebase methods we want to use
     const writeUserDataToDB = (userId, name, email) => {
@@ -118,12 +119,6 @@ const AuthProvider = ({ children }) => {
     const signInWithEmailAndPassword = (email, password, func = null) => {
         // [START auth_signin_password]
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(result => {
-                setUser(result.user);
-
-                console.log(result.user);
-                return true;
-            })
             .catch((error) => {
                 if (func) {
                     func(error.code);
@@ -163,6 +158,7 @@ const AuthProvider = ({ children }) => {
     // Because this sets state in the callback it will cause any component that utilizes this hook to re-render with the latest auth object.
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+            setIsLoading(false);
             setUser(user);
         });
 
@@ -184,7 +180,7 @@ const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={values}>
-            {children}
+            {!isLoading && children}
         </AuthContext.Provider>
     );
 };

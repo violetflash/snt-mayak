@@ -1,3 +1,5 @@
+@import "../../../variables";
+
 .LoginPopup {
   position: absolute;
   top: 60px;
@@ -8,8 +10,6 @@
   margin-bottom: 60px;
   transform: translate(-50%);
   //color: white;
-
-
 
   &__header {
     position: relative;
@@ -41,7 +41,6 @@
       height: 2px;
       background-color: #fff;
       transform: rotate(45deg);
-
     }
 
     &::after {
@@ -61,6 +60,8 @@
     flex-basis: calc(50% - 5px);
     margin-right: 10px;
     border-radius: 4px 4px 0 0;
+    border-bottom: 5px solid transparent;
+    color: #fff;
     padding: 10px;
     font-size: 16px;
     background-color: rgba(#fff, 0.1);
@@ -79,6 +80,7 @@
 .active {
   color: #000;
   background-color: #fff;
+  border-color: $navBgColor;
 
   &:hover {
     background-color: #fff;
