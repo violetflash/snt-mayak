@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useAuth } from "../../../context/AuthProvider/AuthProvider";
 import { getFirstName } from "../../../functions/functions";
@@ -9,6 +9,7 @@ import UserMenu from "./UserMenu";
 
 const User = () => {
     const { user, name } = useAuth();
+    const [menuOpened, setMenuOpened] = useState(false);
 
     const activeUser = user?.displayName ? getFirstName(user.displayName) :
         user && name ? getFirstName(name) :
@@ -22,17 +23,23 @@ const User = () => {
         </svg>
     ;
 
+    const openUserMenu = () => {
+        setMenuOpened(() => {
+            return !menuOpened;
+        });
+    };
+
     return (
         <figure className={s.User}>
             <div className={s.User__imageWrapper}>
                 <img className={s.User__image} src={avatar} alt=""/>
             </div>
             <figcaption className={s.User__nameWrapper}>
-                <button className={s.User__name}>
+                <button className={s.User__name} onClick={openUserMenu}>
                     {activeUser}
                     {chevron}
                 </button>
-                <UserMenu/>
+                <UserMenu menuOpened={menuOpened}/>
             </figcaption>
         </figure>
     );
