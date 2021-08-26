@@ -12,6 +12,7 @@ import PaymentsPage from '../Pages/PaymentsPage/';
 import OffersPage from '../Pages/OffersPage/';
 import ContactsPage from '../Pages/ContactsPage/';
 import Login from "../Login/";
+import UserSettings from "../Pages/UserSettings";
 import useLogin from '../../hooks/useLogin/useLogin';
 
 import Context from '../../context/context';
@@ -43,6 +44,7 @@ const App = () => {
                         <Route path="/payments" component={PaymentsPage} />
                         <Route path="/offers" component={OffersPage} />
                         <Route path="/contacts" component={ContactsPage} />
+                        <Route path="/user-settings" component={UserSettings} />
                         <Redirect to="/main" />
                     </Switch>
                     <Login/>

@@ -5,12 +5,13 @@ import { addConditionedStyle, capitalizer } from "../../../../functions/function
 
 import s from './Methods.module.scss';
 
-const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
+const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) => {
 
     const {
         signUpWithEmailPassword,
         logout,
         user,
+        signInWithGoogle,
         signInWithEmailAndPassword,
         resetEmail
     } = useAuth();
@@ -64,19 +65,11 @@ const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
     useEffect(() => {
         if (user) {
             setLoginIsOpened(false);
-            resetInputs();
-            resetNotifier();
         }
-    }, [user, setLoginIsOpened]);
-
-    useEffect(() => {
-        if (!loginIsOpened) {
-            resetInputs();
-            resetNotifier();
-        }
-    }, [loginIsOpened]);
-
-
+        resetInputs();
+        resetNotifier();
+        setErrors(new Set([]));
+    }, [user, setLoginIsOpened, activeTab, loginIsOpened]);
 
     //handlers
     const submitForm = (e) => {
@@ -180,6 +173,10 @@ const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
         });
     };
 
+    const openResetForm = () => {
+        setActiveTab('recovery')
+    };
+
     const resetHandler = (e) => {
         e.preventDefault();
 
@@ -195,7 +192,11 @@ const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
         });
     }
 
-    //classes
+    const logInWithGoogle = () => {
+        signInWithGoogle();
+    };
+
+    //classes/states
     const emailError = errors.has('email');
     const emailClass = addConditionedStyle(emailError, [s.Methods__input], s.hasError);
     const emailNotifier = addConditionedStyle(emailError, [s.Methods__notifyError], s.active);
@@ -204,13 +205,14 @@ const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
     const nameNotifier = addConditionedStyle(nameError, [s.Methods__notifyError], s.active);
 
     const errorMessageClass = addConditionedStyle(errorMessage, [s.Methods__errorMessage], s.showNotify);
-
-    const isDisabled = errors.size || !email || !password;
-
     const successMessageClass = addConditionedStyle(notifier, [s.Methods__successMsg], s.showNotify);
 
     const errorMessageNotifier = <span className={errorMessageClass.join(' ')}>{errorMessage}</span>;
     const successMessage = <span className={successMessageClass.join(' ')}>{notifier}</span>;
+
+    const logInDisabled = errors.size || !email || !password;
+    const registerDisabled = errors.size || !email || !password || !confirmPassword || !name;
+    const recoveryDisabled = errors.size || !email;
 
     const signIn =
         <>
@@ -220,7 +222,7 @@ const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
             </div>
             <form name="signIn" onSubmit={submitForm}>
                 <label className={s.Methods__label}>
-                    <span>Эл. почта:</span>
+                    <span>Email:</span>
                     <input
                         className={emailClass.join(' ')}
                         value={email}
@@ -239,13 +241,14 @@ const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
                         name="password"
                         type="password"
                         onChange={inputHandler}/>
-                    <button className={s.Methods__forgot} onClick={resetHandler}>Забыли пароль?</button>
+                    <button className={s.Methods__forgot} onClick={openResetForm}>Забыли пароль?</button>
                 </label>
 
-                <button className={s.Methods__submit} disabled={isDisabled}>Войти</button>
+                <button className={s.Methods__submit} disabled={logInDisabled}>Войти</button>
             </form>
-            <button className={s.Methods__byGoogle}>Или войти через Google</button>
+            <button className={s.Methods__byGoogle} onClick={logInWithGoogle}>Или войти через Google</button>
         </>
+    ;
 
     const signUp =
         <>
@@ -266,7 +269,7 @@ const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
                     <span className={nameNotifier.join(' ')}>Не меньше 3-х букв в имени</span>
                 </label>
                 <label className={s.Methods__label}>
-                    <span>Эл. почта:</span>
+                    <span>Email:</span>
                     <input
                         className={emailClass.join(' ')}
                         value={email}
@@ -295,12 +298,39 @@ const Methods = ({ activeTab, loginIsOpened, setLoginIsOpened }) => {
                         type="password"
                         onChange={inputHandler}/>
                 </label>
-                <button className={s.Methods__submit}>Зарегистрировать</button>
+                <button className={s.Methods__submit} disabled={registerDisabled}>Зарегистрировать</button>
             </form>
         </>
+    ;
+
+    const resetPassword =
+        <>
+            <div className={s.Methods__notifier}>
+                {errorMessageNotifier}
+                {successMessage}
+            </div>
+            <form onSubmit={resetHandler}>
+                <label className={s.Methods__label}>
+                    <span>Ваш email:</span>
+                    <input
+                        className={emailClass.join(' ')}
+                        value={email}
+                        name="email"
+                        type="text"
+                        onBlur={validateEmail}
+                        onChange={inputHandler}
+                    />
+                    <span className={emailNotifier.join(' ')}>Некорректный email</span>
+                </label>
+                <button className={s.Methods__submit} disabled={recoveryDisabled}>Восстановить</button>
+            </form>
+        </>
+    ;
 
 
-    const method = activeTab === 'login' ? signIn : signUp;
+    const method = activeTab === 'login' ? signIn :
+        activeTab === 'register' ? signUp :
+            activeTab === 'recovery' ? resetPassword : null;
 
     return (
         <>

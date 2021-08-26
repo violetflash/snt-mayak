@@ -30,11 +30,16 @@ const getRandomIDsFromArr = (arr, num) => {
     return Array.from(newArr);
 };
 
+const getFirstName = name => {
+    return name.split(' ')[0];
+}
+
 
 export {
     addClass,
     addConditionedStyle,
     capitalizer,
     checkLS,
-    getRandomIDsFromArr
+    getRandomIDsFromArr,
+    getFirstName
 };

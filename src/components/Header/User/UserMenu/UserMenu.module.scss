@@ -1,0 +1,17 @@
+.UserMenu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  //width: 100%;
+  top: 50px;
+  right: 0;
+  padding: 15px 10px;
+  background-color: var(--bgColor);
+  border: 1px solid;
+  z-index: 100;
+
+  &__settings {
+    margin-bottom: 10px;
+  }
+}

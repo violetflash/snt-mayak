@@ -9,7 +9,10 @@ const LoginPopup = () => {
     const { loginIsOpened, setLoginIsOpened } = useContext(Context);
     const [activeTab, setActiveTab] = useState('login');
 
-    const closePopup = () => setLoginIsOpened(false);
+    const closePopup = () => {
+        setActiveTab('login');
+        setLoginIsOpened(false);
+    }
     const closeButton = <button className={s.LoginPopup__close} onClick={closePopup} />;
 
     const tabsData = [{ title: "Вход", value: "login" }, { title: "Регистрация", value: "register" }];
@@ -33,6 +36,7 @@ const LoginPopup = () => {
             </div>
             <Methods
                 activeTab={activeTab}
+                setActiveTab={setActiveTab}
                 loginIsOpened={loginIsOpened}
                 setLoginIsOpened={setLoginIsOpened}/>
         </div>

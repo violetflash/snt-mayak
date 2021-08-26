@@ -42,6 +42,19 @@ const AuthProvider = ({ children }) => {
             });
     }
 
+    const signInWithGoogle = () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+            .then((result) =>{
+                setUser(result.user);
+                console.log(result.user);
+            })
+            .catch((error) => {
+                console.log(error.code);
+                console.log(error.message);
+            });
+    };
+
 
     const emailExists = email => {
         firebase.auth()
@@ -160,6 +173,7 @@ const AuthProvider = ({ children }) => {
     const values = {
         user,
         name,
+        signInWithGoogle,
         signInWithEmailAndPassword,
         writeUserDataToDB,
         emailExists,

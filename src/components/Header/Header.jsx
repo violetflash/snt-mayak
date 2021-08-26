@@ -5,20 +5,21 @@ import Context from '../../context/context';
 import ThemeSwitcher from "./ThemeSwitcher/";
 // import Loader from "../Loader/";
 
-import s from './Header.module.scss';
+import User from './User/'
 import { useAuth } from "../../context/AuthProvider/AuthProvider";
+import s from './Header.module.scss';
 
 const Header = () => {
-    const { user, name, logout } = useAuth();
+    const { user } = useAuth();
     const { setLoginIsOpened } = useContext(Context);
+
     const openLogin = () => {
         setLoginIsOpened(true);
     };
 
-    const ActiveUser = user?.displayName ? <h2>{user.displayName}</h2> :
-        user ? <h2>{name}</h2> : user ? <h2>{user.email}</h2> : null;
-    const logoutBtn = <button onClick={logout}>Выйти</button>
-    const Login = user ? logoutBtn : <button className={s.Header__login} onClick={openLogin}><span>Войти</span></button>;
+
+    const logInBtn = <button className={s.Header__login} onClick={openLogin}><span>Войти</span></button>;
+    const Login = user ? <User /> : logInBtn;
 
     return (
         <header className={s.Header}>
@@ -26,7 +27,6 @@ const Header = () => {
                 <div className={s.Header__content}>
                     <Logo />
                     <ThemeSwitcher />
-                    {ActiveUser}
                     {Login}
                 </div>
             </div>
