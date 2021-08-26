@@ -36,7 +36,7 @@ const User = () => {
             </div>
             <figcaption className={s.User__nameWrapper}>
                 <button className={s.User__name} onClick={openUserMenu}>
-                    {activeUser}
+                    <span>{activeUser}</span>
                     {chevron}
                 </button>
                 <UserMenu menuOpened={menuOpened}/>
