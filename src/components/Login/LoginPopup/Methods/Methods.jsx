@@ -9,7 +9,6 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
     const {
         signUpWithEmailAndPassword,
-        logout,
         user,
         signInWithGoogle,
         signInWithEmailAndPassword,
