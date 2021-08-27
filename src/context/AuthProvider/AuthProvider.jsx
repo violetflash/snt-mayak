@@ -78,7 +78,7 @@ const AuthProvider = ({ children }) => {
             })
     }
 
-    const signUpWithEmailPassword = (name, email, password) => {
+    const signUpWithEmailAndPassword = (name, email, password, errFunc = null) => {
         setName(name);
         // [START auth_signup_password]
         firebase.auth()
@@ -109,19 +109,19 @@ const AuthProvider = ({ children }) => {
 
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                if (errFunc) {
+                    errFunc(error.code);
+                }
             });
         // [END auth_signup_password]
     }
 
-    const signInWithEmailAndPassword = (email, password, func = null) => {
+    const signInWithEmailAndPassword = (email, password, errFunc = null) => {
         // [START auth_signin_password]
         firebase.auth().signInWithEmailAndPassword(email, password)
             .catch((error) => {
-                if (func) {
-                    func(error.code);
+                if (errFunc) {
+                    errFunc(error.code);
                 }
             });
         // [END auth_signin_password]
@@ -160,11 +160,17 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = firebase.auth().onAuthStateChanged(user => {
             setIsLoading(false);
             setUser(user);
+            // if (name) {
+            //     user.updateProfile({
+            //         displayName: name,
+            //     }).then(() => setUser(user));
+            // }
+
         });
 
         // Cleanup subscription on unmount
         return () => unsubscribe();
-    }, []);
+    }, [name]);
 
     const values = {
         user,
@@ -173,7 +179,7 @@ const AuthProvider = ({ children }) => {
         signInWithEmailAndPassword,
         writeUserDataToDB,
         emailExists,
-        signUpWithEmailPassword,
+        signUpWithEmailAndPassword,
         logout,
         resetEmail
     }

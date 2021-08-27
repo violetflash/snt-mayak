@@ -1,7 +1,10 @@
 import React, { useContext } from 'react';
+
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeProvider/ThemeProvider";
 import { addConditionedStyle } from "../../functions/functions";
+
+import useNavLink from '../../hooks/useNavLink/'
 
 import Header from '../Header/';
 import Nav from "../Nav/";
@@ -26,9 +29,11 @@ const App = () => {
         addConditionedStyle(mode === 'dark', [s.App], s.darkTheme);
 
     const { loginIsOpened, setLoginIsOpened } = useLogin();
+    const { activeLink, setActiveLink } = useNavLink();
 
     const value = {
-        loginIsOpened, setLoginIsOpened
+        loginIsOpened, setLoginIsOpened,
+        activeLink, setActiveLink
     }
 
     return (

@@ -15,12 +15,12 @@ const User = () => {
     //current user starts with null and then sets itself. The way that happend is that firebase set localStorage and verifies
     //that we have user Signed In
     //TODO try to just user && user.displayName instead of drilling Name prop
-    // const activeUser = user?.displayName ? getFirstName(user.displayName) :
-    //     user && name ? getFirstName(name) :
-    //         user ? user.email : null
-    // ;
+    const activeUser = user?.displayName ? getFirstName(user.displayName) :
+        user && name ? getFirstName(name) :
+            user ? user.email : null
+    ;
 
-    const activeUser = user.displayName ? getFirstName(user.displayName) : user.email;
+    // const activeUser = user.displayName ? getFirstName(user.displayName) : user.email;
 
 
     const avatar = user && user.photoURL ? user.photoURL : defaultUser;
@@ -47,7 +47,7 @@ const User = () => {
                     <span>{activeUser}</span>
                     {chevron}
                 </button>
-                <UserMenu menuOpened={menuOpened}/>
+                <UserMenu menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
             </figcaption>
         </figure>
     );

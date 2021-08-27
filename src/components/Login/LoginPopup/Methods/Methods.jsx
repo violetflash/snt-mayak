@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-import {useAuth} from "../../../../context/AuthProvider/AuthProvider";
+import { useAuth } from "../../../../context/AuthProvider/AuthProvider";
 import { addConditionedStyle, capitalizer } from "../../../../functions/functions";
 
 import s from './Methods.module.scss';
@@ -8,13 +8,14 @@ import s from './Methods.module.scss';
 const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) => {
 
     const {
-        signUpWithEmailPassword,
+        signUpWithEmailAndPassword,
         logout,
         user,
         signInWithGoogle,
         signInWithEmailAndPassword,
         resetEmail
     } = useAuth();
+
 
     // const [isGoogleAuth, setIsGoogleAuth] = useState(false);
 
@@ -29,16 +30,13 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     const [errorMessage, setErrorMessage] = useState(null); //firebase auth errors hook
     const [notifier, setNotifier] = useState(null);
 
-    //isLoading Hook
-    const [isLoading, setIsLoading] = useState(false);
-
     //utility functions
     const resetInputs = () => {
         setName("");
         setEmail("");
         setPassword("");
         setConfirmPassword("");
-    }
+    };
 
     const resetNotifier = () => {
         setNotifier(null);
@@ -60,6 +58,12 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
             setErrorMessage("Аккаунт временно заблокирован. Попробуйте позже или смените пароль.");
             return;
         }
+
+        if (msg === 'auth/email-already-in-use') {
+            setErrorMessage("Такой email уже зарегистрирован.");
+            return;
+        }
+
     };
 
     //instructions
@@ -73,31 +77,34 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     }, [user, setLoginIsOpened, activeTab, loginIsOpened]);
 
     //handlers
-    const submitForm = async (e) => {
+    const submitForm = (e) => {
         e.preventDefault();
+
 
         if (errors.size) return;
 
         if (!email || !password) {
-            setErrorMessage("Заполните все поля формы")
+            setErrorMessage("Заполните все поля формы");
             return;
         }
 
+
         if (activeTab === 'login') {
-            try {
-                setIsLoading(true);
-                console.log(isLoading);
-                await signInWithEmailAndPassword(email, password, (msg) => checkErrAndSetErrMsg(msg));
-            } catch {
-
-            }
-
-            setIsLoading(false);
-        } else {
-            console.log('форма регистрации');
-
+            signInWithEmailAndPassword(email, password, (msg) => checkErrAndSetErrMsg(msg));
+            return;
         }
 
+        if (activeTab === 'register') {
+            if (password !== confirmPassword) {
+                setErrorMessage("Пароли не совпадают");
+                return;
+            }
+            signUpWithEmailAndPassword(name, email, password, (msg) => checkErrAndSetErrMsg(msg));
+            // setIsLoading(true);
+            // console.log(isLoading);
+            // signInWithEmailAndPassword(email, password, (msg) => checkErrAndSetErrMsg(msg));
+            // setIsLoading(false);
+        }
     };
 
     const inputHandler = (e) => {
@@ -141,7 +148,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
     const validateNameOnBlur = (e) => {
 
-        if ( (!e.target.value && errors.has("name")) || (e.target.value.length > 2 && errors.has("name")) ) {
+        if ((!e.target.value && errors.has("name")) || (e.target.value.length > 2 && errors.has("name"))) {
             const newSet = new Set([...errors]);
             newSet.delete('name');
             setErrors(newSet);
@@ -162,7 +169,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     const validateEmail = (e) => {
         const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if ( (!e.target.value && errors.has("email")) || (reg.test(email) && errors.has("email")) ) {
+        if ((!e.target.value && errors.has("email")) || (reg.test(email) && errors.has("email"))) {
             const newSet = new Set([...errors]);
             newSet.delete('email');
             setErrors(newSet);
@@ -183,7 +190,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     };
 
     const openResetForm = () => {
-        setActiveTab('recovery')
+        setActiveTab('recovery');
     };
 
     const resetHandler = (e) => {
@@ -192,14 +199,15 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
         setErrorMessage(null);
 
         if (!email) {
-            setErrorMessage("Введите email")
+            setErrorMessage("Введите email");
             return;
         }
 
         resetEmail(email, (msg) => checkErrAndSetErrMsg(msg), () => {
-            setNotifier("Инструкция для сброса пароля успешно отправлена.")
+            setNotifier("Инструкция для сброса пароля успешно отправлена.");
+            setEmail("");
         });
-    }
+    };
 
     const logInWithGoogle = () => {
         signInWithGoogle();
@@ -219,9 +227,9 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     const errorMessageNotifier = <span className={errorMessageClass.join(' ')}>{errorMessage}</span>;
     const successMessage = <span className={successMessageClass.join(' ')}>{notifier}</span>;
 
-    const logInDisabled = errors.size || !email || !password || isLoading;
+    const logInDisabled = errors.size || !email || !password;
     const registerDisabled = errors.size || !email || !password || !confirmPassword || !name;
-    const recoveryDisabled = errors.size || !email;
+    const recoveryDisabled = errors.size || !email || notifier;
 
     const signIn =
         <>

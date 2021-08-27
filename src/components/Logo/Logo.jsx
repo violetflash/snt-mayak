@@ -1,6 +1,7 @@
 import React from 'react';
 
 import s from './Logo.module.scss';
+import { addConditionedStyle } from "../../functions/functions";
 
 const svg = <svg className={s.Logo__icon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 251.17 92.59">
     <polygon className={s.cls1}
@@ -14,12 +15,15 @@ const svg = <svg className={s.Logo__icon} xmlns="http://www.w3.org/2000/svg" vie
              points="100.83 0 68.83 29.39 68.83 17.65 51.49 17.65 51.09 18.15 51.09 26.34 51.16 26.32 51.16 45.61 0 92.58 70.58 75.17 150.34 0 100.83 0"/>
 </svg>;
 
-const Logo = () => {
+const Logo = (props) => {
+
+    const textStyle = addConditionedStyle(props.color === 'light', [s.Logo__text], s.light);
+
     return (
         <figure className={s.Logo}>
             {svg}
 
-            <figcaption className={s.Logo__text}>
+            <figcaption className={textStyle.join(' ')}>
                 <span className={s.Logo__prefix}>снт</span>
                 <span className={s.Logo__title}>МАЯК</span>
             </figcaption>

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+
+import Context from '../../context/context';
 import { Link } from "react-router-dom";
 import { addConditionedStyle } from "../../functions/functions";
 
 import s from './Nav.module.scss';
 
 const Nav = () => {
-    const [activeLink, setActiveLink] = useState(0)
+    const { activeLink, setActiveLink } = useContext(Context);
 
     const linksData = [
         {id: 0, title: "Главная", route: "/main"},
