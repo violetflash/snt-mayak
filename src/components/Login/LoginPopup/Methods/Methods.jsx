@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useAuth } from "../../../../context/AuthProvider/AuthProvider";
+import useFocus from '../../../../hooks/useFocus/useFocus';
 import { addConditionedStyle, capitalizer } from "../../../../functions/functions";
 
 import s from './Methods.module.scss';
@@ -14,6 +15,12 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
         signInWithEmailAndPassword,
         resetEmail
     } = useAuth();
+
+    const { htmlElRef, setFocus } = useFocus();
+
+
+
+
 
 
     // const [isGoogleAuth, setIsGoogleAuth] = useState(false);
@@ -70,6 +77,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
         if (user) {
             setLoginIsOpened(false);
         }
+        setFocus();
         resetInputs();
         resetNotifier();
         setErrors(new Set([]));
@@ -246,6 +254,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                         type="text"
                         onBlur={validateEmail}
                         onChange={inputHandler}
+                        ref={htmlElRef}
                     />
                     <span className={emailNotifier.join(' ')}>Некорректный email</span>
                 </label>
