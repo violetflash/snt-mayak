@@ -4,6 +4,8 @@
 
 // цвета сайта
 $mainColor: #000;
+$secondColor: #bfaa99;
+$secondColor-light: rgba($secondColor, 0.5);
 $navTextColor: #111;
 $navBgColor: paleturquoise;
 $popupBgColor: #171d30;
@@ -12,6 +14,7 @@ $popupInputError: tomato;
 $popupErrorMsgColor: orangered;
 $popupSuccessMsgColor: #2bb72b;
 $logoText: var(--mainColor);
+$black: #000;
 $grey: #808285;
 $lightGrey: #a7a9ac;
 $yellow: #eecb2f;

@@ -42,10 +42,15 @@
     right: 20px;
     width: 14px;
     height: 12px;
-    transform: translateY(2px);
+    transition: all 0.3s ease 0s;
+    transform: translateY(2px) scaleY(1);
   }
 
   &__chevronPath {
     fill: var(--mainColor);
   }
+}
+
+.opened {
+  transform: translateY(2px) scaleY(-1);
 }

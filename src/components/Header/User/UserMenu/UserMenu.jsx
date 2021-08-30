@@ -16,10 +16,17 @@ const UserMenu = ({ menuOpened, setMenuOpened }) => {
         setMenuOpened(false);
     };
 
+    const closeMenu = () => {
+        setMenuOpened(false);
+    }
+
+    const closeButton = <button className={s.UserMenu__close} onClick={closeMenu} />;
+
     const userMenuClass = addConditionedStyle(menuOpened, [s.UserMenu], s.active);
 
     return (
         <div className={userMenuClass.join(' ')}>
+            {closeButton}
             <Link to="/user-settings" className={s.UserMenu__settings} onClick={openUserSettings}>Настройки</Link>
             <button onClick={logout} className={s.UserMenu__logout}>Выйти</button>
         </div>
