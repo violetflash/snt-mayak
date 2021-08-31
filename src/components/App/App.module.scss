@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .App {
   color: var(--mainColor);
   background-color: var(--bgColor);
@@ -8,9 +10,11 @@
 .lightTheme {
   --mainColor: #000;
   --bgColor: #fff;
+  --logoColor: #808285;
 }
 
 .darkTheme {
   --mainColor: #fff;
   --bgColor: #1e2131;
+  --logoColor: #eecb2f;
 }

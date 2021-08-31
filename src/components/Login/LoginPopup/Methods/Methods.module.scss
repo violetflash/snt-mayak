@@ -48,6 +48,7 @@
     padding: 15px;
     width: 100%;
     color: #000;
+    border-radius: 4px;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
@@ -71,16 +72,19 @@
 
   &__byGoogle {
     position: relative;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 50px;
     font-size: 16px;
-    padding: 10px 0 10px 30px;
-    width: 100%;
+    border-radius: 4px;
+    padding: 10px 50px;
+    //width: 100%;
     transition: all 0.3s ease-in-out;
     color: #4b4b4b;
     background-color: #fff;
+    text-transform: uppercase;
 
     &::before {
       content: "";
@@ -91,13 +95,13 @@
       background-image: url('./icons/google.svg');
       background-position: 0 0;
       background-repeat: no-repeat;
-      transform: translateX(0);
+      transform: translateX(-5px);
       transition: all 0.3s ease-in-out;
     }
 
     &:hover {
       &::before {
-        transform: translateX(30px) scale(1.2);
+        transform: translateX(0) scale(1.2);
       }
     }
   }

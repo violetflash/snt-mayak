@@ -12,7 +12,7 @@
     justify-content: space-between;
   }
 
-  a {
+  &__link {
     position: relative;
     display: inline-block;
     padding: 10px 27px;
@@ -20,6 +20,8 @@
     color: $navTextColor;
     animation-duration: 1s;
     animation-fill-mode: both;
+    border-left: 10px solid transparent;
+    //border-right: 10px solid transparent;
     transition: all 0.3s;
 
     &:not(:last-child) {
@@ -43,17 +45,13 @@
       opacity: 1;
       transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
-
-    //&:hover {
-    //  background-color: $white;
-    //
-    //
-    //}
   }
 }
 
 .active {
   background-color: var(--bgColor);
+  //background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  border-color: $secondColor;
 
   &::after {
     animation: swap 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);

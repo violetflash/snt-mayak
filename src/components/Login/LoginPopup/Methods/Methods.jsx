@@ -246,7 +246,6 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                         type="text"
                         onBlur={validateEmail}
                         onChange={inputHandler}
-                        autoFocus
                     />
                     <span className={emailNotifier.join(' ')}>Некорректный email</span>
                 </label>
@@ -263,7 +262,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
                 <button className={s.Methods__submit} disabled={logInDisabled}>Войти</button>
             </form>
-            <button className={s.Methods__byGoogle} onClick={logInWithGoogle}>Или войти через Google</button>
+            <button className={s.Methods__byGoogle} onClick={logInWithGoogle}>войти через Google</button>
         </>
     ;
 
