@@ -11,14 +11,16 @@ const UserMenu = ({ menuOpened, setMenuOpened }) => {
     const { logout } = useAuth();
     const { setActiveLink } = useContext(Context);
 
-    const openUserSettings = () => {
-        setActiveLink(null);
-        setMenuOpened(false);
-    };
-
     const closeMenu = () => {
         setMenuOpened(false);
     }
+
+    const openMenuLink = () => {
+        setActiveLink(null);
+        closeMenu();
+    };
+
+
 
     const closeButton = <button className={s.UserMenu__close} onClick={closeMenu} />;
 
@@ -27,8 +29,9 @@ const UserMenu = ({ menuOpened, setMenuOpened }) => {
     return (
         <div className={userMenuClass.join(' ')}>
             {closeButton}
-            <Link to="/user-settings" className={s.UserMenu__settings} onClick={openUserSettings}>Настройки</Link>
-            <button onClick={logout} className={s.UserMenu__logout}>Выйти</button>
+            <Link to="/user-offers" className={s.UserMenu__link} onClick={openMenuLink}>Мои объявления</Link>
+            <Link to="/user-settings" className={s.UserMenu__link} onClick={openMenuLink}>Настройки аккаунта</Link>
+            <button onClick={logout} className={s.UserMenu__link}>Выйти</button>
         </div>
     );
 

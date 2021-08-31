@@ -246,6 +246,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                         type="text"
                         onBlur={validateEmail}
                         onChange={inputHandler}
+                        autoFocus
                     />
                     <span className={emailNotifier.join(' ')}>Некорректный email</span>
                 </label>

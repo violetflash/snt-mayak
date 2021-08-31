@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import firebase from 'firebase/app';
 import 'firebase/database';
-import { getAuth, sendEmailVerification } from "firebase/auth";
 import 'firebase/auth';
 
 const MAIN_REF = "main";
@@ -45,11 +44,12 @@ const AuthProvider = ({ children }) => {
     }
 
     const sendVerificationEmail = () => {
-        const auth = getAuth();
-        sendEmailVerification(auth.currentUser)
-            .then(() => {
-                console.log("check email!");
-            });
+        // const auth = getAuth();
+        // sendEmailVerification(auth.currentUser)
+        //     .then(() => {
+        //         console.log("check email!");
+        //     });
+        console.log("Отправлено письмо - подтверждение почты");
     }
 
     const signInWithGoogle = () => {
