@@ -1,0 +1,47 @@
+@import "../../variables";
+
+.Confirm {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  left: 50px;
+  bottom: 20px;
+  border-radius: 4px;
+  padding: 25px 14px;
+  max-width: 320px;
+  width: 100%;
+  background-color: #171d30;
+  color: #fff;
+  z-index: 15;
+
+  &__text {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 60px;
+
+    span {
+      text-decoration: underline;
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      left: 0;
+      top: 5px;
+      width: 40px;
+      height: 40px;
+      background-image: url('./icons/email.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+
+
+  }
+}

@@ -7,7 +7,10 @@ import { addConditionedStyle } from "../../functions/functions";
 import s from './Nav.module.scss';
 
 const Nav = () => {
-    const { activeLink, setActiveLink } = useContext(Context);
+    const {
+        activeLink, setActiveLink,
+        menuOpened, setMenuOpened
+    } = useContext(Context);
 
     const linksData = [
         {id: 0, title: "Главная", route: "/main"},
@@ -20,6 +23,10 @@ const Nav = () => {
 
     const linkHandler = (id) => {
         setActiveLink(id);
+
+        if (menuOpened) {
+            setMenuOpened(false);
+        }
     };
 
     const links = linksData.map((link) => {

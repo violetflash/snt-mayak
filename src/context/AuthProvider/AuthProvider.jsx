@@ -2,20 +2,24 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
+// import { sendEmailVerification } from "firebase/auth";
 
 const MAIN_REF = "main";
 
 //Initialize Firebase
-firebase.initializeApp({
-    apiKey: process.env.REACT_APP_FB_API,
-    authDomain: process.env.REACT_APP_FB_DOMAIN,
-    databaseURL: process.env.REACT_APP_FB_DATABASE,
-    projectId: process.env.REACT_APP_FB_PROJECT,
-    storageBucket: process.env.REACT_APP_FB_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FB_SENDER,
-    appId: process.env.REACT_APP_FB_APP,
-    measurementId: process.env.REACT_APP_FB_MEASUREMENT
-});
+if  (!firebase.apps.length) {
+    firebase.initializeApp({
+        apiKey: process.env.REACT_APP_FB_API,
+        authDomain: process.env.REACT_APP_FB_DOMAIN,
+        databaseURL: process.env.REACT_APP_FB_DATABASE,
+        projectId: process.env.REACT_APP_FB_PROJECT,
+        storageBucket: process.env.REACT_APP_FB_BUCKET,
+        messagingSenderId: process.env.REACT_APP_FB_SENDER,
+        appId: process.env.REACT_APP_FB_APP,
+        measurementId: process.env.REACT_APP_FB_MEASUREMENT
+    });
+}
+
 
 const AuthContext = createContext();
 
@@ -27,7 +31,7 @@ const useAuth = () => {
 //Provider hook that creates auth object and handles state
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [name, setName] = useState(null);
+    const [name, setName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
     //Wrap any firebase methods we want to use
@@ -43,12 +47,13 @@ const AuthProvider = ({ children }) => {
             });
     }
 
-    const sendVerificationEmail = () => {
+    const sendVerificationEmail = (user) => {
         // const auth = getAuth();
-        // sendEmailVerification(auth.currentUser)
-        //     .then(() => {
-        //         console.log("check email!");
-        //     });
+
+        user.sendEmailVerification()
+            .then(() => {
+                console.log("check email!");
+            });
         console.log("Отправлено письмо - подтверждение почты");
     }
 
@@ -56,6 +61,7 @@ const AuthProvider = ({ children }) => {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then((result) =>{
+                setName("");
                 setUser(result.user);
                 console.log(result.user);
             })
@@ -88,14 +94,16 @@ const AuthProvider = ({ children }) => {
     }
 
     const signUpWithEmailAndPassword = (name, email, password, errFunc = null) => {
-        setName(name);
+        // setName(name);
         // [START auth_signup_password]
         firebase.auth()
             .createUserWithEmailAndPassword(email, password)
             .then(result => {
                 const uid = result.user.uid;
                 writeUserDataToDB(uid, name, email);
-                setName(name);
+                // setName(name);
+                sendVerificationEmail(result.user);
+                console.log(firebase.auth().currentUser);
                 firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                         user.updateProfile({
@@ -142,6 +150,7 @@ const AuthProvider = ({ children }) => {
             .signOut()
             .then(() => {
                 setUser(null);
+                setName("");
             });
     };
 
@@ -184,7 +193,7 @@ const AuthProvider = ({ children }) => {
     const values = {
         user,
         name,
-        sendVerificationEmail,
+        // sendVerificationEmail,
         signInWithGoogle,
         signInWithEmailAndPassword,
         writeUserDataToDB,

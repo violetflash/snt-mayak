@@ -8,7 +8,7 @@ import s from './Methods.module.scss';
 const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) => {
 
     const {
-        sendVerificationEmail,
+        // sendVerificationEmail,
         signUpWithEmailAndPassword,
         user,
         signInWithGoogle,
@@ -98,7 +98,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                 return;
             }
             signUpWithEmailAndPassword(name, email, password, (msg) => checkErrAndSetErrMsg(msg));
-            sendVerificationEmail();
+            // sendVerificationEmail();
             // setIsLoading(true);
             // console.log(isLoading);
             // signInWithEmailAndPassword(email, password, (msg) => checkErrAndSetErrMsg(msg));
@@ -188,6 +188,16 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
         });
     };
 
+    const validatePasswordOnBlur = (e) => {
+        if (e.target.value.length < 8) {
+
+            setErrors(() => {
+                return new Set([...errors, "password"]);
+            });
+
+        }
+    };
+
     const openResetForm = () => {
         setActiveTab('recovery');
     };
@@ -214,8 +224,10 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
     //classes/states
     const emailError = errors.has('email');
+    const passwordError = errors.has('password');
     const emailClass = addConditionedStyle(emailError, [s.Methods__input], s.hasError);
     const emailNotifier = addConditionedStyle(emailError, [s.Methods__notifyError], s.active);
+    const passwordNotifier = addConditionedStyle(passwordError, [s.Methods__notifyError], s.active);
 
     const nameError = errors.has('name');
     const nameNotifier = addConditionedStyle(nameError, [s.Methods__notifyError], s.active);
@@ -303,7 +315,10 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                         value={password}
                         name="password"
                         type="password"
-                        onChange={inputHandler}/>
+                        onChange={inputHandler}
+                        onBlur={validatePasswordOnBlur}
+                    />
+                    <span className={passwordNotifier.join(' ')}>Не менее 8 символов для пароля!</span>
                 </label>
                 <label className={s.Methods__label}>
                     <span>Подтверждение пароля:</span>

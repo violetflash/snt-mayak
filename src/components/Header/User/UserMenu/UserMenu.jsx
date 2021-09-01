@@ -20,6 +20,11 @@ const UserMenu = ({ menuOpened, setMenuOpened }) => {
         closeMenu();
     };
 
+    const logoutHandler = () => {
+        logout();
+        closeMenu();
+    };
+
 
 
     const closeButton = <button className={s.UserMenu__close} onClick={closeMenu} />;
@@ -31,7 +36,7 @@ const UserMenu = ({ menuOpened, setMenuOpened }) => {
             {closeButton}
             <Link to="/user-offers" className={s.UserMenu__link} onClick={openMenuLink}>Мои объявления</Link>
             <Link to="/user-settings" className={s.UserMenu__link} onClick={openMenuLink}>Настройки аккаунта</Link>
-            <button onClick={logout} className={s.UserMenu__link}>Выйти</button>
+            <button onClick={logoutHandler} className={s.UserMenu__link}>Выйти</button>
         </div>
     );
 
