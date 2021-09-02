@@ -5,6 +5,7 @@ import { ReactComponent as Trash } from "../Header/ThemeSwitcher/icons/trash.svg
 // import styled from 'styled-components';
 
 import ThemeSwitcher from "./ThemeSwitcher/";
+import Info from "./Info/";
 // import Loader from "../Loader/";
 
 import User from './User/'
@@ -32,7 +33,7 @@ const Header = () => {
                 <div className={s.Header__content}>
                     <Logo />
                     <ThemeSwitcher />
-                    {/*<Trash/>*/}
+                    <Info />
                     {login}
                 </div>
             </div>

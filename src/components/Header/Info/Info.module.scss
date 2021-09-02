@@ -1,0 +1,50 @@
+@import "../../../variables";
+
+.Info {
+
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin: 0 auto;
+
+  &__title {
+    font-size: 14px;
+  }
+
+  &__phone {
+    position: relative;
+    margin-bottom: 5px;
+    padding-left: 35px;
+    color: $secondColor;
+    font-weight: 700;
+    font-size: 20px;
+
+    span {
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s ease;
+
+      &:hover {
+        border-color: $secondColor;
+      }
+    }
+  }
+
+
+
+  &__phoneIcon {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+  }
+
+  &__phonePath {
+    fill: var(--mainColor);
+  }
+
+  &__email {
+    font-size: 14px;
+    border-bottom: 1px dashed;
+  }
+}
