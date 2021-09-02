@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { useAuth } from "../../../context/AuthProvider/AuthProvider";
+import { useAuth, auth, LS_USERNAME } from "../../../context/AuthProvider/AuthProvider";
 import { getFirstName } from "../../../functions/functions";
 import { addConditionedStyle } from '../../../functions/functions';
 
@@ -16,14 +16,9 @@ const User = () => {
 
     //current user starts with null and then sets itself. The way that happend is that firebase set localStorage and verifies
     //that we have user Signed In
-    //TODO try to just user && user.displayName instead of drilling Name prop
-    // const activeUser = user?.displayName ? getFirstName(user.displayName) :
-    //     user && name ? getFirstName(name) :
-    //         user ? user.email : null
-    // ;
-
-    const activeUser = user.displayName ? getFirstName(user.displayName) : user.email;
-
+    const activeUser = auth.currentUser.displayName ? getFirstName(auth.currentUser.displayName) :
+        localStorage.getItem(LS_USERNAME) ? JSON.parse(localStorage.getItem(LS_USERNAME)) :
+            auth.currentUser.email;
 
     const avatar = user && user.photoURL ? user.photoURL : defaultUser;
 

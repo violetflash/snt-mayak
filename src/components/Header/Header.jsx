@@ -19,7 +19,7 @@ const Header = () => {
 
 
     const logInBtn = <button className={s.Header__login} onClick={openLogin}><span>Войти</span></button>;
-    const Login = user ? <User /> : logInBtn;
+    const login = user ? <User /> : logInBtn;
 
     return (
         <header className={s.Header}>
@@ -27,7 +27,7 @@ const Header = () => {
                 <div className={s.Header__content}>
                     <Logo />
                     <ThemeSwitcher />
-                    {Login}
+                    {login}
                 </div>
             </div>
 

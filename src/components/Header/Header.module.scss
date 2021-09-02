@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .Header {
   padding: 5px 0 10px;
 
@@ -19,7 +21,8 @@
 
     &:hover {
       color: var(--bgColor);
-      background-color: var(--mainColor);
+      background-color: var(--secondColor);
+      border-color: var(--secondColor);
     }
   }
 }

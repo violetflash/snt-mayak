@@ -43,24 +43,24 @@ const App = () => {
         menuOpened, setMenuOpened
     }
 
-    useEffect(() => {
-        const showEmailConfirmPopup = () => {
-            if (!user) {
-                return;
-            }
-
-            if (user && !user.emailVerified) {
-                setShowEmailConfirmPopup(true);
-                setTimeout(() => {
-                    setShowEmailConfirmPopup(false);
-                }, 10000);
-            }
-        };
-
-        showEmailConfirmPopup();
-
-        return showEmailConfirmPopup;
-    }, [user]);
+    // useEffect(() => {
+    //     const showEmailConfirmPopup = () => {
+    //         if (!user) {
+    //             return;
+    //         }
+    //
+    //         if (user && !user.emailVerified) {
+    //             setShowEmailConfirmPopup(true);
+    //             setTimeout(() => {
+    //                 setShowEmailConfirmPopup(false);
+    //             }, 10000);
+    //         }
+    //     };
+    //
+    //     showEmailConfirmPopup();
+    //
+    //     return showEmailConfirmPopup;
+    // }, [user]);
 
 
     const confirmEmailPopup = showEmailConfirmPopup ? <EmailConfirmPopup /> : null;

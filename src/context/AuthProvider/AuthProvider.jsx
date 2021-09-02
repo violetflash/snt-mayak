@@ -28,6 +28,10 @@ const useAuth = () => {
     return useContext(AuthContext);
 };
 
+const auth = firebase.auth();
+
+const LS_USERNAME = 'mayak-activeUser';
+
 //Provider hook that creates auth object and handles state
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -61,7 +65,6 @@ const AuthProvider = ({ children }) => {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then((result) =>{
-                setName("");
                 setUser(result.user);
                 console.log(result.user);
             })
@@ -104,26 +107,9 @@ const AuthProvider = ({ children }) => {
                 // setName(name);
                 sendVerificationEmail(result.user);
                 console.log(firebase.auth().currentUser);
-                firebase.auth().onAuthStateChanged((user) => {
-                    if (user) {
-                        user.updateProfile({
-                            displayName: name,
-                        }).then(() => {
-                            // setUser(user);
-                        }).catch((error) => {
-                            // An error occurred
-                            // ...
-                        });
-                    } else {
-                        // User is signed out
-                        // ...
-                    }
-                });
-
+                auth.currentUser.updateProfile({ displayName: name });
+                localStorage.setItem(LS_USERNAME, JSON.stringify(name));
                 return true;
-            })
-            .then(result => {
-
             })
             .catch((error) => {
                 if (errFunc) {
@@ -188,7 +174,7 @@ const AuthProvider = ({ children }) => {
 
         // Cleanup subscription on unmount
         return () => unsubscribe();
-    }, [name]);
+    }, []);
 
     const values = {
         user,
@@ -211,4 +197,4 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
-export { useAuth };
+export { useAuth, auth, LS_USERNAME };

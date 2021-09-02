@@ -5,11 +5,12 @@
   font-size: 16px;
 
   &__imageWrapper {
+    padding: 2px;
     border-radius: 4px;
     overflow: hidden;
     width: 50px;
     height: 50px;
-    border: 2px solid var(--mainColor);
+    //border: 2px solid var(--mainColor);
     background-color: #fff;
   }
 
