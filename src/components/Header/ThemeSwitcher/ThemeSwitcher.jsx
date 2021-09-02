@@ -4,10 +4,11 @@ import Switch from "react-switch";
 import { ThemeContext } from "../../../context/ThemeProvider/ThemeProvider";
 
 import s from './ThemeSwitcher.module.scss';
-import sun from './icons/sun.svg';
-import moon from './icons/moon.svg';
+import { ReactComponent as Sun } from './icons/sun.svg';
+import { ReactComponent as Moon } from './icons/moon.svg';
 
 const LS_THEME_KEY = 'Mayak-theme';
+
 
 const ThemeSwitcher = () => {
     const initialState = !!(localStorage.getItem(LS_THEME_KEY) &&
@@ -25,9 +26,6 @@ const ThemeSwitcher = () => {
         localStorage.setItem(LS_THEME_KEY, JSON.stringify(mode));
     }, [mode]);
 
-    const lightTheme = <img className={s.Switcher__icon} src={sun} alt="Light Theme"/>
-    const darkTheme = <img className={s.Switcher__icon} src={moon} alt="Dark Theme"/>
-
     return (
         <label className={s.Switcher}>
             <Switch
@@ -35,8 +33,8 @@ const ThemeSwitcher = () => {
                 checked={checked}
                 uncheckedIcon={false}
                 checkedIcon={false}
-                uncheckedHandleIcon={lightTheme}
-                checkedHandleIcon={darkTheme}
+                uncheckedHandleIcon={<Sun className={s.Switcher__icon}/>}
+                checkedHandleIcon={<Moon className={s.Switcher__icon}/>}
                 onColor="#86d3ff"
                 offColor="#eee"
                 onHandleColor="#282c34"
