@@ -10,25 +10,42 @@
   right: 0;
   padding: 30px 0 0;
   background-color: var(--bgColor);
-  border: 1px solid $secondColor;
-  border-left: 10px solid $secondColor;
+  border: 1px solid var(--mainColor);
+  //border-left: 10px solid $secondColor;
   opacity: 0;
   visibility: hidden;
   z-index: -1;
   transform: translateX(-20px);
   transition: all 0.2s;
 
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 12px;
+    background-image: url("../../../../assets/icons/bricks.svg");
+    background-color: $secondColor;
+    background-position: center;
+    background-size: 45px;
+    background-repeat: repeat;
+  }
+
   &__close {
     position: absolute;
     display: flex;
     align-items: center;
-    border-radius: 0 0 0 4px;
+    //border-radius: 0 0 0 4px;
     justify-content: center;
     top: 0;
-    right: 0px;
-    width: 20px;
-    height: 20px;
-    background-color: $secondColor-light;
+    left: 0;
+    border: 1px solid #505050;
+    border-top: none;
+    border-left: none;
+    width: 26px;
+    height: 26px;
+    background-color: $secondColor;
     transition: all 0.3s ease 0s;
 
     &::before,
@@ -37,7 +54,7 @@
       position: absolute;
       width: 16px;
       height: 2px;
-      background-color: var(--mainColor);
+      background-color: $black;
       transform: rotate(45deg);
     }
 
@@ -51,7 +68,7 @@
     display: block;
     width: 100%;
     text-align: left;
-    padding: 10px 20px 10px 15px;
+    padding: 10px 25px 10px 10px;
     transition: all 0.3s ease 0s;
 
     &:hover {

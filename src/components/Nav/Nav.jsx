@@ -14,10 +14,10 @@ const Nav = () => {
 
     const linksData = [
         {id: 0, title: "Главная", route: "/main"},
-        {id: 1, title: "О СНТ", route: "/about"},
+        {id: 1, title: "О снт, галерея", route: "/about"},
         {id: 2, title: "Документы", route: "/documents"},
         {id: 3, title: "Платежи, взносы", route: "/payments"},
-        {id: 4, title: "Объявления", route: "/offers"},
+        {id: 4, title: "Частные объявления", route: "/offers"},
         {id: 5, title: "Контакты", route: "/contacts"}
     ];
 

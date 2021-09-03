@@ -5,20 +5,25 @@
   font-size: 16px;
 
   &__imageWrapper {
-    padding: 2px;
+    //padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 4px;
     overflow: hidden;
-    width: 50px;
-    height: 50px;
-    //border: 2px solid var(--mainColor);
+    width: 55px;
+    height: 55px;
+    border: 2px solid var(--secondColor);
     background-color: #fff;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
   }
 
   &__image {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     object-fit: contain;
     object-position: center;
+
   }
 
   &__nameWrapper {
