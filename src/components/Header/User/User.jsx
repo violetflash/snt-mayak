@@ -10,7 +10,7 @@ import defaultUser from './icons/defaultUser.svg';
 import UserMenu from "./UserMenu";
 
 const User = () => {
-    const { user, name } = useAuth();
+    const { user } = useAuth();
     const { menuOpened, setMenuOpened } = useContext(Context);
 
 
@@ -37,15 +37,15 @@ const User = () => {
     };
 
     return (
-        <figure className={s.User}>
+        <figure className={s.User} onClick={openUserMenu}>
             <div className={s.User__imageWrapper}>
                 <img className={s.User__image} src={avatar} alt=""/>
             </div>
             <figcaption className={s.User__nameWrapper}>
-                <button className={s.User__name} onClick={openUserMenu}>
+                <div className={s.User__name} >
                     <span>{activeUser}</span>
                     {chevron}
-                </button>
+                </div>
                 <UserMenu menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
             </figcaption>
         </figure>

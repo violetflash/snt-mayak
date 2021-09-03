@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { Link } from "react-router-dom";
+import React, {useContext} from 'react';
+import {Link} from "react-router-dom";
 
-import { useAuth } from "../../../../context/AuthProvider/AuthProvider";
+import {useAuth} from "../../../../context/AuthProvider/AuthProvider";
 import Context from "../../../../context/context";
-import { addConditionedStyle } from '../../../../functions/functions';
+import {addConditionedStyle} from '../../../../functions/functions';
 import s from "./UserMenu.module.scss";
 
 
-const UserMenu = ({ menuOpened, setMenuOpened }) => {
-    const { logout } = useAuth();
-    const { setActiveLink } = useContext(Context);
+const UserMenu = ({menuOpened, setMenuOpened}) => {
+    const {logout, auth} = useAuth();
+    const {setActiveLink} = useContext(Context);
 
     const closeMenu = () => {
         setMenuOpened(false);
@@ -25,18 +25,69 @@ const UserMenu = ({ menuOpened, setMenuOpened }) => {
         closeMenu();
     };
 
+    const settingsSvg =
+        <svg className={s.UserMenu__menuIcon} viewBox="0 0 368 368" xmlns="http://www.w3.org/2000/svg">
+            <path className={s.UserMenu__menuIconPath} d="M344,144h-29.952c-2.512-8.2-5.8-16.12-9.792-23.664l21.16-21.16c4.528-4.528,7.024-10.56,7.024-16.984
+            c0-6.416-2.496-12.448-7.024-16.976l-22.64-22.64c-9.048-9.048-24.888-9.072-33.952,0l-21.16,21.16
+            c-7.536-3.992-15.464-7.272-23.664-9.792V24c0-13.232-10.768-24-24-24h-32c-13.232,0-24,10.768-24,24v29.952
+            c-8.2,2.52-16.12,5.8-23.664,9.792l-21.168-21.16c-9.36-9.36-24.592-9.36-33.952,0l-22.648,22.64
+            c-9.352,9.36-9.352,24.592,0,33.952l21.16,21.168c-3.992,7.536-7.272,15.464-9.792,23.664H24c-13.232,0-24,10.768-24,24v32
+            C0,213.232,10.768,224,24,224h29.952c2.52,8.2,5.8,16.12,9.792,23.664l-21.16,21.168c-9.36,9.36-9.36,24.592,0,33.952
+            l22.64,22.648c9.36,9.352,24.592,9.352,33.952,0l21.168-21.16c7.536,3.992,15.464,7.272,23.664,9.792V344
+            c0,13.232,10.768,24,24,24h32c13.232,0,24-10.768,24-24v-29.952c8.2-2.52,16.128-5.8,23.664-9.792l21.16,21.168
+            c9.072,9.064,24.912,9.048,33.952,0l22.64-22.64c4.528-4.528,7.024-10.56,7.024-16.976c0-6.424-2.496-12.448-7.024-16.976
+            l-21.16-21.168c3.992-7.536,7.272-15.464,9.792-23.664H344c13.232,0,24-10.768,24-24v-32C368,154.768,357.232,144,344,144z
+             M352,200c0,4.408-3.584,8-8,8h-36c-3.648,0-6.832,2.472-7.744,6c-2.832,10.92-7.144,21.344-12.832,30.976
+            c-1.848,3.144-1.344,7.144,1.232,9.72l25.44,25.448c1.504,1.504,2.336,3.512,2.336,5.664c0,2.152-0.832,4.16-2.336,5.664
+            l-22.64,22.64c-3.008,3.008-8.312,3.008-11.328,0l-25.44-25.44c-2.576-2.584-6.576-3.08-9.728-1.232
+            c-9.616,5.68-20.04,10-30.968,12.824c-3.52,0.904-5.992,4.088-5.992,7.736v36c0,4.408-3.584,8-8,8h-32c-4.408,0-8-3.592-8-8v-36
+            c0-3.648-2.472-6.832-6-7.744c-10.92-2.824-21.344-7.136-30.976-12.824c-1.264-0.752-2.664-1.112-4.064-1.112
+            c-2.072,0-4.12,0.8-5.664,2.344l-25.44,25.44c-3.128,3.12-8.2,3.12-11.328,0l-22.64-22.64c-3.128-3.128-3.128-8.208,0-11.328
+            l25.44-25.44c2.584-2.584,3.088-6.584,1.232-9.72c-5.68-9.632-10-20.048-12.824-30.976c-0.904-3.528-4.088-6-7.736-6H24
+            c-4.408,0-8-3.592-8-8v-32c0-4.408,3.592-8,8-8h36c3.648,0,6.832-2.472,7.744-6c2.824-10.92,7.136-21.344,12.824-30.976
+            c1.856-3.144,1.352-7.144-1.232-9.72l-25.44-25.44c-3.12-3.12-3.12-8.2,0-11.328l22.64-22.64c3.128-3.128,8.2-3.12,11.328,0
+            l25.44,25.44c2.584,2.584,6.576,3.096,9.72,1.232c9.632-5.68,20.048-10,30.976-12.824c3.528-0.912,6-4.096,6-7.744V24
+            c0-4.408,3.592-8,8-8h32c4.416,0,8,3.592,8,8v36c0,3.648,2.472,6.832,6,7.744c10.928,2.824,21.352,7.144,30.968,12.824
+            c3.152,1.856,7.152,1.36,9.728-1.232l25.44-25.44c3.016-3.024,8.32-3.016,11.328,0l22.64,22.64
+            c1.504,1.504,2.336,3.52,2.336,5.664s-0.832,4.16-2.336,5.664l-25.44,25.44c-2.576,2.584-3.088,6.584-1.232,9.72
+            c5.688,9.632,10,20.048,12.832,30.976c0.904,3.528,4.088,6,7.736,6h36c4.416,0,8,3.592,8,8V200z"/>
+            <path className={s.UserMenu__menuIconPath} d="M184,112c-39.696,0-72,32.304-72,72s32.304,72,72,72c39.704,0,72-32.304,72-72S223.704,112,184,112z M184,240
+            c-30.88,0-56-25.12-56-56s25.12-56,56-56c30.872,0,56,25.12,56,56S214.872,240,184,240z"/>
+        </svg>
+    ;
+
+    const offersSvg =
+        <svg className={s.UserMenu__menuIcon} viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <path className={s.UserMenu__menuIconPath} d="m288.134 128.533h-80.334c-8.284 0-15 6.716-15 15v113.533h-17.133c-8.284 0-15 6.716-15 15s6.716 15 15 15h17.133v34.267h-17.133c-8.284 0-15 6.716-15 15s6.716 15 15 15h17.133v33.2c0 8.284 6.716 15 15 15s15-6.716 15-15v-33.2h65.334c8.284 0 15-6.716 15-15s-6.716-15-15-15h-65.334v-34.267h65.334c43.708 0 79.267-35.559 79.267-79.267-.001-44.788-36.484-79.266-79.267-79.266zm0 128.533h-65.334v-98.533h65.334c27.002 0 49.267 21.78 49.267 49.267-.001 27.166-22.101 49.266-49.267 49.266z"/>
+            <path className={s.UserMenu__menuIconPath} d="m256 0c-141.159 0-256 114.841-256 256s114.841 256 256 256 256-114.841 256-256-114.841-256-256-256zm0 482c-124.617 0-226-101.383-226-226s101.383-226 226-226 226 101.383 226 226-101.383 226-226 226z"/>
+        </svg>
+    ;
 
 
-    const closeButton = <button className={s.UserMenu__close} onClick={closeMenu} />;
+    const closeButton = <button className={s.UserMenu__close} onClick={closeMenu}/>;
 
     const userMenuClass = addConditionedStyle(menuOpened, [s.UserMenu], s.active);
 
     return (
         <div className={userMenuClass.join(' ')}>
             {closeButton}
-            <Link to="/user-offers" className={s.UserMenu__link} onClick={openMenuLink}>Мои объявления</Link>
-            <Link to="/user-settings" className={s.UserMenu__link} onClick={openMenuLink}>Настройки аккаунта</Link>
-            <button onClick={logoutHandler} className={s.UserMenu__link}>Выйти</button>
+            <header className={s.UserMenu__header}>
+                <button onClick={logoutHandler} className={s.UserMenu__quit}>
+                    <span>Выйти</span>
+                </button>
+                <span className={s.UserMenu__name}>{auth.currentUser.displayName}</span>
+            </header>
+            <div className={s.UserMenu__body}>
+                <Link to="/user-offers" className={s.UserMenu__link} onClick={openMenuLink}>
+                    {offersSvg}
+                    <span>Мои объявления</span>
+                </Link>
+                <Link to="/user-settings" className={s.UserMenu__link} onClick={openMenuLink}>
+                    {settingsSvg}
+                    <span>Настройки аккаунта</span>
+                </Link>
+            </div>
+
         </div>
     );
 

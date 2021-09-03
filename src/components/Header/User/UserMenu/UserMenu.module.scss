@@ -2,34 +2,42 @@
 
 .UserMenu {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  //width: 100%;
-  top: 50px;
+  top: 52px;
   right: 0;
-  padding: 30px 0 0;
+  padding: 30px 20px 0;
+  min-width: 500px;
   background-color: var(--bgColor);
   border: 1px solid var(--mainColor);
-  //border-left: 10px solid $secondColor;
   opacity: 0;
   visibility: hidden;
   z-index: -1;
-  transform: translateX(-20px);
+  transform: translateY(-5px);
   transition: all 0.2s;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 
-  &::before {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 12px;
-    background-image: url("../../../../assets/icons/bricks.svg");
-    background-color: $secondColor;
-    background-position: center;
-    background-size: 45px;
-    background-repeat: repeat;
+  &__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--secondColor);
+      border-radius: 10px;
+    }
+  }
+
+  &__name {
+    max-width: 200px;
+    font-weight: 700;
   }
 
   &__close {
@@ -39,13 +47,9 @@
     //border-radius: 0 0 0 4px;
     justify-content: center;
     top: 0;
-    left: 0;
-    border: 1px solid #505050;
-    border-top: none;
-    border-left: none;
+    right: 0;
     width: 26px;
     height: 26px;
-    background-color: $secondColor;
     transition: all 0.3s ease 0s;
 
     &::before,
@@ -54,7 +58,7 @@
       position: absolute;
       width: 16px;
       height: 2px;
-      background-color: $black;
+      background-color: var(--mainColor);
       transform: rotate(45deg);
     }
 
@@ -63,17 +67,75 @@
     }
   }
 
+  &__body {
+    padding: 10px 0;
+  }
 
   &__link {
-    display: block;
+    display: flex;
+    align-items: center;
+    padding: 10px 25px 10px 10px;
     width: 100%;
     text-align: left;
-    padding: 10px 25px 10px 10px;
-    transition: all 0.3s ease 0s;
+    font-size: 14px;
+    transition: all 0.2s;
 
     &:hover {
       background-color: $secondColor-light;
     }
+  }
+
+  &__menuIcon {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+  }
+
+  &__menuIconPath {
+    fill: var(--mainColor);
+  }
+
+  &__quit {
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    text-transform: uppercase;
+    padding-right: 25px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      width: 16px;
+      height: 16px;
+      background-image: url('../../../../assets/icons/stand-by.svg');
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    span {
+      border-bottom: 1px dashed transparent;
+      transition: all 0.3s;
+    }
+
+    &:hover {
+      span {
+        border-color: var(--mainColor);
+      }
+    }
+  }
+
+  &__logoutIcon {
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+    transition: all 0.2s;
+  }
+
+  &__logoutIconPath {
+    fill: var(--mainColor);
   }
 }
 

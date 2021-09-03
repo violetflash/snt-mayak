@@ -185,6 +185,7 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     const values = {
+        auth,
         user,
         name,
         showPopup, setShowPopup,
