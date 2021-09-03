@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeProvider/ThemeProvider";
