@@ -1,17 +1,13 @@
 import React, { useContext } from 'react';
 import Logo from '../Logo/';
 import Context from '../../context/context';
-import { ReactComponent as Trash } from "../Header/ThemeSwitcher/icons/trash.svg";
-// import styled from 'styled-components';
 
 import ThemeSwitcher from "./ThemeSwitcher/";
 import Info from "./Info/";
-// import Loader from "../Loader/";
 
 import User from './User/'
 import { useAuth } from "../../context/AuthProvider/AuthProvider";
 import s from './Header.module.scss';
-// import { ReactComponent } from "*.svg";
 
 
 
@@ -32,8 +28,8 @@ const Header = () => {
             <div className="container">
                 <div className={s.Header__content}>
                     <Logo />
-                    <ThemeSwitcher />
                     <Info />
+                    <ThemeSwitcher />
                     {login}
                 </div>
             </div>

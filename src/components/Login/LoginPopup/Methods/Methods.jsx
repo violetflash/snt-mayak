@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { useAuth } from "../../../../context/AuthProvider/AuthProvider";
 import { addConditionedStyle, capitalizer } from "../../../../functions/functions";
-
 import s from './Methods.module.scss';
 
 const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) => {

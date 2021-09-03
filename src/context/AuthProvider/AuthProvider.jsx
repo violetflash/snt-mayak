@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
-// import { sendEmailVerification } from "firebase/auth";
 
 const MAIN_REF = "main";
 
@@ -37,6 +36,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [name, setName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [showPopup, setShowPopup] = useState(false);
 
     //Wrap any firebase methods we want to use
     const writeUserDataToDB = (userId, name, email) => {
@@ -96,19 +96,24 @@ const AuthProvider = ({ children }) => {
             })
     }
 
-    const signUpWithEmailAndPassword = (name, email, password, errFunc = null) => {
-        // setName(name);
+    const checkEmailVerifiedAndShowPopup = () => {
+        if (!auth.currentUser.emailVerified) {
+            setShowPopup(true)
+        }
+    };
+
+    const signUpWithEmailAndPassword = (name, email, password, successFunc = null, errFunc = null) => {
         // [START auth_signup_password]
         firebase.auth()
             .createUserWithEmailAndPassword(email, password)
             .then(result => {
                 const uid = result.user.uid;
                 writeUserDataToDB(uid, name, email);
-                // setName(name);
                 sendVerificationEmail(result.user);
                 console.log(firebase.auth().currentUser);
                 auth.currentUser.updateProfile({ displayName: name });
                 localStorage.setItem(LS_USERNAME, JSON.stringify(name));
+                checkEmailVerifiedAndShowPopup();
                 return true;
             })
             .catch((error) => {
@@ -122,6 +127,9 @@ const AuthProvider = ({ children }) => {
     const signInWithEmailAndPassword = (email, password, errFunc = null) => {
         // [START auth_signin_password]
         firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+                checkEmailVerifiedAndShowPopup();
+            })
             .catch((error) => {
                 if (errFunc) {
                     errFunc(error.code);
@@ -179,7 +187,7 @@ const AuthProvider = ({ children }) => {
     const values = {
         user,
         name,
-        // sendVerificationEmail,
+        showPopup, setShowPopup,
         signInWithGoogle,
         signInWithEmailAndPassword,
         writeUserDataToDB,

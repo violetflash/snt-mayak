@@ -4,7 +4,7 @@
   margin-bottom: 20px;
   font-family: $fontFamily2;
   font-size: 18px;
-  background-color: paleturquoise;
+  background-color: $navBgColor;
 
   &__nav {
     display: flex;
@@ -15,28 +15,49 @@
   &__link {
     position: relative;
     display: inline-block;
-    padding: 10px 27px;
+    padding: 10px 30px;
     overflow: hidden;
     color: $navTextColor;
     animation-duration: 1s;
     animation-fill-mode: both;
-    border-left: 10px solid transparent;
-    //border-right: 10px solid transparent;
     transition: all 0.3s;
 
+    &:hover {
+      background-color: rgba(#000, 0.1);
+    }
+
     &:not(:last-child) {
-      margin-right: 20px;
+      //margin-right: 20px;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 12px;
+      height: 100%;
+      background-color: var(--secondColor);
+      background-image: url("../../assets/icons/bricks.svg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: repeat;
+      transform: translateY(-100%);
+      transition: all 0.2s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
     }
 
     &::after {
       content: attr(data-alt);
       position: absolute;
       bottom: 100%;
-      left: 0;
-      right: 0;
+      left: 34px;
       display: inline;
       text-align: center;
       color: var(--mainColor);
+      transform: translateX(-12px);
       transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
@@ -46,12 +67,21 @@
       transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
   }
+
 }
 
 .active {
   background-color: var(--bgColor);
-  //background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-  border-color: $secondColor;
+
+  &:hover {
+    background-color: var(--bgColor);
+  }
+
+  &::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 
   &::after {
     animation: swap 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);

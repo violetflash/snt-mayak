@@ -29,8 +29,6 @@
     }
   }
 
-
-
   &__phoneIcon {
     position: absolute;
     left: 0;
@@ -40,11 +38,28 @@
   }
 
   &__phonePath {
-    fill: var(--mainColor);
+    fill: var(--secondColor);
   }
 
   &__email {
+    position: relative;
+    padding-left: 30px;
     font-size: 14px;
-    border-bottom: 1px dashed;
+
+    span {
+      border-bottom: 1px dashed;
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 16px;
+      height: 16px;
+      left: 0;
+      background-image: url('../../../assets/icons/mail.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
   }
 }

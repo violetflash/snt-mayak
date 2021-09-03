@@ -26,7 +26,7 @@ import EmailConfirmPopup from "../EmailConfirmPopup";
 
 
 const App = () => {
-    const { user } = useAuth();
+    const { showPopup, setShowPopup } = useAuth();
     const { mode } = useContext(ThemeContext);
     const appClass = mode === 'light' ?
         addConditionedStyle(mode === 'light', [s.App], s.lightTheme) :
@@ -35,35 +35,30 @@ const App = () => {
     const { loginIsOpened, setLoginIsOpened } = useLogin();
     const { activeLink, setActiveLink } = useNavLink();
     const { menuOpened, setMenuOpened } = useUserMenu();
-    const [showEmailConfirmPopup, setShowEmailConfirmPopup ] = useState(false);
 
     const value = {
         loginIsOpened, setLoginIsOpened,
         activeLink, setActiveLink,
-        menuOpened, setMenuOpened
+        menuOpened, setMenuOpened,
     }
 
-    // useEffect(() => {
-    //     const showEmailConfirmPopup = () => {
-    //         if (!user) {
-    //             return;
-    //         }
-    //
-    //         if (user && !user.emailVerified) {
-    //             setShowEmailConfirmPopup(true);
-    //             setTimeout(() => {
-    //                 setShowEmailConfirmPopup(false);
-    //             }, 10000);
-    //         }
-    //     };
-    //
-    //     showEmailConfirmPopup();
-    //
-    //     return showEmailConfirmPopup;
-    // }, [user]);
+    useEffect(() => {
+        const showEmailConfirmPopup = () => {
+
+            if (showPopup) {
+                setTimeout(() => {
+                    setShowPopup(false);
+                }, 10000);
+            }
+        };
+
+        showEmailConfirmPopup();
+
+        return showEmailConfirmPopup;
+    }, [showPopup, setShowPopup]);
 
 
-    const confirmEmailPopup = showEmailConfirmPopup ? <EmailConfirmPopup /> : null;
+    const confirmEmailPopup = showPopup ? <EmailConfirmPopup /> : null;
 
     return (
         <Context.Provider value={value}>

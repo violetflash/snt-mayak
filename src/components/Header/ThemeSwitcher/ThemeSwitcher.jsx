@@ -36,11 +36,11 @@ const ThemeSwitcher = () => {
                 uncheckedHandleIcon={<Sun className={s.Switcher__icon}/>}
                 checkedHandleIcon={<Moon className={s.Switcher__icon}/>}
                 onColor="#86d3ff"
-                offColor="#eee"
+                offColor="#d0e9f7"
                 onHandleColor="#282c34"
                 handleDiameter={20}
                 boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                activeBoxShadow="0px 0px 1px 5px rgba(0, 0, 0, 0.2)"
                 height={20}
                 width={34}
             />

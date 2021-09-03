@@ -24,7 +24,7 @@ const Info = () => {
                 {phoneIcon}
                 <span>+7(123)456-78-90</span>
             </a>
-            <a className={s.Info__email} href="mailto:predsedatel@snt-mayak.ru">mail@snt-mayak.ru</a>
+            <a className={s.Info__email} href="mailto:predsedatel@snt-mayak.ru"><span>mail@snt-mayak.ru</span></a>
         </div>
     )
 
