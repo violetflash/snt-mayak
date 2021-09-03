@@ -1,0 +1,9 @@
+.SvgIcon {
+  width: 18px;
+  height: 18px;
+  transition: all 0.2s;
+
+  &__path {
+    fill: var(--mainColor);
+  }
+}

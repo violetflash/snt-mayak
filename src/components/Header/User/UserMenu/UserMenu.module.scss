@@ -83,16 +83,10 @@
     &:hover {
       background-color: $secondColor-light;
     }
-  }
 
-  &__menuIcon {
-    margin-right: 10px;
-    width: 16px;
-    height: 16px;
-  }
-
-  &__menuIconPath {
-    fill: var(--mainColor);
+    span {
+      margin-left: 10px;
+    }
   }
 
   &__quit {
@@ -125,17 +119,6 @@
         border-color: var(--mainColor);
       }
     }
-  }
-
-  &__logoutIcon {
-    margin-left: 10px;
-    width: 18px;
-    height: 18px;
-    transition: all 0.2s;
-  }
-
-  &__logoutIconPath {
-    fill: var(--mainColor);
   }
 }
 

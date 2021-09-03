@@ -1,5 +1,7 @@
 import React from 'react';
 
+import SvgIcons from "../../SvgIcons/";
+
 import s from './Info.module.scss';
 
 const phoneIcon =
@@ -24,7 +26,10 @@ const Info = () => {
                 {phoneIcon}
                 <span>+7(123)456-78-90</span>
             </a>
-            <a className={s.Info__email} href="mailto:predsedatel@snt-mayak.ru"><span>mail@snt-mayak.ru</span></a>
+            <a className={s.Info__email} href="mailto:predsedatel@snt-mayak.ru">
+                <SvgIcons name="email"/>
+                <span>mail@snt-mayak.ru</span>
+            </a>
         </div>
     )
 
