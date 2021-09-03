@@ -59,11 +59,14 @@
 
 .cls3 {
   fill: var(--logoColor);
-  //animation: beacon 6s infinite;
 }
 
 .cls4 {
   fill: $lightBlue;
+}
+
+.yellow {
+  fill: $yellow;
 }
 
 @keyframes beacon {

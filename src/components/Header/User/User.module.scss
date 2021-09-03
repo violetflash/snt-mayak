@@ -3,7 +3,6 @@
   align-items: center;
   margin: 0 0 0 60px;
   font-size: 16px;
-  cursor: pointer;
 
   &__imageWrapper {
     //padding: 2px;
@@ -17,6 +16,8 @@
     border: 2px solid var(--secondColor);
     background-color: #fff;
     box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    cursor: pointer;
+
   }
 
   &__image {

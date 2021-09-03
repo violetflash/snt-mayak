@@ -37,15 +37,15 @@ const User = () => {
     };
 
     return (
-        <figure className={s.User} onClick={openUserMenu}>
-            <div className={s.User__imageWrapper}>
+        <figure className={s.User}>
+            <div className={s.User__imageWrapper} onClick={openUserMenu}>
                 <img className={s.User__image} src={avatar} alt=""/>
             </div>
-            <figcaption className={s.User__nameWrapper}>
-                <div className={s.User__name} >
+            <figcaption className={s.User__nameWrapper} >
+                <button className={s.User__name} onClick={openUserMenu}>
                     <span>{activeUser}</span>
                     {chevron}
-                </div>
+                </button>
                 <UserMenu menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
             </figcaption>
         </figure>
