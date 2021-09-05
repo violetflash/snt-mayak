@@ -41,7 +41,7 @@ const Nav = () => {
                 data-alt={title}
             >
                 <p>{title}</p>
-                <span className={s.hidden}>{title}</span>
+                <span className={s.hidden} aria-hidden>{title}</span>
             </Link>
         )
     });

@@ -134,6 +134,24 @@
       }
     }
   }
+
+  &__admin {
+    position: relative;
+    margin: 0;
+    padding-left: 20px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-image: url('../../../../assets/icons/management.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
 }
 
 .active {

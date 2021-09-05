@@ -41,6 +41,10 @@ const UserMenu = ({menuOpened, setMenuOpened}) => {
                 <span className={s.UserMenu__name}>{auth.currentUser.displayName}</span>
             </header>
             <div className={s.UserMenu__body}>
+                <Link to="/content-control" className={s.UserMenu__link} onClick={openMenuLink}>
+                    <SvgIcons name="admin" />
+                    <span>Управление контентом</span>
+                </Link>
                 <Link to="/user-offers" className={s.UserMenu__link} onClick={openMenuLink}>
                     <SvgIcons name="offers" />
                     <span>Мои объявления</span>
