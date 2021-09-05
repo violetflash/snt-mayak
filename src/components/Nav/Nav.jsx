@@ -40,7 +40,8 @@ const Nav = () => {
                 onClick={() => linkHandler(id)}
                 data-alt={title}
             >
-                <span>{title}</span>
+                <p>{title}</p>
+                <span className={s.hidden}>{title}</span>
             </Link>
         )
     });

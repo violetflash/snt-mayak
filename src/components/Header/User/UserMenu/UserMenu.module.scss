@@ -29,14 +29,16 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 3px;
-      background-color: var(--secondColor);
+      height: 2px;
+      background-color: var(--userMenuLine);
       border-radius: 10px;
     }
   }
 
   &__name {
-    max-width: 200px;
+    flex-grow: 1;
+    text-align: right;
+    max-width: 360px;
     font-weight: 700;
   }
 
@@ -110,13 +112,25 @@
     }
 
     span {
-      border-bottom: 1px dashed transparent;
-      transition: all 0.3s;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        border: 0.5px dashed transparent;
+        width: 100%;
+        height: 1px;
+        background-color: transparent;
+        transition: all 0.3s;
+      }
     }
 
     &:hover {
       span {
-        border-color: var(--mainColor);
+        &::before {
+          border-color: var(--mainColor);
+        }
       }
     }
   }
