@@ -19,6 +19,8 @@
 
   &__wrapper {
     display: inline-block;
+    border: 2px solid $secondColor;
+    border-radius: 4px;
     padding: 20px;
     backdrop-filter: blur(2px);
 
