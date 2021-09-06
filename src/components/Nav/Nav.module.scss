@@ -3,7 +3,7 @@
 .Nav {
   font-family: $fontFamily2;
   font-size: 18px;
-  background: linear-gradient(to left, $navBgColor, #7DEEA1, $navBgColor);
+  background: linear-gradient(to left, $navBgColor, $navAccentColor, $navBgColor);
 
   &__nav {
     display: flex;

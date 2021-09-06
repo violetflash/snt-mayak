@@ -5,14 +5,12 @@ import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
 
 import s from "./MainPage.module.scss";
 import PageTitle from "../../PageTitle";
+import Greetings from "./Greetings";
 
 const MainPage = () => {
     return (
         <section className={s.MainPage}>
-            <div className={s.MainPage__greetings}>
-                <h1>Мы рады приветствовать Вас на официальном сайте СНТ «Маяк»!</h1>
-                <p className={s.MainPage__subtitle}>Тут вы можете оперативно получать актуальную информацию о жизни снт.</p>
-            </div>
+            <Greetings />
             <div className="container">
                 <div className={s.MainPage__content}>
 
@@ -22,6 +20,8 @@ const MainPage = () => {
                         <NewsSlider />
                         {/*<GardenerGirl />*/}
                     </div>
+                    <PageTitle tag="h2" title="Объявления" />
+
 
                 </div>
             </div>
