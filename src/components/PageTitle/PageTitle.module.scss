@@ -1,0 +1,37 @@
+@import "../../variables";
+
+.Title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  &__title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 15px;
+    z-index: 1;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      //bottom: 0;
+      width: 100px;
+      height: 2px;
+      //height: 2px;
+      //background: linear-gradient(to top, $lightGrey, $secondColor, $lightGrey);
+      z-index: -1;
+      background: var(--secondColor);
+    }
+
+    &::after {
+      top: unset;
+      bottom: 0;
+    }
+  }
+}

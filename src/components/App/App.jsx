@@ -16,6 +16,7 @@ import DocumentsPage from '../Pages/DocumentsPage/';
 import PaymentsPage from '../Pages/PaymentsPage/';
 import OffersPage from '../Pages/OffersPage/';
 import ContactsPage from '../Pages/ContactsPage/';
+import ContentControl from '../Pages/ContentControl/';
 import Login from "../Login/";
 import UserSettings from "../Pages/UserSettings";
 import useLogin from '../../hooks/useLogin/useLogin';
@@ -74,6 +75,7 @@ const App = () => {
                         <Route path="/offers" component={OffersPage} />
                         <Route path="/contacts" component={ContactsPage} />
                         <Route path="/user-settings" component={UserSettings} />
+                        <Route path="/content-control" component={ContentControl} />
                         <Redirect to="/main" />
                     </Switch>
                     <Login/>

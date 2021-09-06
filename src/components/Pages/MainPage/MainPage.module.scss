@@ -1,7 +1,20 @@
+@import "../../../variables";
+
 .MainPage {
   height: 100%;
   &__content {
     height: auto;
+  }
+
+  &__greetings {
+    padding: 20px 0 40px;
+    text-align: center;
+    background: linear-gradient(to left, $navBgColor, #7DEEA1, $navBgColor);
+  }
+
+  &__subtitle {
+    margin-top: 10px;
+    text-align: center;
   }
 
   &__hero {
