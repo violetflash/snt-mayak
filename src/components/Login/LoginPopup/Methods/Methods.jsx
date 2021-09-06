@@ -15,12 +15,13 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
         resetEmail
     } = useAuth();
 
-
+    const initialInputsStates = { name: "", email: "", password: "", confirmPassword: ""};
     //inputs hooks
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [inputData, setInputData] = useState({...initialInputsStates});
+    // const [name, setName] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [confirmPassword, setConfirmPassword] = useState("");
 
     //messages hooks
     const [errors, setErrors] = useState(new Set([])); //validation errors hook
@@ -29,10 +30,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
     //utility functions
     const resetInputs = () => {
-        setName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
+        setInputData({ name: "", email: "", password: "", confirmPassword: ""});
     };
 
     const resetNotifier = () => {
@@ -80,23 +78,23 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
         if (errors.size) return;
 
-        if (!email || !password) {
+        if (!inputData.email || !inputData.password) {
             setErrorMessage("Заполните все поля формы");
             return;
         }
 
 
         if (activeTab === 'login') {
-            signInWithEmailAndPassword(email, password, (msg) => checkErrAndSetErrMsg(msg));
+            signInWithEmailAndPassword(inputData.email, inputData.password, (msg) => checkErrAndSetErrMsg(msg));
             return;
         }
 
         if (activeTab === 'register') {
-            if (password !== confirmPassword) {
+            if (inputData.password !== inputData.confirmPassword) {
                 setErrorMessage("Пароли не совпадают");
                 return;
             }
-            signUpWithEmailAndPassword(name, email, password, (msg) => checkErrAndSetErrMsg(msg));
+            signUpWithEmailAndPassword(inputData.name, inputData.email, inputData.password, (msg) => checkErrAndSetErrMsg(msg));
             // sendVerificationEmail();
             // setIsLoading(true);
             // console.log(isLoading);
@@ -113,14 +111,16 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
         if (target.name === "email") {
             target.value = target.value.replace(/\s/, '').replace(/./gi, match => match.toLowerCase());
-            setEmail(target.value);
+            setInputData({ ...inputData, email: target.value });
+            // setEmail(target.value);
         }
 
         if (target.name === "password") {
             const newSet = new Set([...errors]);
             newSet.delete('password');
             setErrors(newSet);
-            setPassword(target.value);
+            setInputData({ ...inputData, password: target.value });
+            // setPassword(target.value);
         }
 
         if (target.name === "name") {
@@ -136,11 +136,13 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                 .replace(/(?<=\s)[a-zA-Zа-яА-Я]/gi, match => capitalizer(match))
                 .replace(/(?<=-)[a-zA-Zа-яА-Я]/gi, match => capitalizer(match))
             ;
-            setName(nameValue);
+            setInputData({...inputData, name: nameValue});
+            // setName(nameValue);
         }
 
         if (target.name === "confirmPassword") {
-            setConfirmPassword(target.value);
+            setInputData({...inputData, confirmPassword: target.value});
+            // setConfirmPassword(target.value);
         }
     };
 
@@ -167,7 +169,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     const validateEmail = (e) => {
         const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if ((!e.target.value && errors.has("email")) || (reg.test(email) && errors.has("email"))) {
+        if ((!e.target.value && errors.has("email")) || (reg.test(inputData.email) && errors.has("email"))) {
             const newSet = new Set([...errors]);
             newSet.delete('email');
             setErrors(newSet);
@@ -178,7 +180,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
             return;
         }
 
-        if (reg.test(email)) {
+        if (reg.test(inputData.email)) {
             return;
         }
 
@@ -206,14 +208,15 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
         setErrorMessage(null);
 
-        if (!email) {
+        if (!inputData.email) {
             setErrorMessage("Введите email");
             return;
         }
 
-        resetEmail(email, (msg) => checkErrAndSetErrMsg(msg), () => {
+        resetEmail(inputData.email, (msg) => checkErrAndSetErrMsg(msg), () => {
             setNotifier("Инструкция для сброса пароля успешно отправлена.");
-            setEmail("");
+            setInputData({ ...inputData, email: "" });
+            // setEmail("");
         });
     };
 
@@ -237,9 +240,9 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
     const errorMessageNotifier = <span className={errorMessageClass.join(' ')}>{errorMessage}</span>;
     const successMessage = <span className={successMessageClass.join(' ')}>{notifier}</span>;
 
-    const logInDisabled = errors.size || !email || !password;
-    const registerDisabled = errors.size || !email || !password || !confirmPassword || !name;
-    const recoveryDisabled = errors.size || !email || notifier;
+    const logInDisabled = errors.size || !inputData.email || !inputData.password;
+    const registerDisabled = errors.size || !inputData.email || !inputData.password || !inputData.confirmPassword || !inputData.name;
+    const recoveryDisabled = errors.size || !inputData.email || notifier;
 
     const signIn =
         <>
@@ -252,7 +255,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                     <span>Email:</span>
                     <input
                         className={emailClass.join(' ')}
-                        value={email}
+                        value={inputData.email}
                         name="email"
                         type="text"
                         onBlur={validateEmail}
@@ -264,7 +267,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                     <span>Пароль:</span>
                     <input
                         className={s.Methods__input}
-                        value={password}
+                        value={inputData.password}
                         name="password"
                         type="password"
                         onChange={inputHandler}/>
@@ -287,7 +290,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                     <span>Ваше имя:</span>
                     <input
                         className={s.Methods__input}
-                        value={name}
+                        value={inputData.name}
                         name="name"
                         type="text"
                         onChange={inputHandler}
@@ -299,7 +302,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                     <span>Email:</span>
                     <input
                         className={emailClass.join(' ')}
-                        value={email}
+                        value={inputData.email}
                         name="email"
                         type="text"
                         onBlur={validateEmail}
@@ -311,7 +314,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                     <span>Пароль:</span>
                     <input
                         className={s.Methods__input}
-                        value={password}
+                        value={inputData.password}
                         name="password"
                         type="password"
                         onChange={inputHandler}
@@ -323,7 +326,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                     <span>Подтверждение пароля:</span>
                     <input
                         className={s.Methods__input}
-                        value={confirmPassword}
+                        value={inputData.confirmPassword}
                         name="confirmPassword"
                         type="password"
                         onChange={inputHandler}/>
@@ -344,7 +347,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                     <span>Ваш email:</span>
                     <input
                         className={emailClass.join(' ')}
-                        value={email}
+                        value={inputData.email}
                         name="email"
                         type="text"
                         onBlur={validateEmail}

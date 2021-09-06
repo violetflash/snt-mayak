@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 30px 0;
+  margin: 50px 0 30px;
 
   &__title {
     position: relative;
@@ -13,6 +13,8 @@
     justify-content: center;
     margin: 0 auto;
     padding: 15px;
+    font-family: $fontFamily2;
+    //font-size: 26px;
     z-index: 1;
 
     &::before,
@@ -26,7 +28,7 @@
       //height: 2px;
       //background: linear-gradient(to top, $lightGrey, $secondColor, $lightGrey);
       z-index: -1;
-      background: var(--secondColor);
+      background: rgba($secondColor, 0.8);
     }
 
     &::after {
@@ -34,4 +36,5 @@
       bottom: 0;
     }
   }
+
 }

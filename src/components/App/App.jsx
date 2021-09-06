@@ -17,6 +17,7 @@ import PaymentsPage from '../Pages/PaymentsPage/';
 import OffersPage from '../Pages/OffersPage/';
 import ContactsPage from '../Pages/ContactsPage/';
 import ContentControl from '../Pages/ContentControl/';
+import AdminNews from '../Pages/ContentControl/AdminNews/';
 import Login from "../Login/";
 import UserSettings from "../Pages/UserSettings";
 import useLogin from '../../hooks/useLogin/useLogin';
@@ -68,15 +69,22 @@ const App = () => {
                     <Header />
                     <Nav />
                     <Switch >
-                        <Route path="/main" component={MainPage} />
+                        <Route path="/" component={MainPage} exact />
                         <Route path="/about" component={AboutPage} />
                         <Route path="/documents" component={DocumentsPage} />
                         <Route path="/payments" component={PaymentsPage} />
                         <Route path="/offers" component={OffersPage} />
                         <Route path="/contacts" component={ContactsPage} />
                         <Route path="/user-settings" component={UserSettings} />
-                        <Route path="/content-control" component={ContentControl} />
-                        <Redirect to="/main" />
+                        <Route path="/content-control" component={ContentControl}
+                               render={({ match: { url } }) => (
+                                   <>
+                                       <Route path={`${url}/`} component={AdminNews} exact />
+                                       {/*<Route path={`${url}/home`} component={Dashboard} />*/}
+                                       {/*<Route path={`${url}/users`} component={UserPage} />*/}
+                                   </>
+                               )}/>
+                        <Redirect to="/" exact/>
                     </Switch>
                     <Login/>
                     {confirmEmailPopup}
