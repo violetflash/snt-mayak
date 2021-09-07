@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
 
-const MAIN_REF = "main";
+const MAIN_REF = "mayak";
 
 //Initialize Firebase
 if  (!firebase.apps.length) {
@@ -28,6 +28,7 @@ const useAuth = () => {
 };
 
 const auth = firebase.auth();
+const fdb = firebase.database();
 
 const LS_USERNAME = 'mayak-activeUser';
 
@@ -40,11 +41,29 @@ const AuthProvider = ({ children }) => {
 
     //Wrap any firebase methods we want to use
     const writeUserDataToDB = (userId, name, email) => {
-        firebase.database().ref(`${MAIN_REF}/users/` + userId)
+        fdb.ref(`${MAIN_REF}/users/` + userId)
             .set({
                 userId,
                 username: name,
                 email
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    const writeNewsDataToDB = (userId, title, desc, date, time) => {
+        if (!title || !desc || !date || !time) return;
+        const now = Date.now();
+        const ref = `${title}-${now}`;
+        fdb.ref(`${MAIN_REF}/news/` + ref)
+            .set({
+                title,
+                desc,
+                date,
+                time,
+                author: userId,
+                id: now
             })
             .catch((error) => {
                 console.error(error);
@@ -195,7 +214,9 @@ const AuthProvider = ({ children }) => {
         emailExists,
         signUpWithEmailAndPassword,
         logout,
-        resetEmail
+        resetEmail,
+        fdb,
+        writeNewsDataToDB
     }
 
     return (
@@ -206,4 +227,4 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
-export { useAuth, auth, LS_USERNAME };
+export { useAuth, auth, LS_USERNAME, MAIN_REF };

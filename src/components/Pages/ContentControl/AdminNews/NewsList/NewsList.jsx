@@ -1,0 +1,47 @@
+import React, { useState, useEffect } from 'react';
+
+
+import { useAuth, MAIN_REF } from "../../../../../context/AuthProvider/AuthProvider";
+import NewsItem from "./NewsItem/";
+import { getArrayFromDb } from "../../../../../functions/functions";
+import s from './NewsList.module.scss';
+
+
+
+const NewsList = () => {
+    const [newsList, setNewsList] = useState([]);
+    const { fdb } = useAuth();
+
+    useEffect(() => {
+        const newsRef = fdb.ref(MAIN_REF + "/news/");
+        const refs = [newsRef];
+        newsRef
+            .on('value', (res) => {
+                if (res.exists()) {
+                    setNewsList(getArrayFromDb(res.val()));
+                }
+            })
+
+        return () => {
+            refs.forEach((ref) => ref.off());
+        }
+    }, [fdb]);
+
+    const data = newsList.length ? newsList.map((item, index) => {
+        const { id } = item.value;
+        return (
+            <li className={s.newsList__li} key={id} data-index={`${index + 1})`}>
+                <NewsItem {...item.value}/>
+            </li>
+        );
+    }) : null;
+
+    return (
+        <ul className={s.newsList}>
+            {data}
+        </ul>
+    )
+
+};
+
+export default NewsList;

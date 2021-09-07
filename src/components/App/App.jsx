@@ -17,7 +17,6 @@ import PaymentsPage from '../Pages/PaymentsPage/';
 import OffersPage from '../Pages/OffersPage/';
 import ContactsPage from '../Pages/ContactsPage/';
 import ContentControl from '../Pages/ContentControl/';
-import AdminNews from '../Pages/ContentControl/AdminNews/';
 import Login from "../Login/";
 import UserSettings from "../Pages/UserSettings";
 import useLogin from '../../hooks/useLogin/useLogin';

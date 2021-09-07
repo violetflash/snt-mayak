@@ -1,17 +1,31 @@
 @import "../../../variables";
 
 .admin {
+  &__title {
+    margin-top: 10px;
+    text-align: center;
+  }
+
   &__tabs {
     display: flex;
     align-items: center;
   }
 
   &__tab {
-    padding: 15px 25px;
     //border-radius: 4px 4px 0 0;
     border: 1px solid $secondColor;
     border-right: none;
     font-size: 16px;
+    transition: all 0.2s;
+
+    a {
+      display: inline-block;
+      padding: 15px 25px;
+    }
+
+    &:hover {
+      background-color: $secondColor-light;
+    }
 
     &:first-child {
       border-radius: 4px 0 0 0;
@@ -22,4 +36,8 @@
       border-right: 1px solid $secondColor;
     }
   }
+}
+
+.active {
+  background-color: $secondColor-light;
 }

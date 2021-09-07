@@ -8,6 +8,14 @@ const addConditionedStyle = (condition, actualClasses, newClass) => {
     return classes;
 };
 
+const getArrayFromDb = (db) => {
+    const arr = [];
+    for (const key in db) {
+        arr.push({ value: db[key] });
+    }
+    return arr;
+};
+
 const addClass = (actualClass, newClass) => [actualClass, newClass].join(' ');
 
 const capitalizer = str => str[0].toUpperCase() + str.slice(1);
@@ -38,6 +46,7 @@ const getFirstName = name => {
 export {
     addClass,
     addConditionedStyle,
+    getArrayFromDb,
     capitalizer,
     checkLS,
     getRandomIDsFromArr,
