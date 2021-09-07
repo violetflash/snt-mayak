@@ -1,6 +1,8 @@
 import React from 'react';
 
-const News = () => {
+import { useAuth } from '../../../../context/AuthProvider/AuthProvider';
+
+const AdminNews = () => {
     return (
         <>
             <p>Тут будет форма для добавления новости</p>
@@ -10,4 +12,4 @@ const News = () => {
 
 };
 
-export default News;
+export default AdminNews;

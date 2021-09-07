@@ -76,14 +76,7 @@ const App = () => {
                         <Route path="/offers" component={OffersPage} />
                         <Route path="/contacts" component={ContactsPage} />
                         <Route path="/user-settings" component={UserSettings} />
-                        <Route path="/content-control" component={ContentControl}
-                               render={({ match: { url } }) => (
-                                   <>
-                                       <Route path={`${url}/`} component={AdminNews} exact />
-                                       {/*<Route path={`${url}/home`} component={Dashboard} />*/}
-                                       {/*<Route path={`${url}/users`} component={UserPage} />*/}
-                                   </>
-                               )}/>
+                        <Route path="/content-control" component={ContentControl} />
                         <Redirect to="/" exact/>
                     </Switch>
                     <Login/>
