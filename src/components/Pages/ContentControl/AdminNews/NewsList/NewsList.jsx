@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-
 import { useAuth, MAIN_REF } from "../../../../../context/AuthProvider/AuthProvider";
 import NewsItem from "./NewsItem/";
 import { getArrayFromDb } from "../../../../../functions/functions";
 import s from './NewsList.module.scss';
-
+import Loader from "../../../../Loader";
 
 
 const NewsList = () => {
@@ -34,7 +33,7 @@ const NewsList = () => {
                 <NewsItem {...item.value}/>
             </li>
         );
-    }) : null;
+    }) : <Loader />;
 
     return (
         <ul className={s.newsList}>

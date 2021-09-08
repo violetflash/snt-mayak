@@ -84,7 +84,6 @@ const App = () => {
             </Router>
         </Context.Provider>
     );
-
 };
 
 export default App;

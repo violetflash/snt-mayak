@@ -55,6 +55,11 @@ button {
   color: inherit;
   background: transparent;
   cursor: pointer;
+
+  &:disabled {
+    background-color: $grey;
+    cursor: default;
+  }
 }
 
 input {
