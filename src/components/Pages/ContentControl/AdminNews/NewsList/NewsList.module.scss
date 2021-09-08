@@ -4,7 +4,7 @@
   &__li {
     position: relative;
     padding: 10px 10px 10px 25px;
-    border-bottom: 2px solid $secondColor;
+    //border-bottom: 2px solid $secondColor;
 
     &::before {
       content: attr(data-index);

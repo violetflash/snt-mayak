@@ -1,10 +1,48 @@
+@import "../../../../../../variables";
+
 .NewsItem {
+  display: flex;
+  //align-items: center;
+
+  border: 2px solid #ccc;
+  font-size: 14px;
+
+  &__left {
+    flex: 0 0 200px;
+    border-right: 2px solid #ccc;
+    //vertical-align: center;
+  }
+
+  &__right {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    //padding: 10px;
+  }
+
+  &__dateTime {
+    padding: 5px;
+  }
+
   &__title {
+    display: block;
+    padding: 5px;
     font-weight: 700;
+    background-color: $secondColor-light;
+  }
+
+  &__desc {
+    padding: 5px;
+  }
+
+  &__author {
+    padding: 5px;
+    font-style: italic;
+    font-size: 12px;
   }
 
   p {
-    display: inline-block;
+    //display: inline-block;
   }
 
   span {

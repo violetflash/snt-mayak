@@ -44,8 +44,15 @@ const AdminNewsPopup = ({ isEditing, setPopupOpened, editData = null }) => {
             target.value = target.value
                 .replace(/[^\d.]/, '')
                 .replace(/\.\./, '.')
-                .replace(/(?<=^\d{1})\d|(?<=^.{4})\d/, match => match + '.')
                 .replace(/(?<=.{10})./, '')
+            ;
+        }
+
+        if (target.name === "time") {
+            target.value = target.value
+                .replace(/[^\d:]/, '')
+                .replace(/::/, ':')
+                .replace(/(?<=.{5})./, '')
             ;
         }
 
@@ -75,11 +82,11 @@ const AdminNewsPopup = ({ isEditing, setPopupOpened, editData = null }) => {
                             </label>
                             <div className={s.form__dateTime}>
                                 <label >
-                                    <span>Дата:</span>
+                                    <span>Дата: <span>(ДД.ММ.ГГГГ)</span></span>
                                     <input name="date" type="text" value={date} onChange={inputHandler}/>
                                 </label>
                                 <label >
-                                    <span>Время:</span>
+                                    <span>Время: <span>(ЧЧ:ММ)</span></span>
                                     <input name="time" type="text" value={time} onChange={inputHandler}/>
                                 </label>
                             </div>
