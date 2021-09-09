@@ -52,7 +52,7 @@ const AuthProvider = ({ children }) => {
             });
     }
 
-    const writeNewsDataToDB = (userId, title, desc, date, time) => {
+    const writeNewsDataToDB = (userId, title, desc, image, date, time) => {
         if (!title || !desc || !date || !time) return;
         const now = Date.now();
         const ref = `${title}-${now}`;
@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
                 desc,
                 date,
                 time,
+                image,
                 author: userId,
                 id: now
             })

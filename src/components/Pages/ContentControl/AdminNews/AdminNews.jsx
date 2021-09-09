@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-
 import s from './AdminNews.module.scss';
 
 import NewsList from "./NewsList/";
 import AdminNewsPopup from "./AdminNewsPopup";
+import ContentControlRootLink from "../ContentControlRootLink";
 
 const AdminNews = () => {
     const [isEditing, setIsEditing] = useState(null);
     const [popupOpened, setPopupOpened] = useState(false);
+
 
 
     const popup = popupOpened ?
@@ -18,9 +19,14 @@ const AdminNews = () => {
 
     const createNews = () => setPopupOpened(true);
 
+
     return (
         <section className={s.news}>
-            <button className={s.news__create} onClick={createNews}>Создать новость</button>
+            <div className={s.news__controls}>
+                <ContentControlRootLink />
+                <button className={s.news__create} onClick={createNews}>Создать новость</button>
+            </div>
+
             {popup}
             <NewsList />
         </section>

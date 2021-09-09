@@ -8,10 +8,15 @@ const addConditionedStyle = (condition, actualClasses, newClass) => {
     return classes;
 };
 
+const checkImage = async (url) => {
+    const res = await fetch(url);
+    return /source-404/.test(res);
+}
+
 const getArrayFromDb = (db) => {
     const arr = [];
     for (const key in db) {
-        arr.push({ value: db[key] });
+        arr.push({ ...db[key] });
     }
     return arr;
 };
@@ -50,5 +55,6 @@ export {
     capitalizer,
     checkLS,
     getRandomIDsFromArr,
-    getFirstName
+    getFirstName,
+    checkImage
 };

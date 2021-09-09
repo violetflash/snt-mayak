@@ -1,0 +1,26 @@
+@import "../../../../variables";
+
+.RootLink {
+  position: relative;
+  padding-left: 25px;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    .RootLink__text {
+      border-color: $secondColor;
+    }
+  }
+
+  &__chevron {
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    transform: rotate(90deg);
+  }
+
+  &__text {
+    border-bottom: 1px dashed transparent;
+    transition: all 0.2s;
+  }
+}

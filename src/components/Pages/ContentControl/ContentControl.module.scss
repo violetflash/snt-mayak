@@ -1,14 +1,21 @@
 @import "../../../variables";
 
 .admin {
+  padding-bottom: 40px;
   &__title {
     margin-top: 10px;
     text-align: center;
   }
 
+  &__choose {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
   &__tabs {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   &__tab {
@@ -24,7 +31,8 @@
     }
 
     &:hover {
-      background-color: $secondColor-light;
+      color: #000;
+      background-color: rgba($navAccentColor, 0.2);
     }
 
     &:first-child {
@@ -39,5 +47,6 @@
 }
 
 .active {
-  background-color: $secondColor-light;
+  color: #000;
+  background-color: rgba($navAccentColor, 0.5);
 }

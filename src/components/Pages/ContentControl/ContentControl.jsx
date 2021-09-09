@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Route, Switch, useRouteMatch, useParams } from "react-router-dom";
 
 import s from './ContentControl.module.scss';
@@ -7,9 +7,10 @@ import AdminNews from "./AdminNews/";
 import AdminPublicOffers from "./AdminPublicOffers/";
 import NoMatch from "../../NoMatch/";
 import {addConditionedStyle} from "../../../functions/functions";
+import Context from '../../../context/context';
 
 const ContentControl = () => {
-    const [activeLink, setActiveLink] = useState(null);
+    const { activeAdminTab, setActiveAdminTab } = useContext(Context);
     const { path, url } = useRouteMatch();
 
     const tabsTitles = [
@@ -20,11 +21,11 @@ const ContentControl = () => {
     ;
 
     const tabHandler = (title) => {
-        setActiveLink(title);
+        setActiveAdminTab(title);
     };
 
     const tabs = tabsTitles.map(({ title, route }) => {
-        const linkClass = addConditionedStyle(activeLink === title, [s.admin__tab], s.active);
+        const linkClass = addConditionedStyle(activeAdminTab === title, [s.admin__tab], s.active);
         return (
             <li key={route} className={linkClass.join(' ')}>
                 <Link to={`${url}/${route}`} onClick={() => tabHandler(title)}>{title}</Link>
@@ -43,6 +44,10 @@ const ContentControl = () => {
         )
     };
 
+    useEffect(() => {
+        return () => setActiveAdminTab(null);
+    }, [setActiveAdminTab]);
+
     return (
         <div className="container">
             <div className={s.admin}>
@@ -53,8 +58,9 @@ const ContentControl = () => {
 
                 <Switch>
                     <Route exact path={path}>
-                        <p>Пожалуйста, выберите категорию, которую хотите редактировать</p>
-                        <p>Инструкция по редактированию данных</p>
+                        <p className={s.admin__choose}>Пожалуйста, выберите категорию, которую хотите редактировать</p>
+                        <p>Инструкция по вставке изображений:</p>
+                        <input type="text" value="https://unsplash.com/s/photos/high-voltage?orientation=landscape" disabled/>
                     </Route>
                     <Route path={`${path}/:topicId`} >
                         <Topic />

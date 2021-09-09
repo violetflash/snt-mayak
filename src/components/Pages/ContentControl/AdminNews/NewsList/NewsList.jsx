@@ -26,19 +26,28 @@ const NewsList = () => {
         }
     }, [fdb]);
 
-    const data = newsList.length ? newsList.map((item, index) => {
-        const { id } = item.value;
-        return (
-            <li className={s.newsList__li} key={id} data-index={`${index + 1})`}>
-                <NewsItem {...item.value}/>
-            </li>
-        );
-    }) : <Loader />;
+    const sortOptions = (a, b) => b.id - a.id;
+
+    const data = newsList.length ? newsList
+        .sort(sortOptions)
+        .map((item, index) => {
+            const { id } = item;
+            return (
+                <li className={s.newsList__li} key={id} data-index={index + 1}>
+                    <NewsItem {...item}/>
+                </li>
+            );
+        }) : <Loader />
+    ;
 
     return (
-        <ul className={s.newsList}>
-            {data}
-        </ul>
+        <>
+            <p>Список всех новостей:</p>
+            <ul className={s.newsList}>
+                {data}
+            </ul>
+        </>
+
     )
 
 };

@@ -1,32 +1,39 @@
 import React, { useState } from 'react';
 
 import { useAuth } from '../../../../../context/AuthProvider/AuthProvider';
-
+import { checkImage } from "../../../../../functions/functions";
 
 import s from './AdminNewsPopup.module.scss';
 
 const AdminNewsPopup = ({ isEditing, setPopupOpened, editData = null }) => {
-    const [inputsData, setInputsData] = useState({ title: "", desc: "", date: "", time: "" });
+    const [inputsData, setInputsData] = useState({ title: "", desc: "", date: "", time: "", imageID: "" });
     const { writeNewsDataToDB, auth } = useAuth();
     const submitText = isEditing ? 'Сохранить' : 'Создать';
     const titleText = isEditing ? 'Редактировать' : 'Создать';
 
     if (editData) {
-        setInputsData({ title: editData.title, desc: editData.desc, date: editData.date, time: editData.time })
+        setInputsData({
+            title: editData.title, desc: editData.desc, date: editData.date, time: editData.time, image: editData.imageID
+        });
     }
 
-    const { title, desc, date, time } = inputsData;
+    const { title, desc, date, time, imageID } = inputsData;
 
-    const disabled = !title || !desc || !date || !time;
+    const disabled = !title || !desc || !date || !time || !imageID;
 
     const resetInputs = () => {
-        setInputsData({ title: "", desc: "", date: "", time: "" });
+        setInputsData({ title: "", desc: "", date: "", time: "", imageID: "" });
     };
 
-    const saveData = (e) => {
+    const saveData = async (e) => {
         e.preventDefault();
+        let image = `https://source.unsplash.com/${imageID}/400x300`;
+
+        if (!await checkImage(image)) {
+            image = `https://source.unsplash.com/${imageID}/300x200`;
+        }
         const user = auth.currentUser.displayName;
-        writeNewsDataToDB(user, title, desc, date, time);
+        writeNewsDataToDB(user, title, desc, image, date, time);
         resetInputs();
         setPopupOpened(false);
     };
@@ -79,6 +86,10 @@ const AdminNewsPopup = ({ isEditing, setPopupOpened, editData = null }) => {
                             <label >
                                 <span>Описание новости:</span>
                                 <textarea name="desc"  value={desc} onChange={inputHandler}/>
+                            </label>
+                            <label >
+                                <span>ID изображения:</span>
+                                <input name="imageID" type="text" value={imageID} onChange={inputHandler}/>
                             </label>
                             <div className={s.form__dateTime}>
                                 <label >
