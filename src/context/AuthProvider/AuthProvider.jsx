@@ -149,6 +149,7 @@ const AuthProvider = ({ children }) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => {
                 checkEmailVerifiedAndShowPopup();
+                localStorage.setItem(LS_USERNAME, JSON.stringify(auth.currentUser.displayName));
             })
             .catch((error) => {
                 if (errFunc) {
@@ -165,6 +166,7 @@ const AuthProvider = ({ children }) => {
             .then(() => {
                 setUser(null);
                 setName("");
+                localStorage.removeItem(LS_USERNAME);
             });
     };
 

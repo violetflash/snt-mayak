@@ -1,28 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 
 import { useAuth, auth, LS_USERNAME } from "../../../context/AuthProvider/AuthProvider";
 import { getFirstName } from "../../../functions/functions";
 import { addConditionedStyle } from '../../../functions/functions';
 
-import Context from '../../../context/context';
 import s from './User.module.scss';
 import defaultUser from './icons/defaultUser.svg';
 import UserMenu from "./UserMenu";
 
 const User = () => {
     const { user } = useAuth();
-    const { menuOpened, setMenuOpened } = useContext(Context);
+    const [isMenuOpened, setIsMenuOpened] = useState(false);
+
 
 
     //current user starts with null and then sets itself. The way that happend is that firebase set localStorage and verifies
     //that we have user Signed In
     const activeUser = auth.currentUser.displayName ? getFirstName(auth.currentUser.displayName) :
-        localStorage.getItem(LS_USERNAME) ? JSON.parse(localStorage.getItem(LS_USERNAME)) :
+        localStorage.getItem(LS_USERNAME) ? getFirstName(JSON.parse(localStorage.getItem(LS_USERNAME))) :
             auth.currentUser.email;
 
     const avatar = user && user.photoURL ? user.photoURL : defaultUser;
 
-    const chevronClass = addConditionedStyle(menuOpened, [s.User__chevron], s.opened);
+    const chevronClass = addConditionedStyle(isMenuOpened, [s.User__chevron], s.opened);
 
     const chevron =
         <svg className={chevronClass.join(' ')} enableBackground="new 0 0 515.556 515.556" height="512" viewBox="0 0 515.556 515.556" width="512" xmlns="http://www.w3.org/2000/svg">
@@ -30,23 +30,25 @@ const User = () => {
         </svg>
     ;
 
-    const openUserMenu = () => {
-        setMenuOpened(() => {
-            return !menuOpened;
-        });
+    const hoverHandler = () => {
+        setIsMenuOpened(true);
+    };
+
+    const leaveHandler = () => {
+        setIsMenuOpened(false);
     };
 
     return (
-        <figure className={s.User}>
-            <div className={s.User__imageWrapper} onClick={openUserMenu}>
+        <figure className={s.User} onMouseEnter={hoverHandler} onMouseLeave={leaveHandler}>
+            <div className={s.User__imageWrapper}>
                 <img className={s.User__image} src={avatar} alt=""/>
             </div>
             <figcaption className={s.User__nameWrapper} >
-                <button className={s.User__name} onClick={openUserMenu}>
+                <button className={s.User__name}>
                     <span>{activeUser}</span>
                     {chevron}
                 </button>
-                <UserMenu menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
+                <UserMenu isMenuOpened={isMenuOpened} setIsMenuOpened={setIsMenuOpened}/>
             </figcaption>
         </figure>
     );

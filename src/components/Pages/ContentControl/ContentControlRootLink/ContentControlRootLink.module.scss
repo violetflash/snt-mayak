@@ -2,9 +2,9 @@
 
 .RootLink {
   position: relative;
-  padding-left: 25px;
   display: inline-flex;
   align-items: center;
+  padding-left: 25px;
 
   &:hover {
     .RootLink__text {

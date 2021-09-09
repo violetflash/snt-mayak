@@ -6,7 +6,6 @@ import { addConditionedStyle } from "../../functions/functions";
 import { useAuth } from '../../context/AuthProvider/AuthProvider';
 
 import useNavLink from '../../hooks/useNavLink/';
-import useUserMenu from '../../hooks/useUserMenu/useUserMenu';
 
 import Header from '../Header/';
 import Nav from "../Nav/";
@@ -35,13 +34,11 @@ const App = () => {
 
     const { loginIsOpened, setLoginIsOpened } = useLogin();
     const { activeLink, setActiveLink } = useNavLink();
-    const { menuOpened, setMenuOpened } = useUserMenu();
     const { activeAdminTab, setActiveAdminTab } = useAdminTabs();
 
     const value = {
         loginIsOpened, setLoginIsOpened,
         activeLink, setActiveLink,
-        menuOpened, setMenuOpened,
         activeAdminTab, setActiveAdminTab
     }
 

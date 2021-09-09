@@ -6,7 +6,13 @@ import { checkImage } from "../../../../../functions/functions";
 import s from './AdminNewsPopup.module.scss';
 
 const AdminNewsPopup = ({ isEditing, setPopupOpened, editData = null }) => {
-    const [inputsData, setInputsData] = useState({ title: "", desc: "", date: "", time: "", imageID: "" });
+    const now = new Date();
+    const dateNow = now.toLocaleDateString();
+    const timeNow = now.toLocaleTimeString().slice(0, 5);
+
+    const [inputsData, setInputsData] = useState(
+        { title: "", desc: "", date: dateNow, time: timeNow , imageID: "" }
+    );
     const { writeNewsDataToDB, auth } = useAuth();
     const submitText = isEditing ? 'Сохранить' : 'Создать';
     const titleText = isEditing ? 'Редактировать' : 'Создать';

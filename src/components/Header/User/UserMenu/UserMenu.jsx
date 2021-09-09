@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useHistory } from "react-router-dom";
 
 import SvgIcons from "../../../SvgIcons";
 
@@ -9,36 +9,38 @@ import {addConditionedStyle} from '../../../../functions/functions';
 import s from "./UserMenu.module.scss";
 
 
-const UserMenu = ({menuOpened, setMenuOpened}) => {
-    const {logout, auth} = useAuth();
-    const {setActiveLink} = useContext(Context);
+const UserMenu = ({ setIsMenuOpened, isMenuOpened }) => {
+
+    const history = useHistory();
+    const { logout, auth } = useAuth();
+    const { setActiveLink, setActiveAdminTab } = useContext(Context);
 
     const closeMenu = () => {
-        setMenuOpened(false);
+        setIsMenuOpened(false);
     }
 
     const openMenuLink = () => {
+        setActiveAdminTab(null);
         setActiveLink(null);
         closeMenu();
     };
 
-    const logoutHandler = () => {
-        logout();
+    const logoutHandler = async () => {
         closeMenu();
+        await logout();
+        history.push("/");
     };
 
-    const closeButton = <button className={s.UserMenu__close} onClick={closeMenu}/>;
-
-    const userMenuClass = addConditionedStyle(menuOpened, [s.UserMenu], s.active);
+    const userMenuClass = addConditionedStyle(isMenuOpened, [s.UserMenu], s.active);
 
     return (
         <div className={userMenuClass.join(' ')}>
-            {closeButton}
+
             <header className={s.UserMenu__header}>
-                <button onClick={logoutHandler} className={s.UserMenu__quit}>
+                <span className={s.UserMenu__name}>{auth.currentUser.displayName}</span>
+                <button aria-label="выход" onClick={logoutHandler}  className={s.UserMenu__quit}>
                     <span>Выйти</span>
                 </button>
-                <span className={s.UserMenu__name}>{auth.currentUser.displayName}</span>
             </header>
             <div className={s.UserMenu__body}>
                 <Link to="/content-control" className={s.UserMenu__link} onClick={openMenuLink}>

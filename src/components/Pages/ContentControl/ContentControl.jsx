@@ -52,6 +52,7 @@ const ContentControl = () => {
         <div className="container">
             <div className={s.admin}>
                 <h1 className={s.admin__title}>Управление контентом сайта</h1>
+                <p className={s.admin__subtitle}>открыто для теста</p>
                 <ul className={s.admin__tabs}>
                     {tabs}
                 </ul>
@@ -59,7 +60,7 @@ const ContentControl = () => {
                 <Switch>
                     <Route exact path={path}>
                         <p className={s.admin__choose}>Пожалуйста, выберите категорию, которую хотите редактировать</p>
-                        <p>Инструкция по вставке изображений:</p>
+                        <p>Инструкция по вставке изображений с сервиса Unsplash:</p>
                         <input type="text" value="https://unsplash.com/s/photos/high-voltage?orientation=landscape" disabled/>
                     </Route>
                     <Route path={`${path}/:topicId`} >

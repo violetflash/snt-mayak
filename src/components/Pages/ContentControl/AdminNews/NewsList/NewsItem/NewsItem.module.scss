@@ -4,7 +4,7 @@
   display: flex;
   //align-items: center;
   border-radius: 0 4px 0 0;
-  border-top: 1px solid $secondColor;
+  border: 1px solid $secondColor;
   font-size: 14px;
 
   &__left {
@@ -15,6 +15,8 @@
 
   &__center {
     flex: 0 0 70px;
+    border-right: 1px solid $secondColor;
+    border-left: 1px solid $secondColor;
     background-color: #ccc;
     background-size: cover;
     background-position: center center;
@@ -27,9 +29,11 @@
   }
 
   &__right {
-    flex: 1 0 auto;
+    //flex: 1 0 auto;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    //align-items: flex-start;
     //padding: 10px;
   }
 
