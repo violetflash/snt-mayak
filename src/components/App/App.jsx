@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeProvider/ThemeProvider";
 import { addConditionedStyle } from "../../functions/functions";
-import { useAuth } from '../../context/AuthProvider/AuthProvider';
+import { useFirebase } from '../../context/FirebaseProvider/FirebaseProvider';
 
 import useNavLink from '../../hooks/useNavLink/';
 
@@ -26,7 +26,7 @@ import EmailConfirmPopup from "../EmailConfirmPopup";
 
 
 const App = () => {
-    const { showPopup, setShowPopup } = useAuth();
+    const { showPopup, setShowPopup } = useFirebase();
     const { mode } = useContext(ThemeContext);
     const appClass = mode === 'light' ?
         addConditionedStyle(mode === 'light', [s.App], s.lightTheme) :

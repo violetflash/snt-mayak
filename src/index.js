@@ -4,7 +4,7 @@ import App from './components/App/';
 
 
 import ThemeProvider from "./context/ThemeProvider/";
-import AuthProvider from "./context/AuthProvider/";
+import AuthProvider from "./context/FirebaseProvider/";
 
 import './index.scss';
 

@@ -2,25 +2,6 @@
 
 .newsList {
   &__li {
-    position: relative;
     margin-bottom: 15px;
-    //border-bottom: 2px solid $secondColor;
-
-    &::before {
-      content: attr(data-index);
-      position: absolute;
-      left: 0;
-      top: 0;
-      padding: 2px 4px;
-      border-radius: 0 0 4px 0;
-      border-right: 2px solid $secondColor-light;
-      border-left: 2px solid $secondColor-light;
-      border-bottom: 2px solid $secondColor-light;
-      background-color: $secondColor-light;
-    }
-
-    &:first-child {
-      //border: 2px solid $lightBlue;
-    }
   }
 }

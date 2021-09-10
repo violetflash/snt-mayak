@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
-import { useAuth, MAIN_REF } from "../../../../../context/AuthProvider/AuthProvider";
+import { useFirebase, MAIN_REF } from "../../../../../context/FirebaseProvider/FirebaseProvider";
 import NewsItem from "./NewsItem/";
 import { getArrayFromDb } from "../../../../../functions/functions";
 import s from './NewsList.module.scss';
 import Loader from "../../../../Loader";
 
 
-const NewsList = () => {
+const NewsList = (
+    {
+        confirmDeleteOpened, setConfirmDeleteOpened, setActiveReference, setPopupOpened, setDataToUpdate
+    }) => {
     const [newsList, setNewsList] = useState([]);
-    const { fdb } = useAuth();
+    const { fdb } = useFirebase();
 
     useEffect(() => {
         const newsRef = fdb.ref(MAIN_REF + "/news/");
@@ -33,8 +36,16 @@ const NewsList = () => {
         .map((item, index) => {
             const { id } = item;
             return (
-                <li className={s.newsList__li} key={id} data-index={index + 1}>
-                    <NewsItem {...item}/>
+                <li className={s.newsList__li} key={id} >
+                    <NewsItem
+                        {...item}
+                        index={index + 1}
+                        confirmDeleteOpened={confirmDeleteOpened}
+                        setConfirmDeleteOpened={setConfirmDeleteOpened}
+                        setActiveReference={setActiveReference}
+                        setPopupOpened={setPopupOpened}
+                        setDataToUpdate={setDataToUpdate}
+                    />
                 </li>
             );
         }) : <Loader />

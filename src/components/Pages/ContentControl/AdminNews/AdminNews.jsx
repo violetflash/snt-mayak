@@ -4,17 +4,31 @@ import s from './AdminNews.module.scss';
 import NewsList from "./NewsList/";
 import AdminNewsPopup from "./AdminNewsPopup";
 import ContentControlRootLink from "../ContentControlRootLink";
+import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
 const AdminNews = () => {
-    const [isEditing, setIsEditing] = useState(null);
+    const [isLast, setIsLast] = useState(null);
+    const [dataToUpdate, setDataToUpdate] = useState(null);
+    const [activeReference, setActiveReference] = useState(null);
     const [popupOpened, setPopupOpened] = useState(false);
+    const [confirmDeleteOpened, setConfirmDeleteOpened] = useState(false);
 
 
 
     const popup = popupOpened ?
         <AdminNewsPopup
-            isEditing={isEditing}
+            dataToUpdate={dataToUpdate}
+            setDataToUpdate={setDataToUpdate}
+            activeReference={activeReference}
+            setActiveReference={setActiveReference}
             setPopupOpened={setPopupOpened}
+        /> : null;
+
+    const confirmDeletePopup = confirmDeleteOpened ?
+        <ConfirmDeletePopup
+            setConfirmDeleteOpened={setConfirmDeleteOpened}
+            activeReference={activeReference}
+            setActiveReference={setActiveReference}
         /> : null;
 
     const createNews = () => setPopupOpened(true);
@@ -28,7 +42,14 @@ const AdminNews = () => {
             </div>
 
             {popup}
-            <NewsList />
+            {confirmDeletePopup}
+            <NewsList
+                confirmDeleteOpened={confirmDeleteOpened}
+                setConfirmDeleteOpened={setConfirmDeleteOpened}
+                setActiveReference={setActiveReference}
+                setPopupOpened={setPopupOpened}
+                setDataToUpdate={setDataToUpdate}
+            />
         </section>
     )
 

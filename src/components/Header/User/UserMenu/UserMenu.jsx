@@ -1,18 +1,18 @@
-import React, {useContext} from 'react';
-import {Link, useHistory } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Link, useHistory } from "react-router-dom";
 
 import SvgIcons from "../../../SvgIcons";
 
-import {useAuth} from "../../../../context/AuthProvider/AuthProvider";
+import { useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
 import Context from "../../../../context/context";
-import {addConditionedStyle} from '../../../../functions/functions';
+import { addConditionedStyle } from '../../../../functions/functions';
 import s from "./UserMenu.module.scss";
 
 
 const UserMenu = ({ setIsMenuOpened, isMenuOpened }) => {
 
     const history = useHistory();
-    const { logout, auth } = useAuth();
+    const { logout, auth } = useFirebase();
     const { setActiveLink, setActiveAdminTab } = useContext(Context);
 
     const closeMenu = () => {

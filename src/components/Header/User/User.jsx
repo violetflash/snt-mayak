@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
-import { useAuth, auth, LS_USERNAME } from "../../../context/AuthProvider/AuthProvider";
+import { useFirebase, auth, LS_USERNAME } from "../../../context/FirebaseProvider/FirebaseProvider";
 import { getFirstName } from "../../../functions/functions";
 import { addConditionedStyle } from '../../../functions/functions';
 
 import s from './User.module.scss';
 import defaultUser from './icons/defaultUser.svg';
-import UserMenu from "./UserMenu";
+import UserMenu from "./UserMenu/";
 
 const User = () => {
-    const { user } = useAuth();
+    const { user } = useFirebase();
     const [isMenuOpened, setIsMenuOpened] = useState(false);
 
 

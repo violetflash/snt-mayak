@@ -6,13 +6,13 @@ import ThemeSwitcher from "./ThemeSwitcher/";
 import Info from "./Info/";
 
 import User from './User/'
-import { useAuth } from "../../context/AuthProvider/AuthProvider";
+import { useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
 import s from './Header.module.scss';
 
 
 
 const Header = () => {
-    const { user } = useAuth();
+    const { user } = useFirebase();
     const { setLoginIsOpened } = useContext(Context);
 
     const openLogin = () => {

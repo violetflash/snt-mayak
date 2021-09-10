@@ -1,65 +1,92 @@
 @import "../../../../../../variables";
 
 .NewsItem {
+  position: relative;
   display: flex;
-  //align-items: center;
-  border-radius: 0 4px 0 0;
   border: 1px solid $secondColor;
+  border-radius: 0 4px 0 0;
   font-size: 14px;
 
-  &__left {
-    flex: 0 0 180px;
-    //border-right: 2px solid #ccc;
-    //vertical-align: center;
+  &::before {
+    content: attr(data-index);
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-right: 1px solid $secondColor-light;
+    border-bottom: 1px solid $secondColor-light;
+    border-radius: 0 0 4px;
+    padding: 2px 4px;
+    color: $mainColor;
+    background-color: $secondColor;
   }
 
-  &__center {
+  &__image {
     flex: 0 0 70px;
     border-right: 1px solid $secondColor;
     border-left: 1px solid $secondColor;
-    background-color: #ccc;
-    background-size: cover;
     background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
+    background-color: #ccc;
   }
 
-  &__img {
-    width: 70px;
-    height: 50px;
-  }
-
-  &__right {
-    //flex: 1 0 auto;
-    flex-grow: 1;
+  &__info {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    //align-items: flex-start;
-    //padding: 10px;
   }
 
-  &__dateTime {
-    padding: 5px 5px 5px 35px;
+  &__infoTop {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    padding: 5px;
+    color: $mainColor;
+    background-color: rgba($secondColor-light, 0.9);
+
+    span {
+      margin-right: 10px;
+    }
   }
 
   &__title {
+    font-weight: 700;
+  }
+
+  &__controls {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__remove,
+  &__edit {
     display: block;
-    padding: 5px;
-    color: #000;
-    background-color: rgba($secondColor-light, 0.9);
+    width: 16px;
+    height: 16px;
+    background-image: url("../../../../../../assets/icons/trash.svg");
+    background-position: 0 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  &__edit {
+    margin-right: 10px;
+    background-image: url("../../../../../../assets/icons/edit.svg");
   }
 
   &__desc {
     padding: 5px;
+    font-style: italic;
   }
 
   &__author {
-    padding: 5px;
     font-style: italic;
     font-size: 12px;
     text-align: right;
   }
 
-  span {
-    margin-right: 20px;
-  }
+
 }

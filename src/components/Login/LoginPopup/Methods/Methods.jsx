@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
-import { useAuth } from "../../../../context/AuthProvider/AuthProvider";
+import { useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
 import { addConditionedStyle, capitalizer } from "../../../../functions/functions";
 import s from './Methods.module.scss';
 
 const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) => {
 
     const {
-        // sendVerificationEmail,
         signUpWithEmailAndPassword,
         user,
         signInWithGoogle,
         signInWithEmailAndPassword,
         resetEmail
-    } = useAuth();
+    } = useFirebase();
 
     const initialInputsStates = { name: "", email: "", password: "", confirmPassword: ""};
     //inputs hooks

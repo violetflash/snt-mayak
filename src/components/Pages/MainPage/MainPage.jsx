@@ -1,7 +1,7 @@
 import React from 'react';
 
 import NewsSlider from "./NewsSlider/";
-import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
+// import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
 
 import s from "./MainPage.module.scss";
 import PageTitle from "../../PageTitle";

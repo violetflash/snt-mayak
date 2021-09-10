@@ -10,6 +10,10 @@
     .RootLink__text {
       border-color: $secondColor;
     }
+
+    .RootLink__chevron {
+      transform: rotate(90deg) translateY(5px);
+    }
   }
 
   &__chevron {
@@ -17,6 +21,7 @@
     left: 0;
     display: inline-block;
     transform: rotate(90deg);
+    transition: all 0.3s;
   }
 
   &__text {

@@ -20,11 +20,11 @@ if  (!firebase.apps.length) {
 }
 
 
-const AuthContext = createContext();
+const FirebaseContext = createContext();
 
 //Hook for child components to get the auth object and re-render when it changes
-const useAuth = () => {
-    return useContext(AuthContext);
+const useFirebase = () => {
+    return useContext(FirebaseContext);
 };
 
 const auth = firebase.auth();
@@ -33,13 +33,13 @@ const fdb = firebase.database();
 const LS_USERNAME = 'mayak-activeUser';
 
 //Provider hook that creates auth object and handles state
-const AuthProvider = ({ children }) => {
+const FirebaseProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [name, setName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [showPopup, setShowPopup] = useState(false);
 
-    //Wrap any firebase methods we want to use
+    //firebase methods we want to use
     const writeUserDataToDB = (userId, name, email) => {
         fdb.ref(`${MAIN_REF}/users/` + userId)
             .set({
@@ -52,24 +52,28 @@ const AuthProvider = ({ children }) => {
             });
     }
 
-    const writeNewsDataToDB = (userId, title, desc, image, date, time) => {
-        if (!title || !desc || !date || !time) return;
-        const now = Date.now();
-        const ref = `${title}-${now}`;
-        fdb.ref(`${MAIN_REF}/news/` + ref)
+    const writeNewsDataToDB = (id, title, desc, imageID, imageLink, date, time) => {
+        // if (!title || !desc || !date || !time) return;
+        const user = auth.currentUser.displayName;
+        fdb.ref(`${MAIN_REF}/news/` + id)
             .set({
                 title,
                 desc,
                 date,
                 time,
-                image,
-                author: userId,
-                id: now
+                imageID,
+                imageLink,
+                id,
+                author: user,
             })
             .catch((error) => {
                 console.error(error);
             });
     }
+
+    const deleteRefFromDB = (ref) => {
+        fdb.ref(`${MAIN_REF}/${ref}`).remove();
+    };
 
     const sendVerificationEmail = (user) => {
         // const auth = getAuth();
@@ -83,7 +87,7 @@ const AuthProvider = ({ children }) => {
 
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider)
+        auth.signInWithPopup(provider)
             .then((result) =>{
                 setUser(result.user);
                 console.log(result.user);
@@ -96,7 +100,7 @@ const AuthProvider = ({ children }) => {
 
 
     const emailExists = email => {
-        firebase.auth()
+        auth
             .signInWithEmailAndPassword(email, 'some-random-password')  // Password should be really long to avoid actually logging in :)
             .then((response) => {
                 // TODO : Avoid this block
@@ -124,7 +128,7 @@ const AuthProvider = ({ children }) => {
 
     const signUpWithEmailAndPassword = (name, email, password, successFunc = null, errFunc = null) => {
         // [START auth_signup_password]
-        firebase.auth()
+        auth
             .createUserWithEmailAndPassword(email, password)
             .then(result => {
                 const uid = result.user.uid;
@@ -146,7 +150,7 @@ const AuthProvider = ({ children }) => {
 
     const signInWithEmailAndPassword = (email, password, errFunc = null) => {
         // [START auth_signin_password]
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword(email, password)
             .then(() => {
                 checkEmailVerifiedAndShowPopup();
                 localStorage.setItem(LS_USERNAME, JSON.stringify(auth.currentUser.displayName));
@@ -160,8 +164,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const logout = () => {
-        return firebase
-            .auth()
+        return auth
             .signOut()
             .then(() => {
                 setUser(null);
@@ -171,7 +174,7 @@ const AuthProvider = ({ children }) => {
     };
 
     const resetEmail = (email, errFunc = null, successFunc = null) => {
-        firebase.auth()
+        auth
             .sendPasswordResetEmail(email)
             .then(() => {
                 if (successFunc) {
@@ -191,7 +194,7 @@ const AuthProvider = ({ children }) => {
     // Subscribe to user on mount
     // Because this sets state in the callback it will cause any component that utilizes this hook to re-render with the latest auth object.
     useEffect(() => {
-        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
             setIsLoading(false);
             setUser(user);
             // if (name) {
@@ -219,15 +222,16 @@ const AuthProvider = ({ children }) => {
         logout,
         resetEmail,
         fdb,
-        writeNewsDataToDB
+        writeNewsDataToDB,
+        deleteRefFromDB
     }
 
     return (
-        <AuthContext.Provider value={values}>
+        <FirebaseContext.Provider value={values}>
             {!isLoading && children}
-        </AuthContext.Provider>
+        </FirebaseContext.Provider>
     );
 };
 
-export default AuthProvider;
-export { useAuth, auth, LS_USERNAME, MAIN_REF };
+export default FirebaseProvider;
+export { useFirebase, auth, LS_USERNAME, MAIN_REF };

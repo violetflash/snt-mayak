@@ -1,27 +1,40 @@
 import React, { useState } from 'react';
 
-import { useAuth } from '../../../../../context/AuthProvider/AuthProvider';
+import { useFirebase } from '../../../../../context/FirebaseProvider/FirebaseProvider';
 import { checkImage } from "../../../../../functions/functions";
 
 import s from './AdminNewsPopup.module.scss';
 
-const AdminNewsPopup = ({ isEditing, setPopupOpened, editData = null }) => {
+const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeReference, setActiveReference }) => {
     const now = new Date();
     const dateNow = now.toLocaleDateString();
     const timeNow = now.toLocaleTimeString().slice(0, 5);
 
-    const [inputsData, setInputsData] = useState(
-        { title: "", desc: "", date: dateNow, time: timeNow , imageID: "" }
-    );
-    const { writeNewsDataToDB, auth } = useAuth();
-    const submitText = isEditing ? 'Сохранить' : 'Создать';
-    const titleText = isEditing ? 'Редактировать' : 'Создать';
+    const initialState = dataToUpdate ?
+        {
+            title: dataToUpdate.title,
+            desc: dataToUpdate.desc,
+            date: dataToUpdate.date,
+            time: dataToUpdate.time,
+            imageID: dataToUpdate.imageID
+        } :
+        {
+            title: "", desc: "", date: dateNow, time: timeNow , imageID: ""
+        }
 
-    if (editData) {
-        setInputsData({
-            title: editData.title, desc: editData.desc, date: editData.date, time: editData.time, image: editData.imageID
-        });
-    }
+    const [inputsData, setInputsData] = useState(initialState);
+
+    const { writeNewsDataToDB } = useFirebase();
+    const submitText = dataToUpdate ? 'Сохранить' : 'Создать';
+    const titleText = dataToUpdate ? 'Редактировать' : 'Создать';
+
+
+    // if (dataToUpdate) {
+    //     const { title, desc, date, time, imageID } = dataToUpdate;
+    //     setInputsData({
+    //         title, desc, date, time, imageID
+    //     });
+    // }
 
     const { title, desc, date, time, imageID } = inputsData;
 
@@ -33,13 +46,19 @@ const AdminNewsPopup = ({ isEditing, setPopupOpened, editData = null }) => {
 
     const saveData = async (e) => {
         e.preventDefault();
-        let image = `https://source.unsplash.com/${imageID}/400x300`;
+        let imageLink = `https://source.unsplash.com/${imageID}/400x300`;
 
-        if (!await checkImage(image)) {
-            image = `https://source.unsplash.com/${imageID}/300x200`;
+        if (!await checkImage(imageLink)) {
+            imageLink = `https://source.unsplash.com/${imageID}/300x200`;
         }
-        const user = auth.currentUser.displayName;
-        writeNewsDataToDB(user, title, desc, image, date, time);
+        const refToWrite = dataToUpdate ? dataToUpdate.id : `${title}-${Date.now()}`;
+
+        writeNewsDataToDB(refToWrite, title, desc, imageID, imageLink, date, time);
+
+        if (dataToUpdate) {
+            setDataToUpdate(null);
+        }
+
         resetInputs();
         setPopupOpened(false);
     };
