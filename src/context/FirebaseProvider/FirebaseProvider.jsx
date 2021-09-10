@@ -52,9 +52,8 @@ const FirebaseProvider = ({ children }) => {
             });
     }
 
-    const writeNewsDataToDB = (id, title, desc, imageID, imageLink, date, time) => {
+    const writeNewsDataToDB = (id, title, desc, imageID, imageUrl, date, time) => {
         // if (!title || !desc || !date || !time) return;
-        const user = auth.currentUser.displayName;
         fdb.ref(`${MAIN_REF}/news/` + id)
             .set({
                 title,
@@ -62,9 +61,9 @@ const FirebaseProvider = ({ children }) => {
                 date,
                 time,
                 imageID,
-                imageLink,
+                imageUrl,
                 id,
-                author: user,
+                author: { name :auth.currentUser.displayName, email: auth.currentUser.email }
             })
             .catch((error) => {
                 console.error(error);

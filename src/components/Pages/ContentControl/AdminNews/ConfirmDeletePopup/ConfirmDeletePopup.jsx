@@ -13,7 +13,6 @@ const ConfirmDeletePopup = ({ activeReference, setConfirmDeleteOpened, setActive
     }
 
     const deleteHandler = () => {
-        console.log(activeReference);
         deleteRefFromDB(`news/${activeReference}`);
         closeAndResetDeletionState();
     };

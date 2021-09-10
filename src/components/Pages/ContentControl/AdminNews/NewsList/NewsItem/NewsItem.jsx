@@ -3,7 +3,7 @@ import s from './NewsItem.module.scss';
 
 const NewsItem = (
     {
-        title, desc, date, time, author, imageID, imageLink, index, id,
+        title, desc, date, time, author, imageID, imageUrl, index, id,
         setConfirmDeleteOpened, setActiveReference, setPopupOpened, setDataToUpdate
     }) => {
 
@@ -15,20 +15,20 @@ const NewsItem = (
     const openEditPopup = () => {
         // setActiveReference(id);
         setDataToUpdate({
-            title, desc, date, time, imageID, imageLink, id
+            title, desc, date, time, imageID, imageUrl, id
         })
         setPopupOpened(true);
     };
 
     return (
         <div className={s.NewsItem} data-index={index}>
-            <div className={s.NewsItem__image} style={{ backgroundImage: `url(${imageLink})` }}>
+            <div className={s.NewsItem__image} style={{ backgroundImage: `url(${imageUrl})` }}>
             </div>
             <div className={s.NewsItem__info}>
                 <div className={s.NewsItem__infoTop}>
                     <span className={s.NewsItem__dateTime}>[{date}-{time}]</span>
                     <span className={s.NewsItem__title}>{title}</span>
-                    <span className={s.NewsItem__author}>(by {author})</span>
+                    <span className={s.NewsItem__author}>(by {author.email})</span>
                     <div className={s.NewsItem__controls}>
                         <button className={s.NewsItem__edit} onClick={openEditPopup} />
                         <button className={s.NewsItem__remove} onClick={openDeleteConfirm}/>

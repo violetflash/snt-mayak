@@ -46,14 +46,14 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeR
 
     const saveData = async (e) => {
         e.preventDefault();
-        let imageLink = `https://source.unsplash.com/${imageID}/400x300`;
+        let imageUrl = `https://source.unsplash.com/${imageID}/400x300`;
 
-        if (!await checkImage(imageLink)) {
-            imageLink = `https://source.unsplash.com/${imageID}/300x200`;
+        if (!await checkImage(imageUrl)) {
+            imageUrl = `https://source.unsplash.com/${imageID}/300x200`;
         }
         const refToWrite = dataToUpdate ? dataToUpdate.id : `${title}-${Date.now()}`;
 
-        writeNewsDataToDB(refToWrite, title, desc, imageID, imageLink, date, time);
+        writeNewsDataToDB(refToWrite, title, desc, imageID, imageUrl, date, time);
 
         if (dataToUpdate) {
             setDataToUpdate(null);

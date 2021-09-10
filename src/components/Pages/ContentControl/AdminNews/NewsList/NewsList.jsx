@@ -21,6 +21,8 @@ const NewsList = (
             .on('value', (res) => {
                 if (res.exists()) {
                     setNewsList(getArrayFromDb(res.val()));
+                } else {
+                    setNewsList([]);
                 }
             })
 

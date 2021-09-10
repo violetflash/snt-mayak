@@ -7,7 +7,6 @@ import ContentControlRootLink from "../ContentControlRootLink";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
 const AdminNews = () => {
-    const [isLast, setIsLast] = useState(null);
     const [dataToUpdate, setDataToUpdate] = useState(null);
     const [activeReference, setActiveReference] = useState(null);
     const [popupOpened, setPopupOpened] = useState(false);
