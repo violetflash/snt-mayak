@@ -31,7 +31,7 @@
   &__nameWrapper {
     position: relative;
     margin-left: 20px;
-    padding-right: 45px;
+    padding-right: 35px;
   }
 
   &__name {
@@ -42,6 +42,26 @@
 
     span {
       border-bottom: 1px dashed;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      right: 10px;
+      top: 7px;
+      position: absolute;
+      background-color: var(--mainColor);
+      width: 3px;
+      height: 9px;
+      transition: all 0.25s ease-in-out;
+    }
+
+    &::before {
+      transform: translate(-2px, 0) rotate(45deg);
+    }
+
+    &:after {
+      transform: translate(2px, 0) rotate(-45deg);
     }
   }
 
@@ -60,5 +80,11 @@
 }
 
 .opened {
-  transform: translateY(2px) scaleY(-1);
+  &::before {
+    transform: translate(2px, 0) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-2px, 0) rotate(-45deg);
+  }
 }

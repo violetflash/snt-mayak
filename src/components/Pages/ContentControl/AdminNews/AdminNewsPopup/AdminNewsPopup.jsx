@@ -94,6 +94,7 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeR
 
     const closePopup = () => {
         setPopupOpened(false);
+        setDataToUpdate(null)
     };
 
     return (

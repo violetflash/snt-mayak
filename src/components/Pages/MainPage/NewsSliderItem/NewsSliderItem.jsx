@@ -8,13 +8,11 @@ const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
             {/*<a href="#" className={s.card__link} />*/}
             <img src={imageUrl} alt={title} className={s.card__image}/>
             <div className={s.card__textWrapper}>
-                <h2 className={s.card__title}>{title}</h2>
+                <h3 className={s.card__title}>{title}</h3>
                 <div className={s.card__dateTime}>{date} - {time}</div>
                 <div className={s.card__details}>
                     <p className={s.card__desc}>{desc}</p>
-                    {/*<a href="https://email.ru" className={s.card__more}>Read more*/}
-                    {/*    <i className="fas fa-long-arrow-alt-right" />*/}
-                    {/*</a>*/}
+                    <a href="https://email.ru" className={s.card__more}>Подробнее</a>
                 </div>
             </div>
         </div>

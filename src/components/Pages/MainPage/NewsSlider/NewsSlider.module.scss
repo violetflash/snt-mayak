@@ -1,5 +1,10 @@
-.Slider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@import "../../../../variables";
+
+.NewsSlider {
+  button,
+  ul li button {
+    &::before {
+      color: var(--mainColor) !important;
+    }
+  }
 }

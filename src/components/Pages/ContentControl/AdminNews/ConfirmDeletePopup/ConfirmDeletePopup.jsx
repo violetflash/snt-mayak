@@ -13,13 +13,13 @@ const ConfirmDeletePopup = ({ activeReference, setConfirmDeleteOpened, setActive
     }
 
     const deleteHandler = () => {
-        deleteRefFromDB(`news/${activeReference}`);
+        deleteRefFromDB(`news/${activeReference.id}`);
         closeAndResetDeletionState();
     };
 
     const closeHandler = () => closeAndResetDeletionState();
 
-    const title = activeReference.slice(0, activeReference.indexOf('-'));
+    const title = activeReference.title;
 
     return (
         <article className={s.deletePopup}>

@@ -15,12 +15,18 @@ const MainPage = () => {
                 <div className={s.MainPage__content}>
 
 
-                    <PageTitle tag="h2" title="Последние новости" />
+
                     <div className={s.MainPage__hero}>
-                        <NewsSlider />
+                        <div className={s.MainPage__news}>
+                            <PageTitle tag="h2" title="Последние новости" />
+                            <NewsSlider />
+                        </div>
+                        <div className={s.MainPage__alarms}>
+                            <PageTitle tag="h2" title="Объявления" />
+                        </div>
                         {/*<GardenerGirl />*/}
                     </div>
-                    <PageTitle tag="h2" title="Объявления" />
+
 
 
                 </div>

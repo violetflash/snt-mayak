@@ -9,7 +9,7 @@ const NewsItem = (
 
     const openDeleteConfirm = () => {
         setConfirmDeleteOpened(true);
-        setActiveReference(id);
+        setActiveReference({ id, title });
     }
 
     const openEditPopup = () => {

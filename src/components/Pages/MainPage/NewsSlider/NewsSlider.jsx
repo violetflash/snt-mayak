@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import Slider from "react-slick";
 
 import { MAIN_REF, useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
 import s from './NewsSlider.module.scss';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import NewsSliderItem from "../NewsSliderItem/";
 import { getArrayFromDb } from "../../../../functions/functions";
@@ -30,13 +33,26 @@ const NewsSlider = () => {
 
     const news = newsList.length ? newsList.map((item) => {
         const { id } = item;
-        return <NewsSliderItem key={id} {...item}/>
+        return <NewsSliderItem key={id} {...item}/>;
     }) : <Loader/>
 
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        accessibility: true,
+        // autoplay: true,
+    };
+
     return (
-        <div className={s.Slider}>
+        // <div className={s.Slider}>
+        //     {news}
+        // </div>
+        <Slider {...settings} className={s.NewsSlider}>
             {news}
-        </div>
+        </Slider>
     )
 
 };

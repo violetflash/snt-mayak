@@ -1,11 +1,17 @@
+@import "../../../../variables";
+
 .card {
   position: relative;
   flex: 1;
   overflow: hidden;
   border-radius: 4px;
   min-width: 320px;
-  max-width: 400px;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  border: 1px solid $secondColor;
+  max-width: 300px;
+  height: 300px;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 
   &::before {
     content: "";
@@ -24,17 +30,73 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 3s ease;
-    //backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: transform 1s ease;
     //z-index: -1;
   }
 
-  &__text-wrapper {
+  &__textWrapper {
     position: absolute;
     bottom: 0;
     padding: 5px;
+    width: 100%;
     color: white;
-    /*     background-color: rgba(0, 0, 0, 0.4); */
-    transition: background-color 1.5s ease;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: background-color 1s ease;
+  }
+
+  &__title {
+    margin-bottom: 0.5rem;
+    transition: color 1s ease;
+  }
+
+  &__dateTime {
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+    color: #CCC;
+  }
+
+  &__details {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+  }
+
+  &__desc {
+    //margin-bottom: 15px;
+  }
+
+  &__more {
+    position: relative;
+    display: block;
+    margin: 10px 0 0 auto;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-align: center;
+    background: $secondColor;
+    color: $mainColor;
+    font-size: 12px;
+    z-index: 5;
+    backface-visibility: hidden;
+  }
+
+  &:hover {
+    .card__details {
+      max-height: 100px;
+      opacity: 1;
+    }
+
+    .card__text-wrapper {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .card__title {
+      color: $yellow;
+    }
+
+    .card__image {
+      transform: scale(1.2);
+      //z-index: -1;
+    }
   }
 }

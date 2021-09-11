@@ -7,10 +7,14 @@
     height: auto;
   }
 
-
   &__hero {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    width: 100%;
+  }
+
+  &__news {
+    width: 320px;
   }
 }

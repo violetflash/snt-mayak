@@ -22,13 +22,13 @@ const User = () => {
 
     const avatar = user && user.photoURL ? user.photoURL : defaultUser;
 
-    const chevronClass = addConditionedStyle(isMenuOpened, [s.User__chevron], s.opened);
+    const nameClass = addConditionedStyle(isMenuOpened, [s.User__name], s.opened);
 
-    const chevron =
-        <svg className={chevronClass.join(' ')} enableBackground="new 0 0 515.556 515.556" height="512" viewBox="0 0 515.556 515.556" width="512" xmlns="http://www.w3.org/2000/svg">
-            <path className={s.User__chevronPath}  d="m257.778 386.671-257.778-257.778h128.886l128.892 128.889 128.886-128.897 128.892.008z"/>
-        </svg>
-    ;
+    // const chevron =
+    //     <svg className={chevronClass.join(' ')} enableBackground="new 0 0 515.556 515.556" height="512" viewBox="0 0 515.556 515.556" width="512" xmlns="http://www.w3.org/2000/svg">
+    //         <path className={s.User__chevronPath}  d="m257.778 386.671-257.778-257.778h128.886l128.892 128.889 128.886-128.897 128.892.008z"/>
+    //     </svg>
+    // ;
 
     const hoverHandler = () => {
         setIsMenuOpened(true);
@@ -44,9 +44,9 @@ const User = () => {
                 <img className={s.User__image} src={avatar} alt=""/>
             </div>
             <figcaption className={s.User__nameWrapper} >
-                <button className={s.User__name}>
+                <button className={nameClass.join(' ')}>
                     <span>{activeUser}</span>
-                    {chevron}
+                    {/*{chevron}*/}
                 </button>
                 <UserMenu isMenuOpened={isMenuOpened} setIsMenuOpened={setIsMenuOpened}/>
             </figcaption>
