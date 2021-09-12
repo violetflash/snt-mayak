@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-import { useFirebase } from '../../../../../context/FirebaseProvider/FirebaseProvider';
-import { checkImage } from "../../../../../functions/functions";
+import {useFirebase} from '../../../../../context/FirebaseProvider/FirebaseProvider';
+import { checkImage, addConditionedStyle } from "../../../../../functions/functions";
 
 import s from './AdminNewsPopup.module.scss';
 
-const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeReference, setActiveReference }) => {
+const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate, activeReference, setActiveReference}) => {
     const now = new Date();
     const dateNow = now.toLocaleDateString();
     const timeNow = now.toLocaleTimeString().slice(0, 5);
@@ -19,12 +19,13 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeR
             imageID: dataToUpdate.imageID
         } :
         {
-            title: "", desc: "", date: dateNow, time: timeNow , imageID: ""
+            title: "", desc: "", date: dateNow, time: timeNow, imageID: ""
         }
 
     const [inputsData, setInputsData] = useState(initialState);
-
-    const { writeNewsDataToDB } = useFirebase();
+    const [idError, setIdError] = useState(null);
+    const [imageUrlState, setImageUrlState] = useState(null);
+    const {writeNewsDataToDB} = useFirebase();
     const submitText = dataToUpdate ? 'Сохранить' : 'Создать';
     const titleText = dataToUpdate ? 'Редактировать' : 'Создать';
 
@@ -36,24 +37,19 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeR
     //     });
     // }
 
-    const { title, desc, date, time, imageID } = inputsData;
+    const {title, desc, date, time, imageID} = inputsData;
 
-    const disabled = !title || !desc || !date || !time || !imageID;
+    const disabled = !title || !desc || !date || !time || !imageID || idError;
 
     const resetInputs = () => {
-        setInputsData({ title: "", desc: "", date: "", time: "", imageID: "" });
+        setInputsData({title: "", desc: "", date: "", time: "", imageID: ""});
     };
 
     const saveData = async (e) => {
         e.preventDefault();
-        let imageUrl = `https://source.unsplash.com/${imageID}/400x300`;
+        const refToWrite = dataToUpdate ? dataToUpdate.id : `${Date.now()}`;
 
-        if (!await checkImage(imageUrl)) {
-            imageUrl = `https://source.unsplash.com/${imageID}/300x200`;
-        }
-        const refToWrite = dataToUpdate ? dataToUpdate.id : `${title}-${Date.now()}`;
-
-        writeNewsDataToDB(refToWrite, title, desc, imageID, imageUrl, date, time);
+        writeNewsDataToDB(refToWrite, title, desc, imageID, imageUrlState, date, time);
 
         if (dataToUpdate) {
             setDataToUpdate(null);
@@ -61,6 +57,39 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeR
 
         resetInputs();
         setPopupOpened(false);
+    };
+
+    const onBlurHandler = async (e) => {
+        e.target.value = e.target.value.trim();
+
+        if (e.target.name === 'imageID') {
+            setImageUrlState(null);
+
+            const getImageUrl = async () => {
+                // if (await checkImage(`https://source.unsplash.com/${imageID}/400x300`)) {
+                //     return `https://source.unsplash.com/${imageID}/400x300`;
+                // }
+                // if (await checkImage(`https://source.unsplash.com/${imageID}/300x200`)) {
+                //     return `https://source.unsplash.com/${imageID}/300x200`
+                // }
+
+                const res = await checkImage(`https://source.unsplash.com/${imageID}/300x200`);
+                console.log(res);
+                return res;
+            }
+
+            const imageUrl = await getImageUrl();
+            console.log(imageUrl);
+
+            if (! imageUrl) {
+                setIdError(true);
+                return;
+            }
+
+            setImageUrlState(imageUrl);
+            setIdError(false);
+
+        }
     };
 
     const inputHandler = (e) => {
@@ -88,14 +117,20 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeR
             ;
         }
 
+        if (target.name === 'imageID') {
+            setIdError(null);
+        }
 
-        setInputsData({ ...inputsData, [target.name]: target.value })
+
+        setInputsData({...inputsData, [target.name]: target.value})
     }
 
     const closePopup = () => {
         setPopupOpened(false);
         setDataToUpdate(null)
     };
+
+    const idErrorClass = addConditionedStyle(idError, [s.form__notifyError], s.active);
 
     return (
         <article className={s.newsPopup}>
@@ -105,26 +140,64 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate, activeR
                         <button className={s.newsPopup__close} onClick={closePopup}/>
                         <p className={s.newsPopup__title}>{titleText} новость</p>
                         <form className={s.form}>
-                            <label >
+                            <label>
                                 <span>Заголовок новости:</span>
-                                <input name="title" type="text" value={title} onChange={inputHandler} autoFocus/>
+                                <input
+                                    name="title"
+                                    type="text"
+                                    value={title}
+                                    onChange={inputHandler}
+                                    onBlur={onBlurHandler}
+                                    autoFocus/>
                             </label>
-                            <label >
+                            <label>
                                 <span>Описание новости:</span>
-                                <textarea name="desc"  value={desc} onChange={inputHandler}/>
+                                <textarea
+                                    name="desc"
+                                    value={desc}
+                                    onChange={inputHandler}
+                                    onBlur={onBlurHandler}
+                                />
                             </label>
-                            <label >
+                            <a
+                                className={s.form__unsplashUrl}
+                                href="https://unsplash.com/s/photos/high-voltage?orientation=landscape"
+                                target="__blank"
+                            >
+                                Найти ID изображения на Unsplash
+                            </a>
+                            <label className={s.form__id}>
                                 <span>ID изображения:</span>
-                                <input name="imageID" type="text" value={imageID} onChange={inputHandler}/>
+                                <input
+
+                                    name="imageID"
+                                    type="text"
+                                    value={imageID}
+                                    onChange={inputHandler}
+                                    onBlur={onBlurHandler}
+                                />
+                                <span className={idErrorClass.join(' ')}>id не подходит по формату</span>
                             </label>
                             <div className={s.form__dateTime}>
-                                <label >
+                                <label>
                                     <span>Дата: <span>(ДД.ММ.ГГГГ)</span></span>
-                                    <input name="date" type="text" value={date} onChange={inputHandler}/>
+                                    <input
+                                        name="date"
+                                        type="text"
+                                        value={date}
+                                        onChange={inputHandler}
+                                        onBlur={onBlurHandler}
+                                    />
                                 </label>
-                                <label >
+                                <label>
                                     <span>Время: <span>(ЧЧ:ММ)</span></span>
-                                    <input name="time" type="text" value={time} onChange={inputHandler}/>
+                                    <input
+                                        name="time"
+                                        type="text"
+                                        value={time}
+                                        onChange={inputHandler}
+                                        onBlur={onBlurHandler}
+                                    />
                                 </label>
                             </div>
                             <button
