@@ -45,7 +45,7 @@ const UserMenu = ({ setIsMenuOpened, isMenuOpened }) => {
             <div className={s.UserMenu__body}>
                 <Link to="/content-control" className={s.UserMenu__link} onClick={openMenuLink}>
                     <SvgIcons name="admin" />
-                    <span>Управление контентом</span>
+                    <span>Управление контентом (флаг админа)</span>
                 </Link>
                 <Link to="/user-offers" className={s.UserMenu__link} onClick={openMenuLink}>
                     <SvgIcons name="offers" />

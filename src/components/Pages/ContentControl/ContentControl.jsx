@@ -59,8 +59,9 @@ const ContentControl = () => {
 
                 <Switch>
                     <Route exact path={path}>
-                        <p className={s.admin__choose}>Пожалуйста, выберите категорию, которую хотите редактировать</p>
-                        <p>Инструкция по вставке изображений с сервиса Unsplash:</p>
+                        <p className={s.admin__choose}>
+                            <span>Пожалуйста, выберите категорию, которую хотите редактировать</span></p>
+                        <p>Тут будет инструкция по вставке изображений с сервиса Unsplash:</p>
                         <input type="text" value="https://unsplash.com/s/photos/high-voltage?orientation=landscape" disabled/>
                     </Route>
                     <Route path={`${path}/:topicId`} >

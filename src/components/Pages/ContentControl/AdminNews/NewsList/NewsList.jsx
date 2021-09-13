@@ -55,7 +55,7 @@ const NewsList = (
 
     return (
         <>
-            <p>Список всех новостей:</p>
+            <p>Список всех новостей (первые 3 на главной):</p>
             <ul className={s.newsList}>
                 {data}
             </ul>

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 
 import {useFirebase} from '../../../../../context/FirebaseProvider/FirebaseProvider';
-import { checkImage, addConditionedStyle } from "../../../../../functions/functions";
+import { checkImageExist, addConditionedStyle } from "../../../../../functions/functions";
 
 import s from './AdminNewsPopup.module.scss';
 
-const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate, activeReference, setActiveReference}) => {
+const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate }) => {
     const now = new Date();
     const dateNow = now.toLocaleDateString();
     const timeNow = now.toLocaleTimeString().slice(0, 5);
@@ -24,22 +24,15 @@ const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate, activeRe
 
     const [inputsData, setInputsData] = useState(initialState);
     const [idError, setIdError] = useState(null);
+    const [idChecked, setIdChecked] = useState(false);
     const [imageUrlState, setImageUrlState] = useState(null);
     const {writeNewsDataToDB} = useFirebase();
     const submitText = dataToUpdate ? 'Сохранить' : 'Создать';
     const titleText = dataToUpdate ? 'Редактировать' : 'Создать';
 
-
-    // if (dataToUpdate) {
-    //     const { title, desc, date, time, imageID } = dataToUpdate;
-    //     setInputsData({
-    //         title, desc, date, time, imageID
-    //     });
-    // }
-
     const {title, desc, date, time, imageID} = inputsData;
 
-    const disabled = !title || !desc || !date || !time || !imageID || idError;
+    const disabled = !title || !desc || !date || !time || !idChecked;
 
     const resetInputs = () => {
         setInputsData({title: "", desc: "", date: "", time: "", imageID: ""});
@@ -47,8 +40,8 @@ const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate, activeRe
 
     const saveData = async (e) => {
         e.preventDefault();
-        const refToWrite = dataToUpdate ? dataToUpdate.id : `${Date.now()}`;
 
+        const refToWrite = dataToUpdate ? dataToUpdate.id : `${Date.now()}`;
         writeNewsDataToDB(refToWrite, title, desc, imageID, imageUrlState, date, time);
 
         if (dataToUpdate) {
@@ -59,37 +52,27 @@ const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate, activeRe
         setPopupOpened(false);
     };
 
+    const checkID = async (e) => {
+        e.preventDefault();
+        const imageUrl = await checkImageExist(`https://source.unsplash.com/${imageID}/500x400`) ?
+            `https://source.unsplash.com/${imageID}/500x400` :
+            await checkImageExist(`https://source.unsplash.com/${imageID}/400x300`) ?
+                `https://source.unsplash.com/${imageID}/300x200` :
+                await checkImageExist(`https://source.unsplash.com/${imageID}/300x200`) ?
+                    `https://source.unsplash.com/${imageID}/300x200` : null;
+
+        if (!imageUrl) {
+            setIdError(true);
+            return;
+        }
+
+        setImageUrlState(imageUrl);
+        setIdError(false);
+        setIdChecked(true);
+    };
+
     const onBlurHandler = async (e) => {
         e.target.value = e.target.value.trim();
-
-        if (e.target.name === 'imageID') {
-            setImageUrlState(null);
-
-            const getImageUrl = async () => {
-                // if (await checkImage(`https://source.unsplash.com/${imageID}/400x300`)) {
-                //     return `https://source.unsplash.com/${imageID}/400x300`;
-                // }
-                // if (await checkImage(`https://source.unsplash.com/${imageID}/300x200`)) {
-                //     return `https://source.unsplash.com/${imageID}/300x200`
-                // }
-
-                const res = await checkImage(`https://source.unsplash.com/${imageID}/300x200`);
-                console.log(res);
-                return res;
-            }
-
-            const imageUrl = await getImageUrl();
-            console.log(imageUrl);
-
-            if (! imageUrl) {
-                setIdError(true);
-                return;
-            }
-
-            setImageUrlState(imageUrl);
-            setIdError(false);
-
-        }
     };
 
     const inputHandler = (e) => {
@@ -119,6 +102,7 @@ const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate, activeRe
 
         if (target.name === 'imageID') {
             setIdError(null);
+            setIdChecked(false);
         }
 
 
@@ -168,15 +152,18 @@ const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate, activeRe
                             </a>
                             <label className={s.form__id}>
                                 <span>ID изображения:</span>
-                                <input
+                                <div className={s.form__idWrapper}>
+                                    <input
+                                        name="imageID"
+                                        type="text"
+                                        value={imageID}
+                                        onChange={inputHandler}
+                                        onBlur={onBlurHandler}
+                                    />
+                                    <button className={s.form__checkID} onClick={checkID}>Проверить</button>
+                                </div>
 
-                                    name="imageID"
-                                    type="text"
-                                    value={imageID}
-                                    onChange={inputHandler}
-                                    onBlur={onBlurHandler}
-                                />
-                                <span className={idErrorClass.join(' ')}>id не подходит по формату</span>
+                                <span className={idErrorClass.join(' ')}>id не существует или не подходит по формату</span>
                             </label>
                             <div className={s.form__dateTime}>
                                 <label>

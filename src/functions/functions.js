@@ -8,9 +8,9 @@ const addConditionedStyle = (condition, actualClasses, newClass) => {
     return classes;
 };
 
-const checkImage = async (url) => {
+const checkImageExist = async (url) => {
     const res = await fetch(url);
-    return /source-404/.test(res);
+    return !/source-404/.test(res.url);
 }
 
 const getArrayFromDb = (db) => {
@@ -56,5 +56,5 @@ export {
     checkLS,
     getRandomIDsFromArr,
     getFirstName,
-    checkImage
+    checkImageExist
 };
