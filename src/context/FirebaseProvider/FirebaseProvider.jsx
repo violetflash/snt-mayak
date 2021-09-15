@@ -68,7 +68,14 @@ const FirebaseProvider = ({ children }) => {
             .catch((error) => {
                 console.error(error);
             });
-    }
+    };
+
+    const setNewsSliderParams = (name, value) => {
+        fdb.ref(`${MAIN_REF}/params/newsSlider`)
+            .update({
+                [name]: value
+            })
+    };
 
     const deleteRefFromDB = (ref) => {
         fdb.ref(`${MAIN_REF}/${ref}`).remove();
@@ -196,12 +203,6 @@ const FirebaseProvider = ({ children }) => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setIsLoading(false);
             setUser(user);
-            // if (name) {
-            //     user.updateProfile({
-            //         displayName: name,
-            //     }).then(() => setUser(user));
-            // }
-
         });
 
         // Cleanup subscription on unmount
@@ -222,7 +223,8 @@ const FirebaseProvider = ({ children }) => {
         resetEmail,
         fdb,
         writeNewsDataToDB,
-        deleteRefFromDB
+        deleteRefFromDB,
+        setNewsSliderParams
     }
 
     return (

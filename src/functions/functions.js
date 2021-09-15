@@ -13,6 +13,10 @@ const checkImageExist = async (url) => {
     return !/source-404/.test(res.url);
 }
 
+const textCutter = (str, amount = 60) => {
+    return str.length > amount ? str.slice(0, amount) + "..." : str;
+};
+
 const getArrayFromDb = (db) => {
     const arr = [];
     for (const key in db) {
@@ -20,6 +24,8 @@ const getArrayFromDb = (db) => {
     }
     return arr;
 };
+
+const sortOptions = (a, b) => b.id - a.id;
 
 const addClass = (actualClass, newClass) => [actualClass, newClass].join(' ');
 
@@ -47,7 +53,6 @@ const getFirstName = name => {
     return name.split(' ')[0];
 }
 
-
 export {
     addClass,
     addConditionedStyle,
@@ -56,5 +61,7 @@ export {
     checkLS,
     getRandomIDsFromArr,
     getFirstName,
-    checkImageExist
+    checkImageExist,
+    textCutter,
+    sortOptions
 };

@@ -13,9 +13,6 @@ const MainPage = () => {
             <Greetings />
             <div className="container">
                 <div className={s.MainPage__content}>
-
-
-
                     <div className={s.MainPage__hero}>
                         <div className={s.MainPage__news}>
                             <PageTitle tag="h2" title="Последние новости" />

@@ -39,7 +39,7 @@ const App = () => {
     const value = {
         loginIsOpened, setLoginIsOpened,
         activeLink, setActiveLink,
-        activeAdminTab, setActiveAdminTab
+        activeAdminTab, setActiveAdminTab,
     }
 
     useEffect(() => {

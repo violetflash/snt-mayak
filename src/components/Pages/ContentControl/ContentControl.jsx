@@ -48,31 +48,38 @@ const ContentControl = () => {
         return () => setActiveAdminTab(null);
     }, [setActiveAdminTab]);
 
+    const content =
+        <div className={s.admin__content}>
+            <Switch>
+                <Route exact path={path}>
+                    <p className={s.admin__choose}>
+                        <span>Пожалуйста, выберите категорию, которую хотите редактировать</span></p>
+                    <p>Тут будет инструкция по вставке изображений с сервиса Unsplash:</p>
+                    <input type="text" value="https://unsplash.com/s/photos/high-voltage?orientation=landscape" disabled/>
+                </Route>
+                <Route path={`${path}/:topicId`} >
+                    <Topic />
+                </Route>
+                <Route component={NoMatch} />
+            </Switch>
+        </div>
+    ;
+
     return (
-        <div className="container">
-            <div className={s.admin}>
+        <div className={s.admin}>
+            <div className={s.admin__head}>
                 <h1 className={s.admin__title}>Управление контентом сайта</h1>
                 <p className={s.admin__subtitle}>открыто для теста</p>
+            </div>
+            <section className={s.admin__inner}>
                 <ul className={s.admin__tabs}>
                     {tabs}
                 </ul>
-
-                <Switch>
-                    <Route exact path={path}>
-                        <p className={s.admin__choose}>
-                            <span>Пожалуйста, выберите категорию, которую хотите редактировать</span></p>
-                        <p>Тут будет инструкция по вставке изображений с сервиса Unsplash:</p>
-                        <input type="text" value="https://unsplash.com/s/photos/high-voltage?orientation=landscape" disabled/>
-                    </Route>
-                    <Route path={`${path}/:topicId`} >
-                        <Topic />
-                    </Route>
-                    <Route component={NoMatch} />
-                </Switch>
-
-            </div>
-
+                {content}
+            </section>
         </div>
+
+
     );
 
 };

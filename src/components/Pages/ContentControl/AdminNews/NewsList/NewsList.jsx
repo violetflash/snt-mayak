@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import { useFirebase, MAIN_REF } from "../../../../../context/FirebaseProvider/FirebaseProvider";
+import { getArrayFromDb, sortOptions } from "../../../../../functions/functions";
 import NewsItem from "./NewsItem/";
-import { getArrayFromDb } from "../../../../../functions/functions";
-import s from './NewsList.module.scss';
 import Loader from "../../../../Loader";
+
+
+import s from './NewsList.module.scss';
 
 
 const NewsList = (
@@ -31,7 +33,6 @@ const NewsList = (
         }
     }, [fdb]);
 
-    const sortOptions = (a, b) => b.id - a.id;
 
     const data = newsList.length ? newsList
         .sort(sortOptions)

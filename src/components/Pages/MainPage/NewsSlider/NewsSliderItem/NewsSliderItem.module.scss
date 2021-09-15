@@ -1,4 +1,4 @@
-@import "../../../../variables";
+@import "../../../../../variables";
 
 .card {
   position: relative;
@@ -31,14 +31,14 @@
     height: 100%;
     object-fit: cover;
     backface-visibility: hidden;
-    transition: transform 1s ease;
+    transition: transform 4s ease;
     //z-index: -1;
   }
 
   &__textWrapper {
     position: absolute;
     bottom: 0;
-    padding: 5px;
+    padding: 5px 15px;
     width: 100%;
     color: white;
     background-color: rgba(0, 0, 0, 0.4);

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { textCutter } from "../../../../../functions/functions";
+
 import s from './NewsSliderItem.module.scss';
 
 const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
@@ -11,7 +13,7 @@ const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
                 <h3 className={s.card__title}>{title}</h3>
                 <div className={s.card__dateTime}>{date} - {time}</div>
                 <div className={s.card__details}>
-                    <p className={s.card__desc}>{desc}</p>
+                    <p className={s.card__desc}>{textCutter(desc)}</p>
                     <a href="https://email.ru" className={s.card__more}>Подробнее</a>
                 </div>
             </div>

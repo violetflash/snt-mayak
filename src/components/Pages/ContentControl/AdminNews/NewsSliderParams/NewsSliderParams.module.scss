@@ -1,0 +1,15 @@
+.params {
+  margin-bottom: 15px;
+
+  &__title {
+    padding: 10px;
+    font-weight: 700;
+    text-align: center;
+    background-color: #ccc;
+  }
+
+  &__select {
+    padding: 2px 5px;
+    margin-left: 10px;
+  }
+}
