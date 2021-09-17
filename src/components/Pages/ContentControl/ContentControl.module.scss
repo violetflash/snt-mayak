@@ -23,7 +23,7 @@
 
   &__head {
     padding: 10px 0;
-    background-color: $secondColor;
+    background-color: $lightGrey;
   }
 
   &__title {
@@ -42,15 +42,16 @@
     margin: 0;
     max-width: 200px;
     min-height: 100vh;
-    border: 1px solid $mainColor;
-    background-color: $secondColor;
+    //border: 1px solid $mainColor;
+    border-top: none;
+    background-color: $popupBgColor;
   }
 
   &__tab {
     display: block;
     width: 100%;
-    border-bottom: 1px solid $mainColor;
-    color: $mainColor;
+    border-bottom: 1px solid $white;
+    color: $white;
     font-size: 16px;
     transition: all 0.2s;
 
@@ -61,16 +62,7 @@
 
     &:hover {
       color: #000;
-      background-color: rgba($navAccentColor, 0.2);
-    }
-
-    &:first-child {
-      border-radius: 4px 0 0 0;
-    }
-
-    &:last-child {
-      border-radius: 0 4px 0 0;
-      border-right: 1px solid $secondColor;
+      background-color: rgba($navAccentColor, 0.5);
     }
   }
 
