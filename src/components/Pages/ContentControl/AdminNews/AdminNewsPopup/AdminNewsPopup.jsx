@@ -32,7 +32,7 @@ const AdminNewsPopup = ({setPopupOpened, dataToUpdate, setDataToUpdate }) => {
 
     const {title, desc, date, time, imageID} = inputsData;
 
-    const disabled = !title || !desc || !date || !time || !idChecked;
+    const disabled = !title || !desc || !date || !time || !idChecked || !imageID;
 
     const resetInputs = () => {
         setInputsData({title: "", desc: "", date: "", time: "", imageID: ""});
