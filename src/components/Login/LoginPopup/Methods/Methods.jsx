@@ -342,6 +342,7 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
                 {successMessage}
             </div>
             <form onSubmit={resetHandler}>
+                <p className={s.Methods__resetTitle}>Восстановление доступа</p>
                 <label className={s.Methods__label}>
                     <span>Ваш email:</span>
                     <input

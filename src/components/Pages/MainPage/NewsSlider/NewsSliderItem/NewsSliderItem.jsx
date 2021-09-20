@@ -14,7 +14,7 @@ const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
                 <div className={s.card__dateTime}>{date} - {time}</div>
                 <div className={s.card__details}>
                     <p className={s.card__desc}>{textCutter(desc)}</p>
-                    <a href="https://email.ru" className={s.card__more}>Подробнее</a>
+                    <button  className={s.card__more} disabled>Подробнее</button>
                 </div>
             </div>
         </div>

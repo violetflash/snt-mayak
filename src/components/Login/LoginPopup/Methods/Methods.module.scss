@@ -141,6 +141,13 @@
     border-color: $popupSuccessMsgColor;
     color: $popupSuccessMsgColor;
   }
+
+  &__resetTitle {
+    margin-bottom: 20px;
+    text-align: center;
+    color: $white;
+    font-size: 18px;
+  }
 }
 
 .hasError {
