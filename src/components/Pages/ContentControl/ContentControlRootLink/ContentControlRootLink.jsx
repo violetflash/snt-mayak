@@ -1,15 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setActiveAdminTab } from '../../../../redux';
 import { Link } from 'react-router-dom';
-
 import SvgIcons from "../../../SvgIcons/";
-
 import s from "./ContentControlRootLink.module.scss";
-import Context from "../../../../context/context";
-
 
 const ContentControlRootLink = () => {
-    const { setActiveAdminTab } = useContext(Context);
-    const resetActiveTab = () => setActiveAdminTab(null);
+    const dispatch = useDispatch();
+    const resetActiveTab = () => dispatch(setActiveAdminTab({ activeAdminTab: null }));
 
     return <Link className={s.RootLink} to="/content-control" onClick={resetActiveTab}>
         <span className={s.RootLink__chevron}><SvgIcons name="chevron"/></span>

@@ -1,60 +1,55 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {setActiveNavLink} from '../../redux';
 
-import Context from '../../context/context';
-import { Link } from "react-router-dom";
-import { addConditionedStyle } from "../../functions/functions";
+import {Link} from "react-router-dom";
+import {addConditionedStyle} from "../../functions/functions";
 
 import s from './Nav.module.scss';
 
 const Nav = () => {
-    const {
-        activeLink, setActiveLink,
-        menuOpened, setMenuOpened
-    } = useContext(Context);
+  const dispatch = useDispatch();
+  const { activeID } = useSelector(state => state.navLinks);
 
-    const linksData = [
-        {id: 0, title: "Главная", route: "/main"},
-        {id: 1, title: "О снт, галерея", route: "/about"},
-        {id: 2, title: "Документы", route: "/documents"},
-        {id: 3, title: "Платежи, взносы", route: "/payments"},
-        {id: 4, title: "Частные объявления", route: "/offers"},
-        {id: 5, title: "Контакты", route: "/contacts"}
-    ];
+  const linksData = [
+    {id: 0, title: "Главная", route: "/main"},
+    {id: 1, title: "О снт, галерея", route: "/about"},
+    {id: 2, title: "Документы", route: "/documents"},
+    {id: 3, title: "Платежи, взносы", route: "/payments"},
+    {id: 4, title: "Частные объявления", route: "/offers"},
+    {id: 5, title: "Контакты", route: "/contacts"}
+  ];
 
-    const linkHandler = (id) => {
-        setActiveLink(id);
+  const linkHandler = (id) => {
+    dispatch(setActiveNavLink({ activeID: id }));
+  };
 
-        if (menuOpened) {
-            setMenuOpened(false);
-        }
-    };
-
-    const links = linksData.map((link) => {
-        const { id, route, title } = link;
-        const style = addConditionedStyle(activeLink === id, [s.Nav__link], s.active);
-        return (
-            <Link
-                className={style.join(' ')}
-                key={id}
-                to={route}
-                onClick={() => linkHandler(id)}
-                data-alt={title}
-            >
-                <p>{title}</p>
-                <span className={s.hidden} aria-hidden>{title}</span>
-            </Link>
-        )
-    });
-
+  const links = linksData.map((link) => {
+    const {id, route, title} = link;
+    const style = addConditionedStyle(activeID === id, [s.Nav__link], s.active);
     return (
-        <section className={s.Nav}>
-            <div className="container">
-                <nav className={s.Nav__nav}>
-                    {links}
-                </nav>
-            </div>
-        </section>
-    );
+      <Link
+        className={style.join(' ')}
+        key={id}
+        to={route}
+        onClick={() => linkHandler(id)}
+        data-alt={title}
+      >
+        <p>{title}</p>
+        <span className={s.hidden} aria-hidden>{title}</span>
+      </Link>
+    )
+  });
+
+  return (
+    <section className={s.Nav}>
+      <div className="container">
+        <nav className={s.Nav__nav}>
+          {links}
+        </nav>
+      </div>
+    </section>
+  );
 };
 
 export default Nav;

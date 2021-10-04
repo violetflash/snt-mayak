@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { openAuthPopup, closeAuthPopup } from '../../../redux';
+import { closeAuthPopup } from '../../../redux';
 import Logo from "../../Logo";
 import Methods from './Methods/'
-import Context from '../../../context/context';
 import { addConditionedStyle } from '../../../functions/functions';
 import s from "./LoginPopup.module.scss";
 
 const LoginPopup = () => {
     const dispatch = useDispatch();
     const { authPopupIsOpened } = useSelector(state => state.authPopup);
-    const { loginIsOpened, setLoginIsOpened } = useContext(Context);
     const [activeTab, setActiveTab] = useState('login');
 
     const closePopup = () => {
         setActiveTab('login');
-        setLoginIsOpened(false);
+        dispatch(closeAuthPopup());
     }
     const closeButton = <button className={s.LoginPopup__close} onClick={closePopup} />;
 
@@ -27,7 +25,7 @@ const LoginPopup = () => {
         return <button className={btnClass.join(' ')} value={value} onClick={tabsHandler} key={title}>{title}</button>;
     });
 
-    const popupClassName = addConditionedStyle(loginIsOpened, [s.LoginPopup], s.opened);
+    const popupClassName = addConditionedStyle(authPopupIsOpened, [s.LoginPopup], s.opened);
 
     return (
         <div className={popupClassName.join(' ')}>
@@ -41,8 +39,8 @@ const LoginPopup = () => {
             <Methods
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
-                loginIsOpened={loginIsOpened}
-                setLoginIsOpened={setLoginIsOpened}/>
+                loginIsOpened={authPopupIsOpened}
+            />
         </div>
     );
 

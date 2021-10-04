@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { closeAuthPopup } from '../../../../redux';
 
 import { useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
 import { addConditionedStyle, capitalizer } from "../../../../functions/functions";
 import s from './Methods.module.scss';
 
-const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) => {
+const Methods = ({ activeTab, setActiveTab, loginIsOpened }) => {
+    const dispatch = useDispatch();
 
     const {
         signUpWithEmailAndPassword,
@@ -60,20 +63,25 @@ const Methods = ({ activeTab, setActiveTab, loginIsOpened, setLoginIsOpened }) =
 
     };
 
+
+
     //instructions
     useEffect(() => {
         if (user) {
-            setLoginIsOpened(false);
+            dispatch(closeAuthPopup());
         }
-        resetInputs();
-        resetNotifier();
-        setErrors(new Set([]));
-    }, [user, setLoginIsOpened, activeTab, loginIsOpened]);
+
+        return () => {
+            resetInputs();
+            resetNotifier();
+            setErrors(new Set([]));
+        }
+
+    }, [user, dispatch]);
 
     //handlers
     const submitForm = (e) => {
         e.preventDefault();
-
 
         if (errors.size) return;
 

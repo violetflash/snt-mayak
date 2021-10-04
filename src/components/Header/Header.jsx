@@ -16,7 +16,7 @@ const Header = () => {
     const { user } = useFirebase();
 
     const openLogin = () => {
-        dispatch(openAuthPopup({ authPopupIsOpened: true }));
+        dispatch(openAuthPopup());
     };
 
 
