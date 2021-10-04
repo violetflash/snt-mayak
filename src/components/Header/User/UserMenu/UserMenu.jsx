@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { setActiveAdminTab } from '../../../../redux'
 import SvgIcons from "../../../SvgIcons";
 
 import { useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
@@ -10,17 +11,17 @@ import s from "./UserMenu.module.scss";
 
 
 const UserMenu = ({ setIsMenuOpened, isMenuOpened }) => {
-
+    const dispatch = useDispatch();
     const history = useHistory();
     const { logout, auth } = useFirebase();
-    const { setActiveLink, setActiveAdminTab } = useContext(Context);
+    const { setActiveLink } = useContext(Context);
 
     const closeMenu = () => {
         setIsMenuOpened(false);
     }
 
     const openMenuLink = () => {
-        setActiveAdminTab(null);
+        dispatch(setActiveAdminTab({ activeAdminTab: null }));
         setActiveLink(null);
         closeMenu();
     };

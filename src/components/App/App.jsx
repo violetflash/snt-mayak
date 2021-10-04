@@ -19,7 +19,6 @@ import ContentControl from '../Pages/ContentControl/';
 import Login from "../Login/";
 import UserSettings from "../Pages/UserSettings";
 import useLogin from '../../hooks/useLogin/useLogin';
-import useAdminTabs from "../../hooks/useAdminTabs/";
 import Context from '../../context/context';
 import s from './App.module.scss';
 import EmailConfirmPopup from "../EmailConfirmPopup";
@@ -34,12 +33,10 @@ const App = () => {
 
     const { loginIsOpened, setLoginIsOpened } = useLogin();
     const { activeLink, setActiveLink } = useNavLink();
-    const { activeAdminTab, setActiveAdminTab } = useAdminTabs();
 
     const value = {
         loginIsOpened, setLoginIsOpened,
         activeLink, setActiveLink,
-        activeAdminTab, setActiveAdminTab,
     }
 
     useEffect(() => {

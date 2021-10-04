@@ -51,8 +51,8 @@ const ContentControl = () => {
     };
 
     useEffect(() => {
-        return () => dispatch(setActiveAdminTab(null));
-    }, []);
+        return () => dispatch(setActiveAdminTab({ activeAdminTab: null }));
+    }, [dispatch]);
 
     const content =
         <div className={s.admin__content}>
