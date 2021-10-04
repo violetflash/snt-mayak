@@ -1,16 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, useRouteMatch, useParams } from "react-router-dom";
-
-import s from './ContentControl.module.scss';
+import { useSelector, useDispatch } from 'react-redux'
+import { setActiveAdminTab } from '../../../redux';
 import { Link } from "react-router-dom";
 import AdminNews from "./AdminNews/";
 import AdminPublicOffers from "./AdminPublicOffers/";
 import NoMatch from "../../NoMatch/";
 import {addConditionedStyle} from "../../../functions/functions";
-import Context from '../../../context/context';
+
+import s from './ContentControl.module.scss';
 
 const ContentControl = () => {
-    const { activeAdminTab, setActiveAdminTab } = useContext(Context);
+    const dispatch = useDispatch();
+    const { activeAdminTab }  = useSelector(state => state.adminMenu);
+    console.log(activeAdminTab);
+
+
     const { path, url } = useRouteMatch();
 
     const tabsTitles = [
@@ -21,7 +26,7 @@ const ContentControl = () => {
     ;
 
     const tabHandler = (title) => {
-        setActiveAdminTab(title);
+        dispatch(setActiveAdminTab({ title }))
     };
 
     const tabs = tabsTitles.map(({ title, route }) => {
@@ -37,6 +42,7 @@ const ContentControl = () => {
         const { topicId } = useParams();
         const content = topicId === 'news' ? <AdminNews /> :
             topicId === 'snt-offers' ? <AdminPublicOffers /> : null;
+        //добавить условный рендер остальных компонентов (частные объявления, пользователи)
         return (
             <>
                 {content}
@@ -45,8 +51,8 @@ const ContentControl = () => {
     };
 
     useEffect(() => {
-        return () => setActiveAdminTab(null);
-    }, [setActiveAdminTab]);
+        return () => dispatch(setActiveAdminTab(null));
+    }, []);
 
     const content =
         <div className={s.admin__content}>
