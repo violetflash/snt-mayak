@@ -1,11 +1,15 @@
-import React, { useState, useContext } from 'react';
-import s from "./LoginPopup.module.scss";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { openAuthPopup, closeAuthPopup } from '../../../redux';
 import Logo from "../../Logo";
 import Methods from './Methods/'
 import Context from '../../../context/context';
 import { addConditionedStyle } from '../../../functions/functions';
+import s from "./LoginPopup.module.scss";
 
 const LoginPopup = () => {
+    const dispatch = useDispatch();
+    const { authPopupIsOpened } = useSelector(state => state.authPopup);
     const { loginIsOpened, setLoginIsOpened } = useContext(Context);
     const [activeTab, setActiveTab] = useState('login');
 

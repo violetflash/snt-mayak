@@ -6,17 +6,14 @@ import LoginPopup from "./LoginPopup/";
 import s from './Login.module.scss';
 
 const Login = () => {
-
     const { authPopupIsOpened } = useSelector(state => state.authPopup);
-    console.log(authPopupIsOpened);
-
-    const LoginClass = addConditionedStyle(authPopupIsOpened, [s.Login], s.opened)
+    const loginClass = addConditionedStyle(authPopupIsOpened === true, [s.Login], s.opened);
 
     return (
-        <section className={LoginClass.join(' ')}>
+        <section className={loginClass.join(' ')}>
             <LoginPopup />
         </section>
-    )
+    );
 };
 
 export default Login;
