@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from "react-redux";
 
-import Context from '../../context/context';
 import { addConditionedStyle } from '../../functions/functions';
 import LoginPopup from "./LoginPopup/";
 import s from './Login.module.scss';
 
 const Login = () => {
 
-    const { loginIsOpened } = useContext(Context);
+    const { authPopupIsOpened } = useSelector(state => state.authPopup);
+    console.log(authPopupIsOpened);
 
-    const LoginClass = addConditionedStyle(loginIsOpened, [s.Login], s.opened)
+    const LoginClass = addConditionedStyle(authPopupIsOpened, [s.Login], s.opened)
 
     return (
         <section className={LoginClass.join(' ')}>

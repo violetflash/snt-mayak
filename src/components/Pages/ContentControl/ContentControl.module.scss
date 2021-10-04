@@ -2,6 +2,7 @@
 
 .admin {
   padding-bottom: 40px;
+  width: 100%;s
 
   &__title {
     text-align: center;
@@ -23,6 +24,7 @@
 
   &__head {
     padding: 10px 0;
+    width: 100%;
     background-color: $lightGrey;
   }
 

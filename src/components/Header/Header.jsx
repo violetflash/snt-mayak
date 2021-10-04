@@ -1,22 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { openAuthPopup } from "../../redux";
 import Logo from '../Logo/';
-import Context from '../../context/context';
 
 import ThemeSwitcher from "./ThemeSwitcher/";
 import Info from "./Info/";
 
-import User from './User/'
+import User from './User/';
 import { useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
 import s from './Header.module.scss';
 
-
-
 const Header = () => {
+    const dispatch = useDispatch();
     const { user } = useFirebase();
-    const { setLoginIsOpened } = useContext(Context);
 
     const openLogin = () => {
-        setLoginIsOpened(true);
+        dispatch(openAuthPopup({ authPopupIsOpened: true }));
     };
 
 
