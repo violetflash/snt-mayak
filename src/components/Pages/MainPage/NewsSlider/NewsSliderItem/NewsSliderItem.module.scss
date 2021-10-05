@@ -5,10 +5,8 @@
   flex: 1;
   overflow: hidden;
   border-radius: 4px;
-  min-width: 320px;
   border: 1px solid $secondColor;
-  max-width: 300px;
-  height: 300px;
+  min-height: 400px;
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
@@ -53,7 +51,7 @@
   &__dateTime {
     margin-bottom: 0.5rem;
     font-size: 0.7rem;
-    color: #CCC;
+    color: #fff;
   }
 
   &__details {
