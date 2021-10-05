@@ -5,6 +5,9 @@ import 'firebase/auth';
 
 const MAIN_REF = "mayak";
 
+//preparing to switch to rtk
+
+
 //Initialize Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp({

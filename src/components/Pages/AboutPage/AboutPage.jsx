@@ -1,7 +1,7 @@
 import React from 'react';
 
 import s from './AboutPage.module.scss';
-import PageTitle from "../../PageTitle";
+import PageTitle from "../../ui/PageTitle";
 import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
 
 const AboutPage = () => {
