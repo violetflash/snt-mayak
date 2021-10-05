@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Slider from "react-slick";
 import { useSelector, useDispatch } from 'react-redux';
 import { setNews } from '../../../../redux';
 
-import Loader from "../../../Loader";
+import Swiper from 'react-id-swiper';
+
+// Import Swiper styles
+import 'swiper/css/swiper.css';
+
 import NewsSliderItem from "./NewsSliderItem/";
 
 import { getArrayFromDb, sortOptions } from "../../../../functions/functions";
 import { MAIN_REF, useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
 import s from './NewsSlider.module.scss';
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
+
 
 const NewsSlider = () => {
   const dispatch = useDispatch();
