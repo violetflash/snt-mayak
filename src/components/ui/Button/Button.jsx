@@ -1,10 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const ButtonContainer = styled.button`
+  
+`;
+
+
 
 
 export const Button = ({ text, onPush }) => {
   return (
-    <button onClick={onPush}>
+    <ButtonContainer onClick={onPush}>
       {text}
-    </button>
+    </ButtonContainer>
   );
 };

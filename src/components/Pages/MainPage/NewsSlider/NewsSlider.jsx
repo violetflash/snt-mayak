@@ -15,10 +15,9 @@ import "slick-carousel/slick/slick.css";
 const NewsSlider = () => {
   const dispatch = useDispatch();
   const { fdb } = useFirebase();
+
   const { newsList } = useSelector(state => state.news);
-
   console.log(newsList);
-
 
   const defaultSliderOptions = {
     newsToShow: 3,
@@ -63,16 +62,17 @@ const NewsSlider = () => {
     .map((item) => {
       const { id } = item;
       return <NewsSliderItem key={id} {...item}/>;
-    }) : <Loader/>;
+    }) : null;
 
   const settings = {
+    // centerMode: true,
     dots: true,
-    // fade: true,
+    fade: true,
     infinite: infiniteState,
     speed: slideSpeed,
     slidesToShow: 1,
     slidesToScroll: 1,
-    accessibility: true,
+    // accessibility: true,
     autoplay: autoplayState,
     autoplaySpeed: +autoplaySpeedState
   };

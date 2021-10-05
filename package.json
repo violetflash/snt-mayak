@@ -43,6 +43,7 @@
     "firebase-admin": "^9.11.1",
     "node-sass": "^6.0.1",
     "parallax-js": "^3.1.0",
+    "react-image": "^4.0.3",
     "react-router-dom": "^5.3.0",
     "react-slick": "^0.28.1",
     "react-switch": "^6.0.0",
