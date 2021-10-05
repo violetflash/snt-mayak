@@ -67,6 +67,7 @@ const NewsSlider = () => {
 
   const settings = {
     dots: true,
+    // fade: true,
     infinite: infiniteState,
     speed: slideSpeed,
     slidesToShow: 1,
