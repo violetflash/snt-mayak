@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Carousel from 'react-bootstrap/Carousel';
 import { setNews } from '../../../../redux';
-
-import Swiper from 'react-id-swiper';
-
-// Import Swiper styles
-import 'swiper/css/swiper.css';
-
 import NewsSliderItem from "./NewsSliderItem/";
 
 import { getArrayFromDb, sortOptions } from "../../../../functions/functions";
@@ -63,7 +58,11 @@ const NewsSlider = () => {
     .filter((item, index) => index < newsToShow)
     .map((item) => {
       const { id } = item;
-      return <NewsSliderItem key={id} {...item}/>;
+      return (
+        <Carousel.Item>
+          <NewsSliderItem key={id} {...item}/>
+        </Carousel.Item>
+      );
     }) : null;
 
   const settings = {
@@ -80,12 +79,14 @@ const NewsSlider = () => {
   };
 
   return (
-    // <div className={s.Slider}>
-    //     {news}
-    // </div>
-    <Slider {...settings} className={s.NewsSlider}>
-      {news}
-    </Slider>
+    <div className={s.Slider}>
+      <Carousel fade interval={null}>
+        {news}
+      </Carousel>
+    </div>
+    // <Slider {...settings} className={s.NewsSlider}>
+    //   {news}
+    // </Slider>
   );
 
 };

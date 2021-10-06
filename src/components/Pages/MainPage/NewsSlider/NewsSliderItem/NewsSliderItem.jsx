@@ -26,8 +26,8 @@ const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
       <div className={s.card}>
         <DateLabel date={date}/>
         <figure className={s.card__figure}>
-          {/*<Img src={imageUrl} loader={<Loader/>}/>*/}
-          <img src={imageUrl} alt={title} className={s.card__image}/>
+          <Img src={imageUrl} loader={<Loader/>}/>
+          {/*<img src={imageUrl} alt={title} className={s.card__image}/>*/}
         </figure>
         <div className={s.card__textWrapper}>
           <h3 className={s.card__title}>{title}</h3>
