@@ -8,11 +8,14 @@ const NewsSliderParams = () => {
     const { fdb } = useFirebase();
     const [newsParams, setNewsParams] = useState(
         {
-            newsToShow: 1,
-            slideSpeed: 500,
-            autoplayState: false,
-            infiniteState: false,
-            autoplaySpeedState: 3000
+            newsToShow: 3,
+            animationType: "fadeout",
+            animationDuration: 300,
+            disableButtons: false,
+            autoPlay: true,
+            autoPlayInterval: 5000,
+            disableSlideInfo: true,
+            infinite: true,
         }
     );
 
@@ -68,7 +71,7 @@ const NewsSliderParams = () => {
             <span>Скорость прокрутки (сек.)</span>
             <select
                 name="slideSpeed"
-                value={newsParams.slideSpeed}
+                value={newsParams.animationDuration}
                 onChange={sliderParamsHandler}>
                 <option value="500">0.5</option>
                 <option value="1000">1</option>
@@ -86,7 +89,7 @@ const NewsSliderParams = () => {
                 name="autoplayState"
                 type="checkbox"
                 onChange={sliderParamsHandler}
-                checked={newsParams.autoplayState}/>
+                checked={newsParams.autoPlay}/>
         </label>
     ;
 
@@ -95,7 +98,7 @@ const NewsSliderParams = () => {
             <span>Время на слайд (сек.)</span>
             <select
                 name="autoplaySpeedState"
-                value={newsParams.autoplaySpeedState}
+                value={newsParams.autoPlayInterval}
                 onChange={sliderParamsHandler}>
                 <option value="1500">2</option>
                 <option value="3000">3</option>
@@ -115,7 +118,18 @@ const NewsSliderParams = () => {
                 name="infiniteState"
                 type="checkbox"
                 onChange={sliderParamsHandler}
-                checked={newsParams.infiniteState}/>
+                checked={newsParams.infinite}/>
+        </label>
+    ;
+
+    const controlsState =
+        <label className={s.params__label}>
+            <span>Автом. прокрутка</span>
+            <input
+                name="autoplayState"
+                type="checkbox"
+                onChange={sliderParamsHandler}
+                checked={newsParams.autoPlay}/>
         </label>
     ;
 

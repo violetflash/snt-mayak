@@ -10,7 +10,7 @@ import { textCutter } from "../../../../../functions/functions";
 
 import s from './NewsSliderItem.module.scss';
 import Loader from "../../../../Loader";
-import { Badge } from "../../../../ui/Bade/Badge";
+import { Badge } from "../../../../ui/Badge/Badge";
 
 const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
   const dispatch = useDispatch();

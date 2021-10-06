@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import Carousel from 'react-alice-carousel';
 import { setNews } from '../../../../redux';
 import NewsSliderItem from "./NewsSliderItem/";
+import { SliderCarousel } from "../../../ui";
 
 import { getArrayFromDb, sortOptions } from "../../../../functions/functions";
 import { MAIN_REF, useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
-
-import s from './NewsSlider.module.scss';
 
 const SliderContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-
-
+  
   .alice-carousel__prev-btn,
   .alice-carousel__next-btn {
     position: absolute;
@@ -26,7 +23,6 @@ const SliderContainer = styled.div`
     left: -30px;
     transform: translateY(-50%);
     cursor: pointer;
-    
   }
 
   .alice-carousel__next-btn {
@@ -121,14 +117,16 @@ const NewsSlider = () => {
 
   const defaultSliderOptions = {
     newsToShow: 3,
-    slideSpeed: 1500,
-    autoplayState: true,
-    infiniteState: true,
-    autoplaySpeedState: 3000
+    animationType: "fadeout",
+    animationDuration: 300,
+    disableButtons: false,
+    autoPlay: true,
+    autoPlayInterval: 5000,
+    disableSlideInfo: true,
+    infinite: true,
   };
   const [newsSliderParams, setNewsSliderParams] = useState(defaultSliderOptions);
-  const { newsToShow, slideSpeed, autoplayState, infiniteState, autoplaySpeedState } = newsSliderParams;
-
+  const { newsToShow } = newsSliderParams;
 
   useEffect(() => {
     const newsRef = fdb.ref(MAIN_REF + "/news/");
@@ -165,26 +163,23 @@ const NewsSlider = () => {
     }) : null;
 
   const settings = {
-    animationType: "fadeout",
-    animationDuration: 300,
-    disableButtonsControls: false,
-    mouseTracking: false,
-    autoHeight: false,
-    autoWidth: false,
-    autoPlayControls: false,
-    autoPlay: true,
-    autoPlayInterval: 5000,
-    disableSlideInfo: true,
-    infinite: true,
-    // innerWidth: 600
-    touchTracking: true,
+    animationType: newsSliderParams.animationType,
+    animationDuration: newsSliderParams.animationDuration,
+    disableButtonsControls: newsSliderParams.disableButtons,
+    autoPlay: newsSliderParams.autoPlay,
+    autoPlayInterval: newsSliderParams.autoPlayInterval,
+    disableSlideInfo: newsSliderParams.disableSlideInfo,
+    infinite: newsSliderParams.infinite,
   };
 
   return (
     <SliderContainer>
-      <Carousel {...settings} >
+      <SliderCarousel settings={settings}>
         {news}
-      </Carousel>
+      </SliderCarousel>
+      {/*<Carousel {...settings} >*/}
+      {/*  {news}*/}
+      {/*</Carousel>*/}
     </SliderContainer>
   );
 
