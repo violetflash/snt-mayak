@@ -1,150 +1,166 @@
-import React, { useEffect, useState } from 'react';
-import { MAIN_REF, useFirebase } from "../../../../../context/FirebaseProvider/FirebaseProvider";
+import React, {useEffect, useState} from 'react';
+import {MAIN_REF, useFirebase} from "../../../../../context/FirebaseProvider/FirebaseProvider";
 
 import s from "./NewsSliderParams.module.scss";
 
 const NewsSliderParams = () => {
-    const { setNewsSliderParams } = useFirebase();
-    const { fdb } = useFirebase();
-    const [newsParams, setNewsParams] = useState(
-        {
-            newsToShow: 3,
-            animationType: "fadeout",
-            animationDuration: 300,
-            disableButtons: false,
-            autoPlay: true,
-            autoPlayInterval: 5000,
-            disableSlideInfo: true,
-            infinite: true,
+  const {setNewsSliderParams} = useFirebase();
+  const {fdb} = useFirebase();
+  const [newsParams, setNewsParams] = useState(
+    {
+      newsToShow: 3,
+      animationType: "fadeout",
+      animationDuration: 300,
+      disableButtons: false,
+      autoPlay: true,
+      autoPlayInterval: 5000,
+      disableSlideInfo: true,
+      infinite: true,
+    }
+  );
+
+  useEffect(() => {
+    const paramsRef = fdb.ref(MAIN_REF + "/params/newsSlider/");
+    const refs = [paramsRef];
+    paramsRef
+      .on('value', (res) => {
+        if (res.exists()) {
+          setNewsParams(res.val());
+        } else {
+          setNewsParams({});
         }
-    );
+      })
 
-    useEffect(() => {
-        const paramsRef = fdb.ref(MAIN_REF + "/params/newsSlider/");
-        const refs = [paramsRef];
-        paramsRef
-            .on('value', (res) => {
-                if (res.exists()) {
-                    setNewsParams(res.val());
-                } else {
-                    setNewsParams({});
-                }
-            })
-
-        return () => {
-            refs.forEach((ref) => ref.off());
-        }
-    }, [fdb]);
+    return () => {
+      refs.forEach((ref) => ref.off());
+    }
+  }, [fdb]);
 
 
-    const sliderParamsHandler = (e) => {
-        const target = e.target;
+  const sliderParamsHandler = (e) => {
+    const target = e.target;
 
-        if (target.type === "checkbox") {
-            setNewsSliderParams(target.name, target.checked);
-            return;
-        }
+    if (target.type === "checkbox") {
+      setNewsSliderParams(target.name, target.checked);
+      return;
+    }
 
-        setNewsSliderParams(target.name, target.value);
-    };
+    setNewsSliderParams(target.name, target.value);
+  };
 
-    const newsToShow =
-        <label className={s.params__label}>
-            <span>Новостей в слайдере на главной странице:</span>
-            <select
-                name="newsToShow"
-                className={s.params__select}
-                value={newsParams.newsToShow}
-                onChange={sliderParamsHandler}
-            >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </label>
-    ;
+  const newsToShow =
+    <label className={s.params__label}>
+      <span>Новостей в слайдере на главной странице:</span>
+      <select
+        name="newsToShow"
+        className={s.params__select}
+        value={newsParams.newsToShow}
+        onChange={sliderParamsHandler}
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </label>
+  ;
 
-    const slideSpeed =
-        <label className={s.params__label}>
-            <span>Скорость прокрутки (сек.)</span>
-            <select
-                name="slideSpeed"
-                value={newsParams.animationDuration}
-                onChange={sliderParamsHandler}>
-                <option value="500">0.5</option>
-                <option value="1000">1</option>
-                <option value="1500">1.5</option>
-                <option value="2000">2</option>
-                <option value="2500">2.5</option>
-            </select>
-        </label>
-    ;
+  const slideSpeed =
+    <label className={s.params__label}>
+      <span>Скорость прокрутки (сек.)</span>
+      <select
+        name="slideSpeed"
+        value={newsParams.animationDuration}
+        onChange={sliderParamsHandler}>
+        <option value="500">0.5</option>
+        <option value="1000">1</option>
+        <option value="1500">1.5</option>
+        <option value="2000">2</option>
+        <option value="2500">2.5</option>
+      </select>
+    </label>
+  ;
 
-    const autoplayState =
-        <label className={s.params__label}>
-            <span>Автом. прокрутка</span>
-            <input
-                name="autoplayState"
-                type="checkbox"
-                onChange={sliderParamsHandler}
-                checked={newsParams.autoPlay}/>
-        </label>
-    ;
+  const sliderType =
+    <label className={s.params__label}>
+      <span>Тип слайдера:</span>
+      <select
+        name="sliderType"
+        value={newsParams.animationDuration}
+        onChange={sliderParamsHandler}>
+        <option value="500">0.5</option>
+        <option value="1000">1</option>
+        <option value="1500">1.5</option>
+        <option value="2000">2</option>
+        <option value="2500">2.5</option>
+      </select>
+    </label>
+  ;
 
-    const autoplaySpeedState =
-        <label className={s.params__label}>
-            <span>Время на слайд (сек.)</span>
-            <select
-                name="autoplaySpeedState"
-                value={newsParams.autoPlayInterval}
-                onChange={sliderParamsHandler}>
-                <option value="1500">2</option>
-                <option value="3000">3</option>
-                <option value="4000">5</option>
-                <option value="7000">7</option>
-                <option value="10000">10</option>
-                <option value="15000">15</option>
-                <option value="20000">20</option>
-            </select>
-        </label>
-    ;
+  const autoplayState =
+    <label className={s.params__label}>
+      <span>Автом. прокрутка</span>
+      <input
+        name="autoplayState"
+        type="checkbox"
+        onChange={sliderParamsHandler}
+        checked={newsParams.autoPlay}/>
+    </label>
+  ;
 
-    const infiniteState =
-        <label className={s.params__label}>
-            <span>Зациклен?</span>
-            <input
-                name="infiniteState"
-                type="checkbox"
-                onChange={sliderParamsHandler}
-                checked={newsParams.infinite}/>
-        </label>
-    ;
+  const autoplaySpeedState =
+    <label className={s.params__label}>
+      <span>Время на слайд (сек.)</span>
+      <select
+        name="autoplaySpeedState"
+        value={newsParams.autoPlayInterval}
+        onChange={sliderParamsHandler}>
+        <option value="1500">2</option>
+        <option value="3000">3</option>
+        <option value="4000">5</option>
+        <option value="7000">7</option>
+        <option value="10000">10</option>
+        <option value="15000">15</option>
+        <option value="20000">20</option>
+      </select>
+    </label>
+  ;
 
-    const controlsState =
-        <label className={s.params__label}>
-            <span>Автом. прокрутка</span>
-            <input
-                name="autoplayState"
-                type="checkbox"
-                onChange={sliderParamsHandler}
-                checked={newsParams.autoPlay}/>
-        </label>
-    ;
+  const infiniteState =
+    <label className={s.params__label}>
+      <span>Зациклен?</span>
+      <input
+        name="infiniteState"
+        type="checkbox"
+        onChange={sliderParamsHandler}
+        checked={newsParams.infinite}/>
+    </label>
+  ;
 
-    return (
-        <div className={s.params}>
-            <p className={s.params__title}>Параметры слайдера новостей:</p>
-            <ul className={s.params__list}>
-                <li className={s.params__item}>{newsToShow}</li>
-                <li className={s.params__item}>{slideSpeed}</li>
-                <li className={s.params__item}>{autoplayState}</li>
-                <li className={s.params__item}>{autoplaySpeedState}</li>
-                <li className={s.params__item}>{infiniteState}</li>
-            </ul>
-        </div>
-    );
+  const controlsState =
+    <label className={s.params__label}>
+      <span>Автом. прокрутка</span>
+      <input
+        name="autoplayState"
+        type="checkbox"
+        onChange={sliderParamsHandler}
+        checked={newsParams.autoPlay}/>
+    </label>
+  ;
+
+  return (
+    <div className={s.params}>
+      <p className={s.params__title}>Параметры слайдера новостей:</p>
+      <ul className={s.params__list}>
+        <li className={s.params__item}>{newsToShow}</li>
+        <li className={s.params__item}>{slideSpeed}</li>
+        <li className={s.params__item}>{autoplayState}</li>
+        <li className={s.params__item}>{autoplaySpeedState}</li>
+        <li className={s.params__item}>{infiniteState}</li>
+      </ul>
+    </div>
+  );
 
 };
 

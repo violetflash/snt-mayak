@@ -94,7 +94,7 @@
   padding: 25px 14px;
   max-width: 400px;
   width: 100%;
-  background-color: #171d30;
+  background-color: $popupBgColor;
   transform: unset;
   z-index: 15;
   animation: rotate-open 0.35s;
