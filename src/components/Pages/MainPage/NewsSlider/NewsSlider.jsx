@@ -1,13 +1,116 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Carousel from 'react-bootstrap/Carousel';
+import styled from 'styled-components';
+import Carousel from 'react-alice-carousel';
 import { setNews } from '../../../../redux';
 import NewsSliderItem from "./NewsSliderItem/";
 
 import { getArrayFromDb, sortOptions } from "../../../../functions/functions";
 import { MAIN_REF, useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
+
 import s from './NewsSlider.module.scss';
 
+const SliderContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .alice-carousel__prev-btn,
+  .alice-carousel__next-btn {
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    
+  }
+
+  .alice-carousel__next-btn {
+    left: unset;
+    right: -30px;
+  }
+
+  .alice-carousel__prev-btn-wrapper,
+  .alice-carousel__next-btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .alice-carousel__prev-btn-item,
+  .alice-carousel__next-btn-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    height: 100%;
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      //width: 20px;
+      &::before, &::after {
+        position: absolute;
+        content: "";
+        width: 20px;
+        height: 4px;
+        background-color: var(--mainColor);
+      }
+    }
+  }
+
+  .alice-carousel__prev-btn-item {
+    span {
+      &::before {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+
+      &::after {
+        transform: translateY(6px) rotate(45deg);
+      }
+    }
+  }
+
+  .alice-carousel__next-btn-item {
+    span {
+      &::before {
+        transform: translateY(-6px) rotate(45deg);
+      }
+
+      &::after {
+        transform: translateY(6px) rotate(-45deg);
+      }
+    }
+  }
+
+  .alice-carousel__dots {
+    position: absolute;
+    bottom: -20px;
+    margin: 0;
+    right: 0;
+  }
+
+  .alice-carousel__dots-item {
+    border-radius: 2px;
+    width: 20px;
+    height: 6px;
+
+    &.__active {
+      background-color: #ade8bf;
+    }
+
+    &:hover {
+      background-color: #ccc;
+    }
+  }
+`;
 
 const NewsSlider = () => {
   const dispatch = useDispatch();
@@ -58,35 +161,31 @@ const NewsSlider = () => {
     .filter((item, index) => index < newsToShow)
     .map((item) => {
       const { id } = item;
-      return (
-        <Carousel.Item>
-          <NewsSliderItem key={id} {...item}/>
-        </Carousel.Item>
-      );
+      return <NewsSliderItem key={id} {...item}/>;
     }) : null;
 
   const settings = {
-    // centerMode: true,
-    dots: true,
-    fade: true,
-    infinite: infiniteState,
-    speed: slideSpeed,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    // accessibility: true,
-    autoplay: autoplayState,
-    autoplaySpeed: +autoplaySpeedState
+    animationType: "fadeout",
+    animationDuration: 300,
+    disableButtonsControls: false,
+    mouseTracking: false,
+    autoHeight: false,
+    autoWidth: false,
+    autoPlayControls: false,
+    autoPlay: true,
+    autoPlayInterval: 5000,
+    disableSlideInfo: true,
+    infinite: true,
+    // innerWidth: 600
+    touchTracking: true,
   };
 
   return (
-    <div className={s.Slider}>
-      <Carousel fade interval={null}>
+    <SliderContainer>
+      <Carousel {...settings} >
         {news}
       </Carousel>
-    </div>
-    // <Slider {...settings} className={s.NewsSlider}>
-    //   {news}
-    // </Slider>
+    </SliderContainer>
   );
 
 };

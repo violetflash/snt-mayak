@@ -1,15 +1,21 @@
 @import "../../../../variables";
 
-.NewsSlider {
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+//.NewsSlider {
+//  min-height: 400px;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//
+//  button,
+//  ul li button {
+//    &::before {
+//      color: var(--mainColor) !important;
+//    }
+//  }
+//}
 
-  button,
-  ul li button {
-    &::before {
-      color: var(--mainColor) !important;
-    }
+.Slider {
+  .alice-carousel__prev-btn {
+    display: none;
   }
 }

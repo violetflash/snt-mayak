@@ -1,6 +1,8 @@
 import React, { useEffect }  from 'react';
 import {Img} from 'react-image'
 import { useDispatch, useSelector } from 'react-redux';
+
+
 import { setLoaded } from '../../../../../redux';
 
 
@@ -8,7 +10,7 @@ import { textCutter } from "../../../../../functions/functions";
 
 import s from './NewsSliderItem.module.scss';
 import Loader from "../../../../Loader";
-import {DateLabel} from "../../../../ui/DateLabel/DateLabel";
+import { Badge } from "../../../../ui/Bade/Badge";
 
 const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
   return (
     <div className={s.wrapper}>
       <div className={s.card}>
-        <DateLabel date={date}/>
+
         <figure className={s.card__figure}>
           <Img src={imageUrl} loader={<Loader/>}/>
           {/*<img src={imageUrl} alt={title} className={s.card__image}/>*/}
@@ -33,10 +35,11 @@ const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
           <h3 className={s.card__title}>{title}</h3>
           <time className={s.card__dateTime}>{date} - {time}</time>
           <div className={s.card__details}>
-            <p className={s.card__desc}>{textCutter(desc)}</p>
+            <p className={s.card__desc}>{textCutter(desc, 100)}</p>
             <button className={s.card__more} disabled>Перейти к новости</button>
           </div>
         </div>
+        <Badge date={date}/>
       </div>
     </div>
   );

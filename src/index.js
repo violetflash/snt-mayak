@@ -6,7 +6,6 @@ import { store } from './redux';
 import ThemeProvider from "./context/ThemeProvider/";
 import AuthProvider from "./context/FirebaseProvider/";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.scss';
 
 ReactDOM.render(
