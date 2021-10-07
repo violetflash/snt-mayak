@@ -12,7 +12,7 @@ const Text = styled.span`
   margin-right: 10px;
 `;
 
-export const Select = ({ optionsArray, onChange, labelText = null, name = null }) => {
+export const Select = ({ optionsArray, onChange, value, labelText = null, name = null }) => {
 
   const options = optionsArray.map(el => <option key={el.value} value={el.value}>{el.text}</option>);
   const text = labelText ? <Text>{labelText}</Text> : null;
@@ -20,7 +20,7 @@ export const Select = ({ optionsArray, onChange, labelText = null, name = null }
   return (
     <Label>
       {text}
-      <SelectElement name={name} onChange={onChange}>
+      <SelectElement name={name} onChange={onChange} value={value}>
         {options}
       </SelectElement>
     </Label>

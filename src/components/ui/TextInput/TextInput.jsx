@@ -28,14 +28,14 @@ const LabelText = styled.span`
 `;
 
 
-const TextInput = ({ label, onChange, placeholder = null, onBlur= null }) => {
+const TextInput = ({ label, value, onChange, placeholder = null, onBlur= null }) => {
 
   const labelText = label ? <LabelText>{label}</LabelText> : null;
 
   return (
     <Label>
       {labelText}
-      <Input type="text" placeholder={placeholder} onChange={onChange} onBlur={onBlur}/>
+      <Input type="text" placeholder={placeholder} onChange={onChange} value={value} onBlur={onBlur}/>
     </Label>
   )
 };

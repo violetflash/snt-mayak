@@ -103,6 +103,7 @@ const FirebaseProvider = ({children}) => {
       .then((result) => {
         setUser(result.user);
         console.log(result.user);
+        writeUserDataToDB(result.user.uid, result.user.displayName, result.user.email);
       })
       .catch((error) => {
         console.log(error.code);

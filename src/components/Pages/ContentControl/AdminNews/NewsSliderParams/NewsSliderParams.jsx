@@ -1,8 +1,25 @@
 import React, {useEffect, useState} from 'react';
+import styled from 'styled-components';
+
 import {MAIN_REF, useFirebase} from "../../../../../context/FirebaseProvider/FirebaseProvider";
 import { Select } from '../../../../ui';
+import { Checkbox } from '../../../../ui';
 
 import s from "./NewsSliderParams.module.scss";
+
+const List = styled.ul`
+  margin-right: 50px;
+`;
+
+const ListElement = styled.li`
+  display: block;
+  margin-bottom: 5px;
+`;
+
+const ListBox = styled.div`
+  display: flex;
+  
+`;
 
 const NewsSliderParams = () => {
   const {setNewsSliderParams} = useFirebase();
@@ -40,7 +57,7 @@ const NewsSliderParams = () => {
   }, [fdb]);
 
 
-  const sliderParamsHandler = (e) => {
+  const onChangeHandler = (e) => {
     const target = e.target;
 
     if (target.type === "checkbox") {
@@ -51,9 +68,10 @@ const NewsSliderParams = () => {
     setNewsSliderParams(target.name, target.value);
   };
 
-  const sliderParamsData = {
-    newsToShow: {
+  const sliderParamsData = [
+    {
       type: "select",
+      value: newsParams.newsToShow,
       label: "Новостей в слайдере на главной странице:",
       name: 'newsToShow',
       options: [
@@ -65,9 +83,10 @@ const NewsSliderParams = () => {
       ]
     },
 
-    autoPlayInterval: {
+    {
       type: "select",
-      label: "Время на слайд при автоматич. прокрутке",
+      value: newsParams.autoPlayInterval,
+      label: "Время на слайд (сек.)",
       name: 'autoPlayInterval',
       options: [
         { value: 2000, text: 2 },
@@ -80,155 +99,114 @@ const NewsSliderParams = () => {
       ]
     },
 
-  }
+    {
+      type: "select",
+      value: newsParams.animationDuration,
+      label: "Скорость пролистывания слайда (сек.)",
+      name: 'animationDuration',
+      options: [
+        { value: 300, text: 0.3 },
+        { value: 500, text: 0.5 },
+        { value: 1000, text: 1 },
+        { value: 1500, text: 1.5 },
+        { value: 2000, text: 2 },
+        { value: 2500, text: 2.5 },
+      ]
+    },
 
+    {
+      type: "select",
+      value: newsParams.animationType,
+      label: "Тип слайдера",
+      name: 'animationType',
+      options: [
+        { value: "fadeout", text: "Перекрытие" },
+        { value: "slide", text: "Листание" },
+      ]
+    },
 
+    {
+      type: "checkbox",
+      checked: newsParams.infinite,
+      label: "Зациклен ?",
+      name: 'infinite',
+    },
 
-  // const newsToShow =
-  //   <label className={s.params__label}>
-  //     <span>Новостей в слайдере на главной странице:</span>
-  //     <select
-  //       name="newsToShow"
-  //       className={s.params__select}
-  //       value={newsParams.newsToShow}
-  //       onChange={sliderParamsHandler}
-  //     >
-  //       <option value="1">1</option>
-  //       <option value="2">2</option>
-  //       <option value="3">3</option>
-  //       <option value="4">4</option>
-  //       <option value="5">5</option>
-  //     </select>
-  //   </label>
-  // ;
+    {
+      type: "checkbox",
+      checked: newsParams.autoPlay,
+      label: "Автом. прокрутка",
+      name: 'autoPlay',
+    },
 
-  const slideSpeed =
-    <label className={s.params__label}>
-      <span>Скорость прокрутки (сек.)</span>
-      <select
-        name="animationDuration"
-        value={newsParams.animationDuration}
-        onChange={sliderParamsHandler}>
-        <option value="500">0.5</option>
-        <option value="1000">1</option>
-        <option value="1500">1.5</option>
-        <option value="2000">2</option>
-        <option value="2500">2.5</option>
-      </select>
-    </label>
-  ;
+    {
+      type: "checkbox",
+      checked: newsParams.disableButtons,
+      label: "Убрать стрелки слайдера",
+      name: 'disableButtons',
+    },
 
-  const sliderType =
-    <label className={s.params__label}>
-      <span>Тип слайдера:</span>
-      <select
-        name="animationType"
-        value={newsParams.animationType}
-        onChange={sliderParamsHandler}>
-        <option value="fadeout">Перекрытие</option>
-        <option value="slide">Слайдер</option>
-      </select>
-    </label>
-  ;
+    {
+      type: "checkbox",
+      checked: newsParams.disableDotsControls,
+      label: "Убрать точки навигации (снизу)",
+      name: 'disableDotsControls',
+    },
 
-  const autoplayState =
-    <label className={s.params__label}>
-      <span>Автом. прокрутка</span>
-      <input
-        name="autoPlay"
-        type="checkbox"
-        onChange={sliderParamsHandler}
-        checked={newsParams.autoPlay}/>
-    </label>
-  ;
+    {
+      type: "checkbox",
+      checked: newsParams.disableSlideInfo,
+      label: "Убрать счетчик слайдов",
+      name: 'disableSlideInfo',
+    },
+  ];
 
+  const selectParams = sliderParamsData.map(el => {
+    const { type, name, label } = el;
 
+    if (type === 'select') {
+      return (
+        <ListElement key={name}>
+          <Select
+            name={name}
+            labelText={label}
+            optionsArray={el.options}
+            onChange={onChangeHandler}
+            value={el.value}
+          />
+        </ListElement>
+      );
+    }
+  });
 
-  const autoplaySpeedState =
-    <label className={s.params__label}>
-      <span>Время на слайд при автопрокрутке (сек.)</span>
-      <select
-        name="autoPlayInterval"
-        value={newsParams.autoPlayInterval}
-        onChange={sliderParamsHandler}>
-        <option value="2000">2</option>
-        <option value="3000">3</option>
-        <option value="5000">5</option>
-        <option value="7000">7</option>
-        <option value="10000">10</option>
-        <option value="15000">15</option>
-        <option value="20000">20</option>
-      </select>
-    </label>
-  ;
+  const checkboxParams = sliderParamsData.map(el => {
+    const { type, name, label } = el;
 
-  const infiniteState =
-    <label className={s.params__label}>
-      <span>Зациклен?</span>
-      <input
-        name="infinite"
-        type="checkbox"
-        onChange={sliderParamsHandler}
-        checked={newsParams.infinite}/>
-    </label>
-  ;
-
-  const controls =
-    <label className={s.params__label}>
-      <span>Скрыть стрелки прокрутки слайдера ?</span>
-      <input
-        name="disableButtons"
-        type="checkbox"
-        onChange={sliderParamsHandler}
-        checked={newsParams.disableButtons}/>
-    </label>
-  ;
-
-  const dotControls =
-    <label className={s.params__label}>
-      <span>Отключить точки навигации ?</span>
-      <input
-        name="disableDotsControls"
-        type="checkbox"
-        onChange={sliderParamsHandler}
-        checked={newsParams.disableDotsControls}/>
-    </label>
-  ;
-
-  const slidesInfo =
-    <label className={s.params__label}>
-      <span>Отключить отображение счетчика слайдов ?</span>
-      <input
-        name="disableSlideInfo"
-        type="checkbox"
-        onChange={sliderParamsHandler}
-        checked={newsParams.disableSlideInfo}/>
-    </label>
-  ;
-
-  const { newsToShow, autoPlayInterval } = sliderParamsData;
+    if (type === 'checkbox') {
+      return (
+        <ListElement key={name}>
+          <Checkbox
+            name={name}
+            checked={el.checked}
+            onChange={onChangeHandler}
+            labelText={label}
+          />
+        </ListElement>
+      )
+    }
+  })
 
   return (
     <div className={s.params}>
-      <p className={s.params__title}>Параметры слайдера новостей:</p>
-      <ul className={s.params__list}>
-        <li className={s.params__item}></li>
-        <li className={s.params__item}>{sliderType}</li>
-        <li className={s.params__item}>{slideSpeed}</li>
-        <li className={s.params__item}>{autoplayState}</li>
-        <li className={s.params__item}>{autoplaySpeedState}</li>
-        <li className={s.params__item}>{infiniteState}</li>
-        <li className={s.params__item}>{controls}</li>
-        <li className={s.params__item}>{dotControls}</li>
-        <li className={s.params__item}>{slidesInfo}</li>
-      </ul>
-
-      <Select
-        labelText={autoPlayInterval.label}
-        name={autoPlayInterval.name}
-        optionsArray={autoPlayInterval.options}
-        onChange={sliderParamsHandler}
-      />
+      <p className={s.params__title}>Параметры слайдера новостей: (убрать в аккордеон)</p>
+      <ListBox>
+        <List>
+          {selectParams}
+        </List>
+        <List>
+          {checkboxParams}
+        </List>
+      </ListBox>
     </div>
   );
 
