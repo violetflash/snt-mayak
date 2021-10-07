@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 
 import {MAIN_REF, useFirebase} from "../../../../../context/FirebaseProvider/FirebaseProvider";
-import { Select } from '../../../../ui';
+import { Select, Accordion } from '../../../../ui';
 import { Checkbox } from '../../../../ui';
 
 import s from "./NewsSliderParams.module.scss";
@@ -18,7 +18,8 @@ const ListElement = styled.li`
 
 const ListBox = styled.div`
   display: flex;
-  
+  //padding: 10px;
+  transition: all 0.3s ease-in-out;
 `;
 
 const NewsSliderParams = () => {
@@ -198,15 +199,18 @@ const NewsSliderParams = () => {
 
   return (
     <div className={s.params}>
-      <p className={s.params__title}>Параметры слайдера новостей: (убрать в аккордеон)</p>
-      <ListBox>
-        <List>
-          {selectParams}
-        </List>
-        <List>
-          {checkboxParams}
-        </List>
-      </ListBox>
+      {/*<p className={s.params__title}>Параметры слайдера новостей: (убрать в аккордеон)</p>*/}
+
+      <Accordion title="Параметры слайдера новостей">
+        <ListBox>
+          <List>
+            {selectParams}
+          </List>
+          <List>
+            {checkboxParams}
+          </List>
+        </ListBox>
+      </Accordion>
     </div>
   );
 

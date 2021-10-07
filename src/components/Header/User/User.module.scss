@@ -60,22 +60,9 @@
       transform: translate(-2px, 0) rotate(45deg);
     }
 
-    &:after {
+    &::after {
       transform: translate(2px, 0) rotate(-45deg);
     }
-  }
-
-  &__chevron {
-    position: absolute;
-    right: 20px;
-    width: 14px;
-    height: 12px;
-    transition: all 0.2s;
-    transform: translateY(2px) scaleY(1);
-  }
-
-  &__chevronPath {
-    fill: var(--mainColor);
   }
 }
 
