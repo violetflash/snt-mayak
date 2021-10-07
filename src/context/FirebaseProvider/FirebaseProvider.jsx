@@ -79,6 +79,10 @@ const FirebaseProvider = ({children}) => {
       })
   };
 
+  const setNewsSliderStartParams = (params) => {
+    fdb.ref(`${MAIN_REF}/params/newsSlider`).set(params);
+  };
+
   const deleteRefFromDB = (ref) => {
     fdb.ref(`${MAIN_REF}/${ref}`).remove();
   };
@@ -226,7 +230,8 @@ const FirebaseProvider = ({children}) => {
     fdb,
     writeNewsDataToDB,
     deleteRefFromDB,
-    setNewsSliderParams
+    setNewsSliderParams,
+    setNewsSliderStartParams
   }
 
   return (

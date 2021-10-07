@@ -13,6 +13,8 @@ const SliderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 520px;
+  height: 400px;
   
   .alice-carousel__prev-btn,
   .alice-carousel__next-btn {
@@ -110,23 +112,10 @@ const SliderContainer = styled.div`
 
 const NewsSlider = () => {
   const dispatch = useDispatch();
-  const { fdb } = useFirebase();
+  const { fdb, setNewsSliderStartParams } = useFirebase();
 
-  const { newsList } = useSelector(state => state.news);
-  console.log(newsList);
-
-  const defaultSliderOptions = {
-    newsToShow: 3,
-    animationType: "fadeout",
-    animationDuration: 300,
-    disableButtons: false,
-    autoPlay: true,
-    autoPlayInterval: 5000,
-    disableSlideInfo: true,
-    infinite: true,
-  };
-  const [newsSliderParams, setNewsSliderParams] = useState(defaultSliderOptions);
-  const { newsToShow } = newsSliderParams;
+  const { newsList, onEmptyMsg } = useSelector(state => state.news);
+  const [newsSliderParams, setNewsSliderParams] = useState({});
 
   useEffect(() => {
     const newsRef = fdb.ref(MAIN_REF + "/news/");
@@ -145,18 +134,28 @@ const NewsSlider = () => {
         if (res.exists()) {
           setNewsSliderParams(res.val());
         } else {
-          setNewsSliderParams({});
+          setNewsSliderStartParams({
+            newsToShow: 3,
+            animationType: "fadeout",
+            animationDuration: 300,
+            disableButtons: false,
+            disableDotsControls: false,
+            autoPlay: true,
+            autoPlayInterval: 5000,
+            disableSlideInfo: true,
+            infinite: true,
+          });
         }
       });
 
     return () => {
       refs.forEach((ref) => ref.off());
     };
-  }, [fdb, dispatch]);
+  }, [fdb, dispatch, setNewsSliderStartParams]);
 
   const news = newsList.length ? [...newsList]
     .sort(sortOptions)
-    .filter((item, index) => index < newsToShow)
+    .filter((item, index) => index < newsSliderParams.newsToShow)
     .map((item) => {
       const { id } = item;
       return <NewsSliderItem key={id} {...item}/>;
@@ -166,20 +165,28 @@ const NewsSlider = () => {
     animationType: newsSliderParams.animationType,
     animationDuration: newsSliderParams.animationDuration,
     disableButtonsControls: newsSliderParams.disableButtons,
+    disableSlideInfo: newsSliderParams.disableSlideInfo,
+    disableDotsControls: newsSliderParams.disableDotsControls,
     autoPlay: newsSliderParams.autoPlay,
     autoPlayInterval: newsSliderParams.autoPlayInterval,
-    disableSlideInfo: newsSliderParams.disableSlideInfo,
     infinite: newsSliderParams.infinite,
   };
+
+  if (!newsList.length) {
+    return (
+      <SliderContainer>
+        <p>{onEmptyMsg}</p>
+      </SliderContainer>
+    )
+  }
+
+  console.log(settings);
 
   return (
     <SliderContainer>
       <SliderCarousel settings={settings}>
         {news}
       </SliderCarousel>
-      {/*<Carousel {...settings} >*/}
-      {/*  {news}*/}
-      {/*</Carousel>*/}
     </SliderContainer>
   );
 

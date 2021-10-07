@@ -4,13 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 import { setLoaded } from '../../../../../redux';
-
+import styled from 'styled-components';
 
 import { textCutter } from "../../../../../functions/functions";
 
 import s from './NewsSliderItem.module.scss';
 import Loader from "../../../../Loader";
 import { Badge } from "../../../../ui/Badge/Badge";
+
+const BadgeWrapper = styled.div`
+  position: absolute;
+  left: 10px;
+  top: 20px;
+`;
 
 const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
   const dispatch = useDispatch();
@@ -39,7 +45,9 @@ const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
             <button className={s.card__more} disabled>Перейти к новости</button>
           </div>
         </div>
-        <Badge date={date}/>
+        <BadgeWrapper>
+          <Badge date={date}/>
+        </BadgeWrapper>
       </div>
     </div>
   );
