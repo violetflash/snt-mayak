@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setActiveAdminTab } from '../../../redux';
 import { Link } from "react-router-dom";
 import AdminNews from "./AdminNews/";
-import AdminPublicOffers from "./AdminPublicOffers/";
+import { AdminAlerts } from "./AdminAlerts/AdminAlerts";
 import NoMatch from "../../NoMatch/";
 import {addConditionedStyle} from "../../../functions/functions";
 
@@ -38,7 +38,7 @@ const ContentControl = () => {
     const Topic = () => {
         const { topicId } = useParams();
         const content = topicId === 'news' ? <AdminNews /> :
-            topicId === 'snt-offers' ? <AdminPublicOffers /> : null;
+            topicId === 'snt-offers' ? <AdminAlerts /> : null;
         //добавить условный рендер остальных компонентов (частные объявления, пользователи)
         return (
             <>

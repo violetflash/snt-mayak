@@ -14,7 +14,7 @@ const SliderContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 520px;
-  height: 400px;
+  min-height: 400px;
   
   .alice-carousel__prev-btn,
   .alice-carousel__next-btn {
@@ -92,7 +92,7 @@ const SliderContainer = styled.div`
     position: absolute;
     bottom: -20px;
     margin: 0;
-    right: 0;
+    left: 0;
   }
 
   .alice-carousel__dots-item {
@@ -135,15 +135,15 @@ const NewsSlider = () => {
           setNewsSliderParams(res.val());
         } else {
           setNewsSliderStartParams({
-            newsToShow: 3,
+            newsToShow: 1,
             animationType: "fadeout",
             animationDuration: 300,
-            disableButtons: false,
-            disableDotsControls: false,
-            autoPlay: true,
+            disableButtons: true,
+            disableDotsControls: true,
+            autoPlay: false,
             autoPlayInterval: 5000,
             disableSlideInfo: true,
-            infinite: true,
+            infinite: false,
           });
         }
       });
@@ -173,14 +173,8 @@ const NewsSlider = () => {
   };
 
   if (!newsList.length) {
-    return (
-      <SliderContainer>
-        <p>{onEmptyMsg}</p>
-      </SliderContainer>
-    )
+    return null;
   }
-
-  console.log(settings);
 
   return (
     <SliderContainer>

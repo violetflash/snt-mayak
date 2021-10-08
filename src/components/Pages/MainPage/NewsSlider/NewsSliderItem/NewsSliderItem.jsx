@@ -1,16 +1,14 @@
-import React, { useEffect }  from 'react';
+import React from 'react';
 import {Img} from 'react-image'
-import { useDispatch, useSelector } from 'react-redux';
-
-
-import { setLoaded } from '../../../../../redux';
 import styled from 'styled-components';
+// import Skeleton from 'react-loading-skeleton';
 
 import { textCutter } from "../../../../../functions/functions";
+import { Badge } from "../../../../ui/Badge/Badge";
 
 import s from './NewsSliderItem.module.scss';
 import Loader from "../../../../Loader";
-import { Badge } from "../../../../ui/Badge/Badge";
+
 
 const BadgeWrapper = styled.div`
   position: absolute;
@@ -19,16 +17,6 @@ const BadgeWrapper = styled.div`
 `;
 
 const NewsSliderItem = ({ title, desc, date, time, imageUrl }) => {
-  const dispatch = useDispatch();
-  const { loaded } = useSelector(state => state.sliderImageLoaded);
-
-  const loadHandle = () => {
-    dispatch(setLoaded());
-  }
-
-  // <img src={imageUrl} alt={title} className={s.card__image} onLoad={loadHandle}/>;
-  // const loader = loaded ? null : <Loader/> ;
-
   return (
     <div className={s.wrapper}>
       <div className={s.card}>

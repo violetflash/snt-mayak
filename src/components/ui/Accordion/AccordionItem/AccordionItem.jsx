@@ -15,6 +15,8 @@ const AccordionButton = styled.button`
   text-align: left;
   color: #000;
   background-color: #ccc;
+  border-radius: 4px 4px 0 0;
+
   border-bottom: 2px solid #bfaa99;
   transition: all 0.3s ease-in-out;
 
@@ -53,6 +55,7 @@ const AccordionContent = styled.div`
   height: ${props => props.height};
   padding: ${props => props.opened ? "10px" : "0px 10px"};
   transition: all 0.3s;
+  border-radius: 0 0 4px 4px;
   overflow: hidden;
   
   background-color: #eee;
@@ -65,10 +68,13 @@ export const AccordionItem = ({ title, children }) => {
   const toggleAccordion = () => setOpened(() => !opened);
   const contentHeight = opened ? contentRef.current.scrollHeight : 0;
 
+  const titleText = opened ? title + ' -> [ свернуть ]' : title + ' -> [ показать ]';
+
+
   return (
     <AccordionElement>
       <AccordionButton onClick={toggleAccordion}>
-        {title}
+        {titleText}
         <AccordionIcon opened={opened}/>
       </AccordionButton>
       <AccordionContent ref={contentRef} height={contentHeight} opened={opened}>
