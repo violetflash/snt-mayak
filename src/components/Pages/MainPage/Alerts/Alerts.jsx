@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const AlertArticle = styled.article`
+
+`;
+
 const AlertTitle = styled.h3`
   margin-bottom: 20px;
 `;
@@ -34,7 +38,7 @@ const AlertBody = styled.p`
 
 export const Alerts = () => {
   return (
-    <article>
+    <AlertArticle>
       <AlertTitle>
         <HighLighted><span>32.10.2021 в 25:00</span></HighLighted> состоится собрание собственников участков СНТ
       </AlertTitle>
@@ -45,6 +49,6 @@ export const Alerts = () => {
         obcaecati quisquam reprehenderit sint sit! Accusamus atque aut dolore ea porro quod sunt veniam vero.
 
       </AlertBody>
-    </article>
+    </AlertArticle>
   );
 };
