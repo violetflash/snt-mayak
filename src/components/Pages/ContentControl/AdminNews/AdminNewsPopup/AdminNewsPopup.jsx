@@ -1,22 +1,27 @@
 import React, {useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetDataToEdit, closeEditorPopup } from '../../../../../redux';
 
 import {useFirebase} from '../../../../../context/FirebaseProvider/FirebaseProvider';
 import {checkImageExist, addConditionedStyle} from "../../../../../functions/functions";
 
 import s from './AdminNewsPopup.module.scss';
 
-const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate }) => {
+const AdminNewsPopup = () => {
+  const dispatch = useDispatch();
+  const { dataToEdit } = useSelector(state => state.adminEditItem);
+
   const now = new Date();
   const dateNow = now.toLocaleDateString();
   const timeNow = now.toLocaleTimeString().slice(0, 5);
 
   const initialState = dataToUpdate ?
     {
-      title: dataToUpdate.title,
-      desc: dataToUpdate.desc,
-      date: dataToUpdate.date,
-      time: dataToUpdate.time,
-      imageID: dataToUpdate.imageID
+      title: dataToEdit.title,
+      desc: dataToEdit.desc,
+      date: dataToEdit.date,
+      time: dataToEdit.time,
+      imageID: dataToEdit.imageID
     } :
     {
       title: "", desc: "", date: dateNow, time: timeNow, imageID: ""
@@ -44,12 +49,12 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate }) => {
     const refToWrite = dataToUpdate ? dataToUpdate.id : `${Date.now()}`;
     writeNewsDataToDB(refToWrite, title, desc, imageID, imageUrlState, date, time);
 
-    if (dataToUpdate) {
-      setDataToUpdate(null);
+    if (dataToEdit) {
+      dispatch(resetDataToEdit());
     }
 
     resetInputs();
-    setPopupOpened(false);
+    dispatch(closeEditorPopup());
   };
 
   const checkID = async (e) => {
@@ -110,8 +115,8 @@ const AdminNewsPopup = ({ setPopupOpened, dataToUpdate, setDataToUpdate }) => {
   }
 
   const closePopup = () => {
-    setPopupOpened(false);
-    setDataToUpdate(null)
+    dispatch(closeEditorPopup());
+    dispatch(resetDataToEdit());
   };
 
   const idErrorClass = addConditionedStyle(idError, [s.form__notifyError], s.active);

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { openEditorPopup } from "../../../../redux";
 
 import NewsList from "./NewsList/";
 import AdminNewsPopup from "./AdminNewsPopup";
@@ -9,28 +11,18 @@ import NewsSliderParams from "./NewsSliderParams/NewsSliderParams";
 import s from './AdminNews.module.scss';
 
 const AdminNews = () => {
-  const [dataToUpdate, setDataToUpdate] = useState(null);
-  const [activeReference, setActiveReference] = useState(null);
-  const [popupOpened, setPopupOpened] = useState(false);
-  const [confirmDeleteOpened, setConfirmDeleteOpened] = useState(false);
+  const dispatch = useDispatch();
+  const {
+    dataToEdit,
+    activeReference,
+    editorPopupOpened,
+    confirmDeleteOpened
+  } = useSelector(state => state.adminEditItem);
 
-  const popup = popupOpened ?
-    <AdminNewsPopup
-      dataToUpdate={dataToUpdate}
-      setDataToUpdate={setDataToUpdate}
-      activeReference={activeReference}
-      setActiveReference={setActiveReference}
-      setPopupOpened={setPopupOpened}
-    /> : null;
+  const editorPopup = editorPopupOpened ? <AdminNewsPopup/> : null;
+  const confirmDeletePopup = confirmDeleteOpened ? <ConfirmDeletePopup/> : null;
 
-  const confirmDeletePopup = confirmDeleteOpened ?
-    <ConfirmDeletePopup
-      setConfirmDeleteOpened={setConfirmDeleteOpened}
-      activeReference={activeReference}
-      setActiveReference={setActiveReference}
-    /> : null;
-
-  const createNews = () => setPopupOpened(true);
+  const createNews = () => dispatch(openEditorPopup());
 
   return (
     <section className={s.news}>
@@ -38,7 +30,7 @@ const AdminNews = () => {
         <ContentControlRootLink/>
         <button className={s.news__create} onClick={createNews}>Создать новость</button>
       </div>
-      {popup}
+      {editorPopup}
       {confirmDeletePopup}
       <NewsSliderParams/>
       <NewsList

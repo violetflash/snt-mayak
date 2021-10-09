@@ -1,15 +1,18 @@
 import React from 'react';
-
+import { useSelector, useDispatch } from "react-redux";
+import { closeConfirmPopup, clearActiveReference } from "../../../../../redux";
 import { useFirebase } from '../../../../../context/FirebaseProvider/FirebaseProvider';
 
 import s from './ConfirmDeletePopup.module.scss';
 
-const ConfirmDeletePopup = ({ activeReference, setConfirmDeleteOpened, setActiveReference }) => {
+const ConfirmDeletePopup = () => {
+    const dispatch = useDispatch();
+    const { activeReference } = useSelector(state => state.adminEditItem)
     const { deleteRefFromDB } = useFirebase();
 
     const closeAndResetDeletionState = () => {
-        setActiveReference(null);
-        setConfirmDeleteOpened(false);
+        dispatch(closeConfirmPopup());
+        dispatch(clearActiveReference());
     }
 
     const deleteHandler = () => {

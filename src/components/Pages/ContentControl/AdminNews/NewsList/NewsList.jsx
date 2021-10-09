@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDataToEdit, setActiveReference, openEditorPopup, closeEditorPopup, openConfirmPopup } from "../../../../../redux";
 
 import {useFirebase, MAIN_REF} from "../../../../../context/FirebaseProvider/FirebaseProvider";
 import {getArrayFromDb, sortOptions} from "../../../../../functions/functions";
@@ -13,6 +15,7 @@ const NewsList = (
   {
     confirmDeleteOpened, setConfirmDeleteOpened, setActiveReference, setPopupOpened, setDataToUpdate
   }) => {
+  const dispatch = useDispatch();
   const [newsList, setNewsList] = useState([]);
   const {fdb} = useFirebase();
 
