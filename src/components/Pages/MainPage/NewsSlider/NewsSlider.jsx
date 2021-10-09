@@ -114,7 +114,7 @@ const NewsSlider = () => {
   const dispatch = useDispatch();
   const { fdb, setNewsSliderStartParams } = useFirebase();
 
-  const { newsList, onEmptyMsg } = useSelector(state => state.news);
+  const { newsList } = useSelector(state => state.news);
   const [newsSliderParams, setNewsSliderParams] = useState({});
 
   useEffect(() => {

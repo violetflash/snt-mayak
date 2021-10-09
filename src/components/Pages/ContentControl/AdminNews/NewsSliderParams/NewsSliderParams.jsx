@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 
 import {MAIN_REF, useFirebase} from "../../../../../context/FirebaseProvider/FirebaseProvider";
-import { Select, Accordion } from '../../../../ui';
-import { Checkbox } from '../../../../ui';
+import {Select, Accordion} from '../../../../ui';
+import {Checkbox} from '../../../../ui';
 
 import s from "./NewsSliderParams.module.scss";
 
@@ -76,11 +76,11 @@ const NewsSliderParams = () => {
       label: "Новостей в слайдере на главной странице:",
       name: 'newsToShow',
       options: [
-        { value: 1, text: 1 },
-        { value: 2, text: 2 },
-        { value: 3, text: 3 },
-        { value: 4, text: 4 },
-        { value: 5, text: 5 },
+        {value: 1, text: 1},
+        {value: 2, text: 2},
+        {value: 3, text: 3},
+        {value: 4, text: 4},
+        {value: 5, text: 5},
       ]
     },
 
@@ -90,13 +90,13 @@ const NewsSliderParams = () => {
       label: "Время на слайд (сек.)",
       name: 'autoPlayInterval',
       options: [
-        { value: 2000, text: 2 },
-        { value: 3000, text: 3 },
-        { value: 5000, text: 5 },
-        { value: 7000, text: 7 },
-        { value: 10000, text: 10 },
-        { value: 15000, text: 15 },
-        { value: 20000, text: 20 },
+        {value: 2000, text: 2},
+        {value: 3000, text: 3},
+        {value: 5000, text: 5},
+        {value: 7000, text: 7},
+        {value: 10000, text: 10},
+        {value: 15000, text: 15},
+        {value: 20000, text: 20},
       ]
     },
 
@@ -106,12 +106,12 @@ const NewsSliderParams = () => {
       label: "Скорость пролистывания слайда (сек.)",
       name: 'animationDuration',
       options: [
-        { value: 300, text: 0.3 },
-        { value: 500, text: 0.5 },
-        { value: 1000, text: 1 },
-        { value: 1500, text: 1.5 },
-        { value: 2000, text: 2 },
-        { value: 2500, text: 2.5 },
+        {value: 300, text: 0.3},
+        {value: 500, text: 0.5},
+        {value: 1000, text: 1},
+        {value: 1500, text: 1.5},
+        {value: 2000, text: 2},
+        {value: 2500, text: 2.5},
       ]
     },
 
@@ -121,8 +121,8 @@ const NewsSliderParams = () => {
       label: "Тип слайдера",
       name: 'animationType',
       options: [
-        { value: "fadeout", text: "Перекрытие" },
-        { value: "slide", text: "Листание" },
+        {value: "fadeout", text: "Перекрытие"},
+        {value: "slide", text: "Листание"},
       ]
     },
 
@@ -162,10 +162,11 @@ const NewsSliderParams = () => {
     },
   ];
 
-  const selectParams = sliderParamsData.map(el => {
-    const { type, name, label } = el;
+  const selectParams = sliderParamsData
+    .filter(el => el.type === "select")
+    .map(el => {
+      const {name, label} = el;
 
-    if (type === 'select') {
       return (
         <ListElement key={name}>
           <Select
@@ -177,13 +178,12 @@ const NewsSliderParams = () => {
           />
         </ListElement>
       );
-    }
-  });
+    });
 
-  const checkboxParams = sliderParamsData.map(el => {
-    const { type, name, label } = el;
-
-    if (type === 'checkbox') {
+  const checkboxParams = sliderParamsData
+    .filter(el => el.type === "checkbox")
+    .map(el => {
+      const {name, label} = el;
       return (
         <ListElement key={name}>
           <Checkbox
@@ -193,14 +193,12 @@ const NewsSliderParams = () => {
             labelText={label}
           />
         </ListElement>
-      )
+      );
     }
-  })
+  );
 
   return (
     <div className={s.params}>
-      {/*<p className={s.params__title}>Параметры слайдера новостей: (убрать в аккордеон)</p>*/}
-
       <Accordion title="Параметры слайдера новостей">
         <ListBox>
           <List>

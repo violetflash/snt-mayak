@@ -7,6 +7,7 @@ import { authPopupSlice } from "../slices/authPopupSlice";
 import { navLinkSlice } from "../slices/navLinkSlice";
 import { newsSlice } from "../slices/newsSlice";
 import { sliderImageLoadedSlice } from "../slices/sliderImageLoadedSlice";
+import { adminEditItemSlice } from "../slices/adminEditItemSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     authPopup: authPopupSlice.reducer,
     navLinks: navLinkSlice.reducer,
     news: newsSlice.reducer,
-    sliderImageLoaded: sliderImageLoadedSlice.reducer
+    sliderImageLoaded: sliderImageLoadedSlice.reducer,
+    adminEditItem: adminEditItemSlice.reducer
   }
 });

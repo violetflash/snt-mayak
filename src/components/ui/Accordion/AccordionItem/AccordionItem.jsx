@@ -68,7 +68,7 @@ export const AccordionItem = ({ title, children }) => {
   const toggleAccordion = () => setOpened(() => !opened);
   const contentHeight = opened ? contentRef.current.scrollHeight : 0;
 
-  const titleText = opened ? title + ' -> [ свернуть ]' : title + ' -> [ показать ]';
+  const titleText = opened ? title + ' -> [ свернуть ]' : title + ' -> [ открыть ]';
 
 
   return (
