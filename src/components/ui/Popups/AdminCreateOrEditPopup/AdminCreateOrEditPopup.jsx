@@ -18,6 +18,7 @@ import {
   FlexContainer
 } from "../styles";
 import { TextInput, TextArea, Button } from "../../../ui";
+import {LabelText} from "../../sharedStyles";
 
 
 const AdminCreateOrEditPopup = ({ type }) => {
@@ -152,8 +153,8 @@ const AdminCreateOrEditPopup = ({ type }) => {
 
   const imageAdding = type === 'news' ?
     <PureLabel>
-      <span>ID изображения:</span>
-      <FlexContainer margin="0 0 20px 0">
+      <LabelText popup>ID изображения:</LabelText>
+      <FlexContainer margin="5px 0 20px 0">
         <TextInput
           name="imageID"
           value={imageID}
@@ -188,6 +189,8 @@ const AdminCreateOrEditPopup = ({ type }) => {
                 value={desc}
                 onChange={inputHandler}
                 onBlur={onBlurHandler}
+                margin="5px 0 0"
+                popup
               />
               {unsplashLink}
               {imageAdding}

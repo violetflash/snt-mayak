@@ -6,12 +6,13 @@ const Label = styled.label`
   display: block;
   flex-basis: ${props => props.basis ? props.basis : 'auto'};
   width: 100%;
-  margin: ${props => props.margin ? props.margin + 'px' : 0};
+  color: var(--accentColor);
+  font-size: 14px;
 `;
 
 const Input = styled.input`
   ${inputSharedStyles};
-  margin: ${props => props.margin ? props.margin + 'px' : '5px 0 20px'};
+  margin: ${props => props.margin ? props.margin : '5px 0 20px'};
   padding: 0 15px;
   height: 40px;
 `;

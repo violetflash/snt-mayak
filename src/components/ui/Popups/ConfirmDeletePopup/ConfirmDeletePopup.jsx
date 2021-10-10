@@ -33,14 +33,10 @@ export const ConfirmDeletePopup = () => {
       <AdminPopup margin="100px auto 0" padding="65px 20px 30px">
         <ClosePopup onClick={closeHandler}/>
         <H2Title margin="0 0 20px" tt="uppercase">Удалить эту запись?</H2Title>
-        <ParagraphText ta="center">{title}</ParagraphText>
-        <FlexContainer align="center" justify="space-around">
-          <Button delete aria="удалить" onClick={deleteHandler} padding="10px 15px">
-            Удалить
-          </Button>
-          <Button aria="отмена"  onClick={closeHandler} padding="10px 15px">
-            Отмена
-          </Button>
+        <ParagraphText ta="center" margin="0 0 40px">{title}</ParagraphText>
+        <FlexContainer align="center" justify="space-around" >
+          <Button text="Удалить" deleteBtn aria="удалить" onClick={deleteHandler} padding="10px 15px"/>
+          <Button text="Отмена" green aria="отмена"  onClick={closeHandler} padding="10px 15px"/>
         </FlexContainer>
       </AdminPopup>
     </PopupWrapper>

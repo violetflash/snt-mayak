@@ -2,27 +2,30 @@ import styled from 'styled-components';
 import { inputSharedStyles, LabelText } from "../sharedStyles";
 import React from "react";
 
+const Label = styled.label`
+  width: 100%;
+  color: var(--accentColor);
+`;
+
 const TextAreaContainer = styled.textarea`
+  display: block;
   ${inputSharedStyles};
+  margin: ${props => props.margin ? props.margin : 0};
   padding: 5px 15px;
   max-height: 100px;
   min-height: 80px;
   resize: vertical;
 `;
 
-const Label = styled.label`
-  width: 100%;
-`;
-
 export const TextArea = (
   {value, onChange,
-    onBlur = null, name = null, label = null }) => {
+    onBlur = null, name = null, label = null , margin = null}) => {
   const labelText = label ? <LabelText>{label}:</LabelText> : null;
 
   return (
     <Label>
       {labelText}
-      <TextAreaContainer name={name} value={value} onChange={onChange} onBlur={onBlur}/>
+      <TextAreaContainer name={name} value={value} onChange={onChange} onBlur={onBlur} margin={margin}/>
     </Label>
   )
 };

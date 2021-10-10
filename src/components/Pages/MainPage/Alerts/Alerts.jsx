@@ -1,13 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Button} from "../../../ui";
+import {H3Title} from "../../../ui/sharedStyles";
 
 const AlertArticle = styled.article`
 
-`;
-
-const AlertTitle = styled.h3`
-  margin-bottom: 20px;
 `;
 
 const HighLighted = styled.span`
@@ -15,6 +12,7 @@ const HighLighted = styled.span`
   background-color: #f6c971;
   color: #000;
   border-radius: 4px;
+  //border: 2px solid #414141;
 
   span {
     position: relative;
@@ -25,7 +23,8 @@ const HighLighted = styled.span`
       bottom: -1px;
       width: 100%;
       height: 2px;
-      background-color: #414141;
+      //background-color: #414141;
+      border-bottom: 2px dotted #414141;
     }
   }
 `;
@@ -40,9 +39,10 @@ const AlertBody = styled.p`
 export const Alerts = () => {
   return (
     <AlertArticle>
-      <AlertTitle>
-        <HighLighted><span>32.10.2021 в 25:00</span></HighLighted> состоится собрание собственников участков СНТ
-      </AlertTitle>
+      <HighLighted><span>32.10.2021 в 25:00</span></HighLighted>
+      <H3Title margin="20px 0" >
+        Cобрание собственников участков СНТ
+      </H3Title>
       <AlertBody>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad consectetur dolorum eaque enim iusto nam obcaecati
         quisquam reprehenderit sint sit! Accusamus atque aut dolore ea porro quod sunt veniam vero.

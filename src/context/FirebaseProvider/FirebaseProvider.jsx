@@ -72,6 +72,16 @@ const FirebaseProvider = ({children}) => {
       });
   };
 
+  const writeAlertsDataToDB = (id, title, desc, date, time) => {
+    fdb.ref(`${MAIN_REF}/alerts/` + id)
+      .set({title, desc, date, time, id,
+        author: {name: auth.currentUser.displayName, email: auth.currentUser.email}
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const setNewsSliderParams = (name, value) => {
     fdb.ref(`${MAIN_REF}/params/newsSlider`)
       .update({
@@ -232,7 +242,8 @@ const FirebaseProvider = ({children}) => {
     writeNewsDataToDB,
     deleteRefFromDB,
     setNewsSliderParams,
-    setNewsSliderStartParams
+    setNewsSliderStartParams,
+    writeAlertsDataToDB
   }
 
   return (

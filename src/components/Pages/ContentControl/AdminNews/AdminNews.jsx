@@ -6,11 +6,12 @@ import NewsList from "./NewsList/";
 // import AdminNewsPopup from "./AdminNewsPopup";
 import ContentControlRootLink from "../ContentControlRootLink";
 // import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import { ConfirmDeletePopup } from '../../../ui';
+import {Button, ConfirmDeletePopup} from '../../../ui';
 import NewsSliderParams from "./NewsSliderParams/NewsSliderParams";
 
-import s from './AdminNews.module.scss';
 import AdminCreateOrEditPopup from "../../../ui/Popups/AdminCreateOrEditPopup/AdminCreateOrEditPopup";
+import {FlexContainer} from "../../../ui/Popups/styles";
+import {Section} from "../../../ui/sharedStyles";
 
 const AdminNews = () => {
   const dispatch = useDispatch();
@@ -19,15 +20,15 @@ const AdminNews = () => {
   //Вынесено сюда только с целью проброса параметра кол-ва новостей в слайдере в компонент NewsList
   const [newsParams, setNewsParams] = useState(
     {
-      newsToShow: 3,
-      animationType: "fadeout",
-      animationDuration: 300,
-      disableButtons: false,
-      disableDotsControls: false,
-      autoPlay: true,
-      autoPlayInterval: 5000,
-      disableSlideInfo: true,
-      infinite: true,
+      // newsToShow: 3,
+      // animationType: "fadeout",
+      // animationDuration: 300,
+      // disableButtons: false,
+      // disableDotsControls: false,
+      // autoPlay: true,
+      // autoPlayInterval: 5000,
+      // disableSlideInfo: true,
+      // infinite: true,
     }
   );
 
@@ -40,16 +41,16 @@ const AdminNews = () => {
   const { newsToShow } = newsParams;
 
   return (
-    <section className={s.news}>
-      <div className={s.news__controls}>
+    <Section>
+      <FlexContainer align="center" justify="space-evenly" margin="0 0 15px">
         <ContentControlRootLink/>
-        <button className={s.news__create} onClick={createNews}>Создать новость</button>
-      </div>
+        <Button text="Создать новость" padding="10px" onClick={createNews}/>
+      </FlexContainer>
       {editorPopup}
       {confirmDeletePopup}
       <NewsSliderParams newsParams={newsParams} setNewsParams={setNewsParams}/>
       <NewsList newsToShow={newsToShow}/>
-    </section>
+    </Section>
   );
 
 };

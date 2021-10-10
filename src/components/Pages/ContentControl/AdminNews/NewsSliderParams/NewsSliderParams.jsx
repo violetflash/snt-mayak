@@ -151,6 +151,8 @@ const NewsSliderParams = ({ newsParams, setNewsParams }) => {
     },
   ];
 
+  // const disabledAutoplayInterval =
+
   const selectParams = sliderParamsData
     .filter(el => el.type === "select")
     .map(el => {

@@ -5,6 +5,7 @@ const initialSettings = {
   animationType: "fadeout",
   animationDuration: 400,
   disableButtonsControls: false,
+  disableDotsControls: false,
   autoPlay: true,
   autoPlayInterval: 5000,
   disableSlideInfo: true,
