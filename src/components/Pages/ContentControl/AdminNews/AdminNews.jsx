@@ -5,7 +5,8 @@ import { openEditorPopup } from "../../../../redux";
 import NewsList from "./NewsList/";
 // import AdminNewsPopup from "./AdminNewsPopup";
 import ContentControlRootLink from "../ContentControlRootLink";
-import ConfirmDeletePopup from "./ConfirmDeletePopup";
+// import ConfirmDeletePopup from "./ConfirmDeletePopup";
+import { ConfirmDeletePopup } from '../../../ui';
 import NewsSliderParams from "./NewsSliderParams/NewsSliderParams";
 
 import s from './AdminNews.module.scss';

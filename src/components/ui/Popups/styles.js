@@ -19,10 +19,10 @@ export const AdminPopup = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: 60px auto 0;
+  margin: ${props => props.margin ? props.margin : '60px auto 0'};
   border-radius: 4px;
   z-index: 15;
-  padding: 45px 20px;
+  padding: ${props => props.padding ? props.padding : '45px 20px'};
   width: 100%;
   max-width: 360px;
   color: #fff;
@@ -113,5 +113,3 @@ export const FlexContainer = styled.div`
   justify-content: ${props => props.justify ? props.justify : 'auto'};
   margin: ${props => props.margin ? props.margin + 'px' : 0};
 `;
-
-

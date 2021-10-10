@@ -14,6 +14,7 @@ const List = styled.ul`
 const ListElement = styled.li`
   display: block;
   margin-bottom: 5px;
+  color: #000000;
 `;
 
 const ListBox = styled.div`

@@ -12,21 +12,29 @@ const ButtonContainer = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: var(--accentColor);
+    background-color: ${props => {
+     return props.delete ? 'var(--popupErrorMsgColor)' : 
+             props.green ? 'var(--popupValidBgColor)' : 'var(--accentColor)'
+    }}
   }
   
   &:disabled {
-    
     &:hover {
       background-color: var(--disabledButtonBg);
     }
   }
 `;
 
-
-
-
-export const Button = ({ text, onClick, width = null, disabled = null, margin = null, color = null, padding = null }) => {
+export const Button = (
+  { text,
+    onClick,
+    width = null,
+    disabled = null,
+    margin = null,
+    color = null,
+    padding = null,
+    aria = null
+  }) => {
   return (
     <ButtonContainer
       onClick={onClick}
@@ -34,7 +42,9 @@ export const Button = ({ text, onClick, width = null, disabled = null, margin = 
       padding={padding}
       margin={margin}
       disabled={disabled}
-      width={width}>
+      width={width}
+      aria-label={aria}
+    >
       {text}
     </ButtonContainer>
   );
