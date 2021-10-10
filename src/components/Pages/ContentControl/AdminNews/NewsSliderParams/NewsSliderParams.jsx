@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import {MAIN_REF, useFirebase} from "../../../../../context/FirebaseProvider/FirebaseProvider";
@@ -22,23 +22,11 @@ const ListBox = styled.div`
   transition: all 0.3s ease-in-out;
 `;
 
-const NewsSliderParams = () => {
+const NewsSliderParams = ({ newsParams, setNewsParams }) => {
   const {setNewsSliderParams} = useFirebase();
   const {fdb} = useFirebase();
 
-  const [newsParams, setNewsParams] = useState(
-    {
-      newsToShow: 3,
-      animationType: "fadeout",
-      animationDuration: 300,
-      disableButtons: false,
-      disableDotsControls: false,
-      autoPlay: true,
-      autoPlayInterval: 5000,
-      disableSlideInfo: true,
-      infinite: true,
-    }
-  );
+
 
   useEffect(() => {
     const paramsRef = fdb.ref(MAIN_REF + "/params/newsSlider/");
@@ -55,7 +43,7 @@ const NewsSliderParams = () => {
     return () => {
       refs.forEach((ref) => ref.off());
     }
-  }, [fdb]);
+  }, [fdb, setNewsParams]);
 
 
   const onChangeHandler = (e) => {

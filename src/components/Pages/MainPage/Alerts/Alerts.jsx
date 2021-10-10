@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Button} from "../../../ui";
 
 const AlertArticle = styled.article`
 
@@ -47,8 +48,8 @@ export const Alerts = () => {
         quisquam reprehenderit sint sit! Accusamus atque aut dolore ea porro quod sunt veniam vero.
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad consectetur dolorum eaque enim iusto nam
         obcaecati quisquam reprehenderit sint sit! Accusamus atque aut dolore ea porro quod sunt veniam vero.
-
       </AlertBody>
+      <Button onClick={null} text="Чисто для теста" margin="0 0 0 15px" color="#000"/>
     </AlertArticle>
   );
 };

@@ -4,3 +4,6 @@ export * from './PageTitle/PageTitle';
 export * from './Select/Select';
 export * from './Checkbox/Checkbox';
 export * from './Accordion/Accordion';
+export * from './AdminEditableListItem/AdminEditableListItem';
+export * from './TextArea/TextArea';
+export * from './TextInput/TextInput';

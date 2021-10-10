@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {useState} from "react";
 
 const initialState = {
   dataToEdit: null,
@@ -13,10 +12,10 @@ export const adminEditItemSlice = createSlice({
   initialState,
   reducers: {
     resetDataToEdit(state) {
-      state.dataToUpdate = null;
+      state.dataToEdit = null;
     },
     setDataToEdit(state, action) {
-      state.dataToUpdate = action.payload.dataToUpdate;
+      state.dataToEdit = action.payload;
     },
     openEditorPopup(state) {
       state.editorPopupOpened = true;
@@ -34,7 +33,7 @@ export const adminEditItemSlice = createSlice({
       state.activeReference = null;
     },
     setActiveReference(state, action) {
-      state.activeReference = action.payload.activeReference;
+      state.activeReference = action.payload;
     }
   }
 });

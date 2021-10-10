@@ -1,23 +1,29 @@
-import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setDataToEdit, setActiveReference, openEditorPopup, closeEditorPopup, openConfirmPopup } from "../../../../../redux";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
-import {useFirebase, MAIN_REF} from "../../../../../context/FirebaseProvider/FirebaseProvider";
-import {getArrayFromDb, sortOptions} from "../../../../../functions/functions";
-import NewsItem from "./NewsItem/";
+
+import { useFirebase, MAIN_REF } from "../../../../../context/FirebaseProvider/FirebaseProvider";
+import { getArrayFromDb, sortOptions } from "../../../../../functions/functions";
+// import NewsItem from "./NewsItem/";
 import Loader from "../../../../Loader";
+import { AdminEditableListItem } from "../../../../ui/";
 
+const List = styled.ul`
+  
+  li {
+    margin-bottom: 15px;
+  }
+`;
 
-import s from './NewsList.module.scss';
+const Title = styled.h3`
+  text-align:center;
+`;
 
+const NewsList = ({ newsToShow }) => {
 
-const NewsList = (
-  {
-    confirmDeleteOpened, setConfirmDeleteOpened, setActiveReference, setPopupOpened, setDataToUpdate
-  }) => {
-  const dispatch = useDispatch();
   const [newsList, setNewsList] = useState([]);
   const {fdb} = useFirebase();
+
 
   useEffect(() => {
     const newsRef = fdb.ref(MAIN_REF + "/news/");
@@ -37,34 +43,27 @@ const NewsList = (
   }, [fdb]);
 
 
+
   const data = newsList.length ? newsList
     .sort(sortOptions)
     .map((item, index) => {
       const {id} = item;
       return (
-        <li className={s.newsList__li} key={id}>
-          <NewsItem
-            {...item}
-            index={index + 1}
-            confirmDeleteOpened={confirmDeleteOpened}
-            setConfirmDeleteOpened={setConfirmDeleteOpened}
-            setActiveReference={setActiveReference}
-            setPopupOpened={setPopupOpened}
-            setDataToUpdate={setDataToUpdate}
-          />
-        </li>
+        <AdminEditableListItem key={id} {...item} index={index + 1}/>
+        // <li className={s.newsList__li} key={id}>
+        //   <NewsItem{...item} index={index + 1}/>
+        // </li>
       );
     }) : <Loader/>
   ;
 
   return (
     <>
-      <p>Список всех новостей (первые 3 на главной):</p>
-      <ul className={s.newsList}>
+      <Title>Список всех новостей (на главной: {newsToShow})</Title>
+      <List>
         {data}
-      </ul>
+      </List>
     </>
-
   )
 
 };

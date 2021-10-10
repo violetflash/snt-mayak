@@ -15,7 +15,7 @@ const AdminNewsPopup = () => {
   const dateNow = now.toLocaleDateString();
   const timeNow = now.toLocaleTimeString().slice(0, 5);
 
-  const initialState = dataToUpdate ?
+  const initialState = dataToEdit ?
     {
       title: dataToEdit.title,
       desc: dataToEdit.desc,
@@ -32,8 +32,8 @@ const AdminNewsPopup = () => {
   const [idChecked, setIdChecked] = useState(false);
   const [imageUrlState, setImageUrlState] = useState(null);
   const {writeNewsDataToDB} = useFirebase();
-  const submitText = dataToUpdate ? 'Сохранить' : 'Создать';
-  const titleText = dataToUpdate ? 'Редактировать' : 'Создать';
+  const submitText = dataToEdit ? 'Сохранить' : 'Создать';
+  const titleText = dataToEdit ? 'Редактировать' : 'Создать';
 
   const {title, desc, date, time, imageID} = inputsData;
 
@@ -46,7 +46,7 @@ const AdminNewsPopup = () => {
   const saveData = async (e) => {
     e.preventDefault();
 
-    const refToWrite = dataToUpdate ? dataToUpdate.id : `${Date.now()}`;
+    const refToWrite = dataToEdit ? dataToEdit.id : `${Date.now()}`;
     writeNewsDataToDB(refToWrite, title, desc, imageID, imageUrlState, date, time);
 
     if (dataToEdit) {

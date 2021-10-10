@@ -4,7 +4,7 @@ $secondColor: #bfaa99;
 $secondColor-light: rgba($secondColor, 0.7);
 $navTextColor: #111;
 $navBgColor: paleturquoise;
-$navAccentColor: #7dEEa1;
+$navAccentColor: #7deea1;
 $popupBgColor: #171d30;
 $popupInputBgColor: #0d1221;
 $popupInputError: tomato;
@@ -30,8 +30,17 @@ $error: rgba(#f00, 0.8);
 $valid: rgba(green, 0.8);
 
 :root {
+  --mainColor: #000;
   --logoColor: #92ccce;
   --secondColor: #bfaa99;
+  --secondColorLight: #bfaa99b3;
+  --inputFocusColor: #98c3e8;
+  --popupBgColor: #171d30;
+  --popupInputError: #832415;
+  --buttonBgColor: #92ccce;
+  --disabledButtonBg: #808285;
+  --accentColor: #7deea1;
+  --fontFamily: "Roboto", sans-serif;
 }
 
 // <Шрифт по умолчанию>========================
