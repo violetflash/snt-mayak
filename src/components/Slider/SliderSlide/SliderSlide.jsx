@@ -23,7 +23,7 @@ const AlertArticle = styled.article`
 
 const HighLighted = styled.span`
   display: block;
-  padding: 5px 10px;
+  padding: 10px 10px;
   background-color: #f6c971;
   color: #000;
   font-size: 14px;
@@ -48,11 +48,50 @@ const HighLighted = styled.span`
   //}
 `;
 
-const AlertBody = styled.p`
+const AlertBody = styled.div`
+  padding: 0 40px;
+  
+`;
+
+const AlertDesc = styled.p`
   text-indent: 40px;
   line-height: 1.6;
   text-align: justify;
 `;
+
+const AddProposalButton = styled.button`
+  display: inline-block;
+  position: relative;
+  margin: 20px 0 0;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: all 0.3s;
+  
+  &:hover {
+    background-color: var(--alertsButtonOnHoverColor);
+  }
+  
+  &::before {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    //background-color: #000;
+    background-image: url('../../../assets/icons/plus.svg');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 20px;
+  }
+`;
+
+const ProposalForm = styled.div`
+  text-align: right;
+`;
+
+
 
 export const SliderSlide = ({ type, title, desc, date, time, imageUrl }) => {
   const newsSlide = type === 'news' ?
@@ -81,13 +120,22 @@ export const SliderSlide = ({ type, title, desc, date, time, imageUrl }) => {
   const alertsSlide = type === 'alerts' ?
     <AlertArticle>
       <HighLighted><span>{date} в {time}</span></HighLighted>
-      <H3Title margin="20px 0" >
-        {title}
-      </H3Title>
       <AlertBody>
-        {desc}
+        <H3Title margin="20px 0" >
+          {title}
+        </H3Title>
+        <AlertDesc>
+          {desc}
+        </AlertDesc>
+        <ProposalForm>
+          <AddProposalButton>
+            Внести своё предложение для обсуждения
+          </AddProposalButton>
+        </ProposalForm>
+
+
       </AlertBody>
-      <Button onClick={null} text="Чисто для теста" margin="0 0 0 15px" color="#000"/>
+
     </AlertArticle> : null
   ;
 

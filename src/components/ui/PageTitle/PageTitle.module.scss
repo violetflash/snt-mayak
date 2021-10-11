@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 50px 0 30px;
+  margin: 0 0 30px;
 
   &__title {
     position: relative;
@@ -13,7 +13,9 @@
     justify-content: center;
     margin: 0 auto;
     padding: 15px;
-    font-family: $fontFamily2;
+    color: #4e4e4f;
+    font-family: var(--fontFamily3);
+    text-transform: uppercase;
     //font-size: 26px;
     z-index: 1;
 

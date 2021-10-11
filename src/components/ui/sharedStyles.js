@@ -46,4 +46,7 @@ export const ParagraphText = styled.p`
 
 export const Section = styled.section`
   margin: ${props => props.margin ? props.margin : 0};
+  padding: ${props => props.padding ? props.padding : 0};;
+  background-color: ${props => props.bgColor === 'alertsBg' ?  'var(--alertsSectionBgColor)' : 
+          props.bgColor ? props.bgColor : 'none'};
 `;

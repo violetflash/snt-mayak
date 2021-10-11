@@ -191,7 +191,7 @@ const AdminCreateOrEditPopup = ({ type }) => {
                 value={desc}
                 onChange={inputHandler}
                 onBlur={onBlurHandler}
-                margin="5px 0 0"
+                margin="5px 0 20px"
                 popup
               />
               {unsplashLink}

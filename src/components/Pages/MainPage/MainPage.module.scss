@@ -2,16 +2,17 @@
 
 .MainPage {
   height: 100%;
+  padding-bottom: 100px;
 
   &__content {
+    position: relative;
     height: auto;
-    padding-bottom: 100px;
   }
 
   &__hero {
     display: flex;
     align-items: flex-end;
-    margin-bottom: 50px;
+    //margin-bottom: 70px;
   }
 
   &__news {

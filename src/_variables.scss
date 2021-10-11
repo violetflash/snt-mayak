@@ -34,17 +34,30 @@ $valid: rgba(green, 0.8);
   --logoColor: #92ccce;
   --secondColor: #bfaa99;
   --secondColorLight: #bfaa99b3;
+
   --inputFocusColor: #98c3e8;
   --inputsBgColor: #212c4b;
+
   --popupBgColor: #171d30;
   --popupInputError: #832415;
   --popupLabelTitle: #cbc9c9;
   --popupErrorMsgColor: #ff4500ff;
   --popupValidBgColor: #169e16;
-  --buttonBgColor: #92ccce;
+
+  --alertsSectionBgColor: #f0f4feff;
+  //--alertsSectionBgColor: #357960;
+  //--alertsSectionBgColor: #467061;
+  //--alertsSectionBgColor: #c8bea0;
+  --alertsDescBgColor: #f5ece5;
+  //--buttonBgColor: #a7a9ac;
+  --buttonBgColor: #7dbd99;
+  --buttonOnHoverColor: #60d08c;
+  --alertsButtonOnHoverColor: #9dd07c;
   --disabledButtonBg: #808285;
   --accentColor: #7deea1;
   --fontFamily: "Roboto", sans-serif;
+  --fontFamily2: "Literata", sans-serif;
+  --fontFamily3: "Roboto Slab", serif;
 }
 
 // <Шрифт по умолчанию>========================

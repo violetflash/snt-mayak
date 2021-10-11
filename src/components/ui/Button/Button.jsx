@@ -8,13 +8,15 @@ const ButtonContainer = styled.button`
   font-size: 16px;
   width: ${props => props.width ? props.width : 'auto'};
   color: ${props => props.color ? props.color : 'var(--mainColor)'};
-  background-color: var(--buttonBgColor);
+  background-color: ${props => props.bgColor ? props.bgColor : 'var(--buttonBgColor)'};
+  border: 1px solid var(--mainColor);
   transition: all 0.3s;
 
   &:hover {
     background-color: ${props => {
      return props.deleteBtn ? 'var(--popupErrorMsgColor)' : 
-             props.green ? 'var(--popupValidBgColor)' : 'var(--accentColor)'
+             props.green ? 'var(--popupValidBgColor)' : 
+                     props.onHover ? props.onHover : 'var(--buttonOnHoverColor)'
     }}
   }
   
@@ -36,6 +38,8 @@ export const Button = (
     aria = null,
     deleteBtn = null,
     green = null,
+    bgColor = null,
+    onHover = null,
   }) => {
   return (
     <ButtonContainer
@@ -48,6 +52,8 @@ export const Button = (
       aria-label={aria}
       deleteBtn={deleteBtn}
       green={green}
+      bgColor={bgColor}
+      onHover={onHover}
     >
       {text}
     </ButtonContainer>
