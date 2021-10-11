@@ -119,7 +119,7 @@ const NewsSlider = () => {
 
   useEffect(() => {
     const newsRef = fdb.ref(MAIN_REF + "/news/");
-    const newsSliderParamsRef = fdb.ref(MAIN_REF + "/params/newsSlider/");
+    const newsSliderParamsRef = fdb.ref(MAIN_REF + "/params/news/");
     const refs = [newsRef, newsSliderParamsRef];
     newsRef
       .on('value', (res) => {
@@ -135,7 +135,7 @@ const NewsSlider = () => {
           setNewsSliderParams(res.val());
         } else {
           setNewsSliderStartParams({
-            newsToShow: 1,
+            itemsToShow: 1,
             animationType: "fadeout",
             animationDuration: 300,
             disableButtons: true,

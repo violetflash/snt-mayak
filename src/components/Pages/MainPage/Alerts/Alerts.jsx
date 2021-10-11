@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Button} from "../../../ui";
-import {H3Title} from "../../../ui/sharedStyles";
+import { H3Title } from "../../../ui/sharedStyles";
 
 const AlertArticle = styled.article`
 

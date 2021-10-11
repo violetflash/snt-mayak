@@ -4,7 +4,7 @@ export const inputSharedStyles = css`
   border-radius: 4px;
   border: 1px solid transparent;
   color: #fff;
-  background-color: #0d1221;
+  background-color: var(--inputsBgColor);
   width: 100%;
   font-size: 16px;
   font-family: var(--fontFamily);
@@ -19,7 +19,8 @@ export const inputSharedStyles = css`
 export const LabelText = styled.span`
   display: block;
   margin-left: 10px;
-  color: ${props => props.popup ? 'var(--accentColor)' : 'inherit'};
+  font-size: ${props => props.fz ? props.fz : '14px'};
+  color: ${props => props.popup ? 'var(--popupLabelTitle)' : 'inherit'};
 `;
 
 export const H2Title = styled.h2`

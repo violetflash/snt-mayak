@@ -82,15 +82,15 @@ const FirebaseProvider = ({children}) => {
       });
   };
 
-  const setNewsSliderParams = (name, value) => {
-    fdb.ref(`${MAIN_REF}/params/newsSlider`)
+  const setSliderParams = (dbRef, name, value) => {
+    fdb.ref(`${MAIN_REF}/params/${dbRef}`)
       .update({
         [name]: value
       })
   };
 
   const setNewsSliderStartParams = (params) => {
-    fdb.ref(`${MAIN_REF}/params/newsSlider`).set(params);
+    fdb.ref(`${MAIN_REF}/params/news`).set(params);
   };
 
   const deleteRefFromDB = (ref) => {
@@ -241,7 +241,7 @@ const FirebaseProvider = ({children}) => {
     fdb,
     writeNewsDataToDB,
     deleteRefFromDB,
-    setNewsSliderParams,
+    setSliderParams,
     setNewsSliderStartParams,
     writeAlertsDataToDB
   }

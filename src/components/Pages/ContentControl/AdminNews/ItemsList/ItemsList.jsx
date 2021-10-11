@@ -19,47 +19,45 @@ const Title = styled.h3`
   text-align:center;
 `;
 
-const NewsList = ({ newsToShow }) => {
-
-  const [newsList, setNewsList] = useState([]);
+export const ItemsList = ({ itemsToShow, name }) => {
+  const titleName = name === 'news' ? 'новостей' :
+    name === 'alerts' ? 'объявлений' : null;
+  const [itemsList, setItemsList] = useState([]);
   const {fdb} = useFirebase();
 
 
   useEffect(() => {
-    const newsRef = fdb.ref(MAIN_REF + "/news/");
+    const newsRef = fdb.ref(MAIN_REF + `/${name}/`);
     const refs = [newsRef];
     newsRef
       .on('value', (res) => {
         if (res.exists()) {
-          setNewsList(getArrayFromDb(res.val()));
+          setItemsList(getArrayFromDb(res.val()));
         } else {
-          setNewsList([]);
+          setItemsList([]);
         }
       })
 
     return () => {
       refs.forEach((ref) => ref.off());
     }
-  }, [fdb]);
+  }, [fdb, name]);
 
 
 
-  const data = newsList.length ? newsList
+  const data = itemsList.length ? itemsList
     .sort(sortOptions)
     .map((item, index) => {
       const {id} = item;
       return (
         <AdminEditableListItem key={id} {...item} index={index + 1}/>
-        // <li className={s.newsList__li} key={id}>
-        //   <NewsItem{...item} index={index + 1}/>
-        // </li>
       );
     }) : <Loader/>
   ;
 
   return (
     <>
-      <Title>Список всех новостей (на главной: {newsToShow})</Title>
+      <Title>Список всех {titleName} (на главной: {itemsToShow})</Title>
       <List>
         {data}
       </List>
@@ -68,4 +66,3 @@ const NewsList = ({ newsToShow }) => {
 
 };
 
-export default NewsList;

@@ -4,7 +4,6 @@ import React from "react";
 
 const Label = styled.label`
   width: 100%;
-  color: var(--accentColor);
 `;
 
 const TextAreaContainer = styled.textarea`
@@ -20,7 +19,7 @@ const TextAreaContainer = styled.textarea`
 export const TextArea = (
   {value, onChange,
     onBlur = null, name = null, label = null , margin = null}) => {
-  const labelText = label ? <LabelText>{label}:</LabelText> : null;
+  const labelText = label ? <LabelText popup>{label}:</LabelText> : null;
 
   return (
     <Label>

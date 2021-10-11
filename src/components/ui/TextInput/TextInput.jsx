@@ -6,7 +6,6 @@ const Label = styled.label`
   display: block;
   flex-basis: ${props => props.basis ? props.basis : 'auto'};
   width: 100%;
-  color: var(--accentColor);
   font-size: 14px;
 `;
 
@@ -17,13 +16,6 @@ const Input = styled.input`
   height: 40px;
 `;
 
-const DateTime = styled.span`
-  margin-left: 10px;
-  font-size: 12px;
-`;
-
-
-
 
 export const TextInput = (
   { label, value, onChange,
@@ -32,16 +24,16 @@ export const TextInput = (
     onBlur= null,
     focus = null,
     basis = null,
-    margin = null
+    margin = null,
   }) => {
 
-  const labelText = label ? <LabelText>{label}:</LabelText> : null;
+  const labelText = label ? <LabelText popup>{label}:</LabelText> : null;
 
   if (name === 'date') {
     return (
       <Label basis={basis}>
-        <LabelText>Дата:</LabelText>
-        <DateTime>(ДД.ММ.ГГГГ)</DateTime>
+        <LabelText popup fz="14px">Дата:</LabelText>
+        <LabelText popup fz="12px">(ДД.ММ.ГГГГ)</LabelText>
         <Input
           type="text"
           name={name}
@@ -59,8 +51,8 @@ export const TextInput = (
   if (name === 'time') {
     return (
       <Label basis={basis}>
-        <LabelText>Время:</LabelText>
-        <DateTime>(ЧЧ:ММ)</DateTime>
+        <LabelText popup fz="14px">Время:</LabelText>
+        <LabelText popup fz="12px">(ЧЧ:ММ)</LabelText>
         <Input
           type="text"
           name={name}
