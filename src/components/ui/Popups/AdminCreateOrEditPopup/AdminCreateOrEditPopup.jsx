@@ -37,7 +37,7 @@ const AdminCreateOrEditPopup = ({ type }) => {
       time: dataToEdit.time,
       imageID: dataToEdit.imageID
     } :
-    dataToEdit && type === 'alert' ?
+    dataToEdit && type === 'alerts' ?
       {
         title: dataToEdit.title,
         desc: dataToEdit.desc,

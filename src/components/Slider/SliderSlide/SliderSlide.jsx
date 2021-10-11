@@ -22,25 +22,30 @@ const AlertArticle = styled.article`
 `;
 
 const HighLighted = styled.span`
+  display: block;
   padding: 5px 10px;
   background-color: #f6c971;
   color: #000;
-  border-radius: 4px;
+  font-size: 14px;
+  font-style:italic;
+  font-weight: 700;
+  text-align:right;
+  //border-radius: 4px;
   //border: 2px solid #414141;
 
-  span {
-    position: relative;
-
-    &::before {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      width: 100%;
-      height: 2px;
-      //background-color: #414141;
-      border-bottom: 2px dotted #414141;
-    }
-  }
+  //span {
+  //  position: relative;
+  //
+  //  &::before {
+  //    content: "";
+  //    position: absolute;
+  //    bottom: -1px;
+  //    width: 100%;
+  //    height: 2px;
+  //    //background-color: #414141;
+  //    border-bottom: 2px dotted #414141;
+  //  }
+  //}
 `;
 
 const AlertBody = styled.p`
