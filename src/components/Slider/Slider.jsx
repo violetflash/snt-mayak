@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import { setNews } from '../../../../redux';
-import NewsSliderItem from "./NewsSliderItem/";
-import { SliderCarousel } from "../../../ui";
+import styled, { css } from 'styled-components';
+import { setData } from '../../redux';
+import { SliderSlide } from "./SliderSlide/SliderSlide";
+import { SliderCarousel } from "../ui";
 
-import { getArrayFromDb, sortOptions } from "../../../../functions/functions";
-import { MAIN_REF, useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
+import { getArrayFromDb, sortOptions } from "../../functions/functions";
+import { MAIN_REF, useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
 
-const SliderContainer = styled.div`
+const newsStyles = css`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 520px;
   min-height: 400px;
-  
+
   .alice-carousel__prev-btn,
   .alice-carousel__next-btn {
     position: absolute;
@@ -110,40 +110,46 @@ const SliderContainer = styled.div`
   }
 `;
 
-const NewsSlider = () => {
-  const dispatch = useDispatch();
-  const { fdb, setNewsSliderStartParams } = useFirebase();
+const SliderContainer = styled.div`
+  ${props => props.type === 'news' ? newsStyles : null}
+`;
 
-  const { newsList } = useSelector(state => state.news);
-  const [newsSliderParams, setNewsSliderParams] = useState({});
+export const Slider = ({ type }) => {
+  const dispatch = useDispatch();
+  const { fdb, setSliderStartParams } = useFirebase();
+
+  const data = useSelector(state => state.dynamicData[type]);
+
+  //cтейт для обновления компонента при изменении параметра настроек в другом компоненте
+  const [sliderParams, setSliderParams] = useState({});
 
   useEffect(() => {
-    const newsRef = fdb.ref(MAIN_REF + "/news/");
-    const newsSliderParamsRef = fdb.ref(MAIN_REF + "/params/news/");
-    const refs = [newsRef, newsSliderParamsRef];
-    newsRef
+    const dataRef = fdb.ref(MAIN_REF + `/${type}/`);
+    const dataSliderParamsRef = fdb.ref(MAIN_REF + `/params/${type}/`);
+    const refs = [dataRef, dataSliderParamsRef];
+    dataRef
       .on('value', (res) => {
         if (res.exists()) {
-          dispatch(setNews({ newsList: getArrayFromDb(res.val()) }));
+          dispatch(setData({ name: type, dataValue: getArrayFromDb(res.val()) }));
         } else {
-          dispatch(setNews({ newsList: [] }));
+          dispatch(setData({ name: type, dataValue: [] }));
         }
       });
-    newsSliderParamsRef
+    dataSliderParamsRef
       .on('value', (res) => {
         if (res.exists()) {
-          setNewsSliderParams(res.val());
+          setSliderParams(res.val());
         } else {
-          setNewsSliderStartParams({
+          setSliderStartParams(type, {
             itemsToShow: 1,
             animationType: "fadeout",
             animationDuration: 300,
             disableButtons: true,
-            disableDotsControls: true,
-            autoPlay: false,
+            disableDotsControls: false,
+            autoPlay: true,
             autoPlayInterval: 5000,
             disableSlideInfo: true,
-            infinite: false,
+            infinite: true,
           });
         }
       });
@@ -151,39 +157,38 @@ const NewsSlider = () => {
     return () => {
       refs.forEach((ref) => ref.off());
     };
-  }, [fdb, dispatch, setNewsSliderStartParams]);
+  }, [fdb, dispatch, setSliderStartParams, type]);
 
-  const news = newsList.length ? [...newsList]
+  const dataToRender = data.length ? [...data]
     .sort(sortOptions)
-    .filter((item, index) => index < newsSliderParams.newsToShow)
+    .filter((item, index) => index < sliderParams.itemsToShow)
     .map((item) => {
       const { id } = item;
-      return <NewsSliderItem key={id} {...item}/>;
+      return <SliderSlide key={id} type={type} {...item}/>;
     }) : null;
 
   const settings = {
-    animationType: newsSliderParams.animationType,
-    animationDuration: newsSliderParams.animationDuration,
-    disableButtonsControls: newsSliderParams.disableButtons,
-    disableSlideInfo: newsSliderParams.disableSlideInfo,
-    disableDotsControls: newsSliderParams.disableDotsControls,
-    autoPlay: newsSliderParams.autoPlay,
-    autoPlayInterval: newsSliderParams.autoPlayInterval,
-    infinite: newsSliderParams.infinite,
+    animationType: sliderParams.animationType,
+    animationDuration: sliderParams.animationDuration,
+    disableButtonsControls: sliderParams.disableButtons,
+    disableSlideInfo: sliderParams.disableSlideInfo,
+    disableDotsControls: sliderParams.disableDotsControls,
+    autoPlay: sliderParams.autoPlay,
+    autoPlayInterval: sliderParams.autoPlayInterval,
+    infinite: sliderParams.infinite,
   };
 
-  if (!newsList.length) {
+  if (!data.length) {
     return null;
   }
 
   return (
-    <SliderContainer>
+    <SliderContainer type={type}>
       <SliderCarousel settings={settings}>
-        {news}
+        {dataToRender}
       </SliderCarousel>
     </SliderContainer>
   );
 
 };
 
-export default NewsSlider;

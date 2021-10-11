@@ -9,7 +9,7 @@ import {PopupWrapper} from "../PopupWrapper/PopupWrapper";
 import { AdminPopup, ClosePopup, FlexContainer } from "../styles";
 import {H2Title, ParagraphText} from "../../sharedStyles";
 
-export const ConfirmDeletePopup = () => {
+export const ConfirmDeletePopup = ({ type }) => {
   const dispatch = useDispatch();
   const { activeReference } = useSelector(state => state.adminEditItem)
   const { deleteRefFromDB } = useFirebase();
@@ -20,7 +20,7 @@ export const ConfirmDeletePopup = () => {
   }
 
   const deleteHandler = () => {
-    deleteRefFromDB(`news/${activeReference.id}`);
+    deleteRefFromDB(`${type}/${activeReference.id}`);
     closeAndResetDeletionState();
   };
 

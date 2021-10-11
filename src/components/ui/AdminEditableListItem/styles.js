@@ -10,6 +10,7 @@ export const Li = styled.li`
   &::before {
     content: attr(data-index);
     position: absolute;
+    display: ${props => props.type === 'news' ? 'block' : 'none'};
     left: 0;
     top: 0;
     border-right: 1px solid var(--secondColorLight);
@@ -22,6 +23,10 @@ export const Li = styled.li`
 `;
 
 export const Img = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: ${props => props.fz ? props.fz : '26px'};
   flex: 0 0 70px;
   border-right: 1px solid var(--secondColor);
   border-left: 1px solid var(--secondColor);

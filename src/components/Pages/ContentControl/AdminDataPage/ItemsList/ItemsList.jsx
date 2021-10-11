@@ -19,15 +19,15 @@ const Title = styled.h3`
   text-align:center;
 `;
 
-export const ItemsList = ({ itemsToShow, name }) => {
-  const titleName = name === 'news' ? 'новостей' :
-    name === 'alerts' ? 'объявлений' : null;
+export const ItemsList = ({ itemsToShow, type }) => {
+  const titleName = type === 'news' ? 'новостей' :
+    type === 'alerts' ? 'объявлений' : null;
   const [itemsList, setItemsList] = useState([]);
   const {fdb} = useFirebase();
 
 
   useEffect(() => {
-    const newsRef = fdb.ref(MAIN_REF + `/${name}/`);
+    const newsRef = fdb.ref(MAIN_REF + `/${type}/`);
     const refs = [newsRef];
     newsRef
       .on('value', (res) => {
@@ -41,7 +41,7 @@ export const ItemsList = ({ itemsToShow, name }) => {
     return () => {
       refs.forEach((ref) => ref.off());
     }
-  }, [fdb, name]);
+  }, [fdb, type]);
 
 
 
@@ -50,7 +50,7 @@ export const ItemsList = ({ itemsToShow, name }) => {
     .map((item, index) => {
       const {id} = item;
       return (
-        <AdminEditableListItem key={id} {...item} index={index + 1}/>
+        <AdminEditableListItem key={id} type={type} {...item} index={index + 1}/>
       );
     }) : <Loader/>
   ;

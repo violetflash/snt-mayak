@@ -13,8 +13,7 @@ import AdminCreateOrEditPopup from "../../../ui/Popups/AdminCreateOrEditPopup/Ad
 import {FlexContainer} from "../../../ui/Popups/styles";
 import {Section} from "../../../ui/sharedStyles";
 
-const AdminNews = () => {
-  const type = 'news';
+export const AdminDataPage = ({ type }) => {
   const createButtonText = type === 'alerts' ? 'Создать объявление' :
     type === 'news' ? 'Создать новость' : null;
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ const AdminNews = () => {
       type: "select",
       value: params.itemsToShow,
       label: "Новостей в слайдере на главной странице:",
-      name: 'newsToShow',
+      name: 'itemsToShow',
       options: [
         { value: 1, text: 1 },
         { value: 2, text: 2 },
@@ -130,7 +129,7 @@ const AdminNews = () => {
 
   // const editorPopup = editorPopupOpened ? <AdminNewsPopup/> : null;
   const editorPopup = editorPopupOpened ? <AdminCreateOrEditPopup type={type}/> : null;
-  const confirmDeletePopup = confirmDeleteOpened ? <ConfirmDeletePopup/> : null;
+  const confirmDeletePopup = confirmDeleteOpened ? <ConfirmDeletePopup type={type}/> : null;
 
   const createItem = () => dispatch(openEditorPopup());
 
@@ -149,10 +148,8 @@ const AdminNews = () => {
         setParams={setParams}
         paramsRenderData={sliderParamsData}
       />
-      <ItemsList itemsToShow={itemsToShow} name={type}/>
+      <ItemsList itemsToShow={itemsToShow} type={type}/>
     </Section>
   );
 
 };
-
-export default AdminNews;

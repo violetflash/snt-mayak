@@ -5,7 +5,7 @@ import mainMenuReducer from '../slices/mainMenuSlice';
 import { adminMenuSlice } from "../slices/adminMenuSlice";
 import { authPopupSlice } from "../slices/authPopupSlice";
 import { navLinkSlice } from "../slices/navLinkSlice";
-import { newsSlice } from "../slices/newsSlice";
+import { dynamicDataSlice } from "../slices/newsSlice";
 import { sliderImageLoadedSlice } from "../slices/sliderImageLoadedSlice";
 import { adminEditItemSlice } from "../slices/adminEditItemSlice";
 
@@ -16,7 +16,7 @@ export const store = configureStore({
     adminMenu: adminMenuSlice.reducer,
     authPopup: authPopupSlice.reducer,
     navLinks: navLinkSlice.reducer,
-    news: newsSlice.reducer,
+    dynamicData: dynamicDataSlice.reducer,
     sliderImageLoaded: sliderImageLoadedSlice.reducer,
     adminEditItem: adminEditItemSlice.reducer
   }

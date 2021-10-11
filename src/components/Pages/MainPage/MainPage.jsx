@@ -1,12 +1,12 @@
 import React from 'react';
 
-import NewsSlider from "./NewsSlider/";
+import { Slider } from "../../Slider/Slider";
 import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
 
 import s from "./MainPage.module.scss";
 import PageTitle from "../../ui/PageTitle";
 import Greetings from "./Greetings";
-import { Alerts } from "./Alerts/Alerts";
+// import { Alerts } from "./Alerts/Alerts";
 
 const MainPage = () => {
   return (
@@ -18,14 +18,14 @@ const MainPage = () => {
             <div className={s.MainPage__news}>
               <PageTitle tag="h2" title="Новости"/>
               <div className={s.MainPage__slider}>
-                <NewsSlider/>
+                <Slider type="news"/>
               </div>
             </div>
             <GardenerGirl />
           </div>
           <div className={s.MainPage__alarms}>
             <PageTitle tag="h2" title="Объявления"/>
-            <Alerts/>
+            <Slider type="alerts"/>
           </div>
         </div>
       </div>

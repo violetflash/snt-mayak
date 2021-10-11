@@ -7,7 +7,7 @@ import editIcon from '../../../assets/icons/edit.svg';
 import { Li, InfoTop, InfoBox, Img, DateInfo, Controls, Button, AuthorInfo, Description, TitleInfo } from './styles';
 
 
-export const AdminEditableListItem = ({ title, desc, date, time, author, imageID, imageUrl, index, id }) => {
+export const AdminEditableListItem = ({ type, title, desc, date, time, author, imageID, imageUrl, index, id }) => {
   const dispatch = useDispatch();
 
   const openDeleteConfirm = () => {
@@ -20,9 +20,11 @@ export const AdminEditableListItem = ({ title, desc, date, time, author, imageID
     dispatch(openEditorPopup());
   };
 
+  const leftSide = imageUrl ? <Img image={imageUrl}/> : <Img>{index}</Img>;
+
   return (
-    <Li data-index={index}>
-      <Img image={imageUrl}/>
+    <Li data-index={index} type={type}>
+      {leftSide}
       <InfoBox>
         <InfoTop>
           <DateInfo>[{date}-{time}]</DateInfo>

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { resetDataToEdit, closeEditorPopup } from "../../../../redux";
 
-import {useFirebase} from '../../../../context/FirebaseProvider/FirebaseProvider';
+import { useFirebase } from '../../../../context/FirebaseProvider/FirebaseProvider';
 import { checkImageExist } from "../../../../functions/functions";
 
 import {
@@ -18,7 +18,7 @@ import {
   FlexContainer
 } from "../styles";
 import { TextInput, TextArea, Button } from "../../../ui";
-import {LabelText} from "../../sharedStyles";
+import { LabelText } from "../../sharedStyles";
 
 
 const AdminCreateOrEditPopup = ({ type }) => {
@@ -50,7 +50,7 @@ const AdminCreateOrEditPopup = ({ type }) => {
   const [idError, setIdError] = useState(null);
   const [idChecked, setIdChecked] = useState(false);
   const [imageUrlState, setImageUrlState] = useState(null);
-  const {writeNewsDataToDB} = useFirebase();
+  const { writeDataToDB } = useFirebase();
 
   const submitText = dataToEdit ? 'Сохранить' : 'Создать';
   const titleText = dataToEdit ? 'Редактировать' : 'Создать';
@@ -60,7 +60,7 @@ const AdminCreateOrEditPopup = ({ type }) => {
 
   const { title, desc, date, time, imageID } = inputsData;
 
-  const disabled = !title || !desc || !date || !time || !idChecked || !imageID;
+  const disabled = type === 'news' ? !title || !desc || !date || !time || !idChecked || !imageID : false;
 
   const resetInputs = () => {
     setInputsData({title: "", desc: "", date: "", time: "", imageID: ""});
@@ -69,8 +69,10 @@ const AdminCreateOrEditPopup = ({ type }) => {
   const saveData = async (e) => {
     e.preventDefault();
 
-    const refToWrite = dataToEdit ? dataToEdit.id : `${Date.now()}`;
-    writeNewsDataToDB(refToWrite, title, desc, imageID, imageUrlState, date, time);
+    const id = dataToEdit ? dataToEdit.id : `${Date.now()}`;
+    const data = type === 'news' ? { type, id, title, desc, date, time, imageID, imageUrlState } :
+      type = 'alerts' ? { type, id, title, desc, date, time } : {};
+    writeDataToDB(type, data);
 
     if (dataToEdit) {
       dispatch(resetDataToEdit());

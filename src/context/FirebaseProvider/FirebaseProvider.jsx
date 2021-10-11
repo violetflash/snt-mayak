@@ -55,16 +55,10 @@ const FirebaseProvider = ({children}) => {
       });
   }
 
-  const writeNewsDataToDB = (id, title, desc, imageID, imageUrl, date, time) => {
-    fdb.ref(`${MAIN_REF}/news/` + id)
+  const writeDataToDB = (data) => {
+    fdb.ref(`${MAIN_REF}/${data.type}/` + data.id)
       .set({
-        title,
-        desc,
-        date,
-        time,
-        imageID,
-        imageUrl,
-        id,
+        ...data,
         author: {name: auth.currentUser.displayName, email: auth.currentUser.email}
       })
       .catch((error) => {
@@ -89,8 +83,8 @@ const FirebaseProvider = ({children}) => {
       })
   };
 
-  const setNewsSliderStartParams = (params) => {
-    fdb.ref(`${MAIN_REF}/params/news`).set(params);
+  const setSliderStartParams = (dbRef, params) => {
+    fdb.ref(`${MAIN_REF}/params/${dbRef}`).set(params);
   };
 
   const deleteRefFromDB = (ref) => {
@@ -239,10 +233,10 @@ const FirebaseProvider = ({children}) => {
     logout,
     resetEmail,
     fdb,
-    writeNewsDataToDB,
+    writeDataToDB,
     deleteRefFromDB,
     setSliderParams,
-    setNewsSliderStartParams,
+    setSliderStartParams,
     writeAlertsDataToDB
   }
 
