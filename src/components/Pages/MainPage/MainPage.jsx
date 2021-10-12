@@ -1,19 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-import { Slider } from "../../Slider/Slider";
+
+import {Slider} from "../../Slider/Slider";
 import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
 
 import s from "./MainPage.module.scss";
 import PageTitle from "../../ui/PageTitle";
 import Greetings from "./Greetings";
-import { Section } from "../../ui/";
-// import { Alerts } from "./Alerts/Alerts";
+import {Section} from "../../ui/";
+import MainBgVector from '../../../assets/bg/vectorBg2.svg';
+
+
+const MainPageSection = styled.section`
+  //background-color: #eff6fa;
+`;
 
 const DecorationWrapper = styled.div`
   padding-bottom: 40px;
   position: relative;
   z-index: 0;
+  min-height: 450px;
 `;
 
 const AnnounceWrapper = styled.div`
@@ -54,51 +62,94 @@ const AnnounceWrapper = styled.div`
 `;
 
 const HeroSection = styled.section`
+  padding: 50px 0 40px;
   position: relative;
+  //background-size: 100%;
+  background-position: 900px;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  transform: scaleX(-1);
+
   &::before {
     content: "";
     position: absolute;
     bottom: 0;
+    border-bottom: 2px solid saddlebrown;
     width: 100%;
-    height: 60px;
-    background-color: var(--announceSectionBgColor);
+    height: 80px;
+    //background-color: var(--announceSectionBgColor);
+    background-color: var(--heroBgColor);
   }
 `;
 
 const MainPage = () => {
   return (
-    <section className={s.MainPage}>
+    <MainPageSection>
       <Greetings/>
-      <HeroSection>
+      <HeroSection style={{backgroundImage: `url(${MainBgVector})`}}>
         <div className="container">
           <div className={s.MainPage__content}>
             <div className={s.MainPage__hero}>
-              <div className={s.MainPage__news}>
+              <motion.div
+                className={s.MainPage__news}
+                initial={{
+                  x: -200,
+                  opacity: 0,
+                }}
+                animate={{ x: 0, opacity: 1, }}
+                transition={{
+                  delay: 0.5,
+                  duration: 1,
+                  // repeat: Infinity,
+                  repeatDelay: 1,
+                  // repeatType: 'reverse',
+                  type: 'just',
+                  ease: 'backOut'
+                }}
+              >
                 <PageTitle tag="h2" title="Новости"/>
                 <div className={s.MainPage__slider}>
                   <Slider type="news"/>
                 </div>
-              </div>
-              <GardenerGirl />
+              </motion.div>
+              <GardenerGirl/>
             </div>
           </div>
         </div>
       </HeroSection>
+
 
       <Section padding="60px 0 40px" bgColor="alertsBg">
         <div className="container">
           <div className={s.MainPage__alarms}>
             <PageTitle tag="h2" title="Объявления"/>
             <DecorationWrapper>
-              <AnnounceWrapper>
-                <Slider type="alerts"/>
-              </AnnounceWrapper>
-            </DecorationWrapper>
+              <motion.div
+                initial={{
+                  x: -1500,
+                  opacity: 0,
+                }}
+                animate={{ x: 0, opacity: 1, }}
+                transition={{
+                  delay: 2,
+                  duration: 1,
+                  // repeat: Infinity,
+                  repeatDelay: 1,
+                  // repeatType: 'reverse',
+                  type: 'just',
+                  ease: 'backOut'
+                }}
+              >
+                <AnnounceWrapper>
+                  <Slider type="alerts"/>
+                </AnnounceWrapper>
+              </motion.div>
 
+            </DecorationWrapper>
           </div>
         </div>
       </Section>
-    </section>
+    </MainPageSection>
   );
 };
 
