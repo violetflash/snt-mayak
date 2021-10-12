@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { MAIN_REF, useFirebase } from "../../../../../context/FirebaseProvider/FirebaseProvider";
 import { Select, Accordion } from '../../../../ui';
 import { Checkbox } from '../../../../ui';
-import { Section } from "../../../../ui/sharedStyles";
+import { Section } from "../../../../ui/";
 
 const List = styled.ul`
   margin-right: 50px;

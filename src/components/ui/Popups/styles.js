@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-export const PopupContainer = styled.div`
-  
-`;
-
 export const Overlay = styled.div`
   position: fixed;
   left: 0;
@@ -70,9 +66,7 @@ export const AdminTitle = styled.p`
   text-transform: uppercase;
 `;
 
-export const Form = styled.form`
-  
-`;
+
 
 export const UnsplashLink = styled.a`
   display: block;
@@ -100,16 +94,4 @@ export const ErrorSpan = styled.span`
   visibility: ${props => props.error ? 'visible' : 'hidden'};
   transform: ${props => props.error ? 'translateX(0)' : 'translateX(-20px)'};
   transition: all 0.3s ease-in-out;
-`;
-
-export const PureLabel = styled.label`
-  position: relative;
-  margin: ${props => props.margin ? props.margin + 'px' : 0};
-`;
-
-export const FlexContainer = styled.div`
-  display: flex;
-  align-items: ${props => props.align ? props.align : 'auto'};
-  justify-content: ${props => props.justify ? props.justify : 'auto'};
-  margin: ${props => props.margin ? props.margin + 'px' : 0};
 `;

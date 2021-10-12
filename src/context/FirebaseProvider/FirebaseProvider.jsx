@@ -66,16 +66,6 @@ const FirebaseProvider = ({children}) => {
       });
   };
 
-  const writeAlertsDataToDB = (id, title, desc, date, time) => {
-    fdb.ref(`${MAIN_REF}/alerts/` + id)
-      .set({title, desc, date, time, id,
-        author: {name: auth.currentUser.displayName, email: auth.currentUser.email}
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   const setSliderParams = (dbRef, name, value) => {
     fdb.ref(`${MAIN_REF}/params/${dbRef}`)
       .update({
@@ -237,7 +227,6 @@ const FirebaseProvider = ({children}) => {
     deleteRefFromDB,
     setSliderParams,
     setSliderStartParams,
-    writeAlertsDataToDB
   }
 
   return (

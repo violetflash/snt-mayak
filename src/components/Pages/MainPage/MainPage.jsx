@@ -7,7 +7,7 @@ import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
 import s from "./MainPage.module.scss";
 import PageTitle from "../../ui/PageTitle";
 import Greetings from "./Greetings";
-import { Section } from "../../ui/sharedStyles";
+import { Section } from "../../ui/";
 // import { Alerts } from "./Alerts/Alerts";
 
 const AlertsWrapper = styled.div`

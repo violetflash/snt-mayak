@@ -1,4 +1,47 @@
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
+
+export const MarginProps = css`
+  margin: ${props => props.margin ? props.margin : 0};
+`;
+
+export const PaddingProps = css`
+  padding: ${props => props.padding ? props.padding : 0};
+`;
+
+export const TextAlignProps = css`
+  text-align: ${props => props.align ? props.align : 'left'};
+`;
+
+export const FontSizeProps = css`
+  font-size: ${props => props.fz ? props.fz : 'var(--defaultFontSize)'};
+`;
+
+export const TextTransformProps = css`
+  text-transform: ${props => props.tt ? props.tt : 'none'};
+`;
+
+export const FontWeightProps = css`
+  font-size: ${props => props.fw ? props.fw : '400'};
+`;
+
+export const DisplayProps = css`
+  display: ${props => props.display ? props.display : "revert"};
+`;
+
+export const TransitionProps = css`
+  transition: ${props => props.transition ? props.transition : 'none'};
+`;
+
+export const TextBlockProps = css`
+  ${DisplayProps};
+  ${MarginProps};
+  ${TextAlignProps};
+  ${TextTransformProps}
+  ${FontSizeProps}
+  ${FontWeightProps};
+  ${TransitionProps}
+`;
+
 
 export const inputSharedStyles = css`
   border-radius: 4px;
@@ -16,37 +59,3 @@ export const inputSharedStyles = css`
   }
 `;
 
-export const LabelText = styled.span`
-  display: block;
-  margin-left: 10px;
-  font-size: ${props => props.fz ? props.fz : '14px'};
-  color: ${props => props.popup ? 'var(--popupLabelTitle)' : 'inherit'};
-`;
-
-export const H2Title = styled.h2`
-  display: block;
-  margin: ${props => props.margin ? props.margin : 0};
-  text-align: center;
-  font-weight: 700;
-  text-transform: ${props => props.tt ? props.tt : 'none'};
-`;
-
-export const H3Title = styled.h3`
-  display: block;
-  margin: ${props => props.margin ? props.margin : 0};
-  text-align: center;
-  font-weight: 700;
-  text-transform: ${props => props.tt ? props.tt : 'none'};
-`;
-
-export const ParagraphText = styled.p`
-  margin: ${props => props.margin ? props.margin : 0};
-  text-align: ${props => props.ta ? props.ta : 'left'};
-`;
-
-export const Section = styled.section`
-  margin: ${props => props.margin ? props.margin : 0};
-  padding: ${props => props.padding ? props.padding : 0};;
-  background-color: ${props => props.bgColor === 'alertsBg' ?  'var(--alertsSectionBgColor)' : 
-          props.bgColor ? props.bgColor : 'none'};
-`;

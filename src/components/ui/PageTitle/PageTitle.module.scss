@@ -13,10 +13,9 @@
     justify-content: center;
     margin: 0 auto;
     padding: 15px;
-    color: #4e4e4f;
+    color: var(--pageTitleColor);
     font-family: var(--fontFamily3);
     text-transform: uppercase;
-    //font-size: 26px;
     z-index: 1;
 
     &::before,
@@ -24,11 +23,8 @@
       content: "";
       position: absolute;
       top: 0;
-      //bottom: 0;
       width: 100px;
       height: 2px;
-      //height: 2px;
-      //background: linear-gradient(to top, $lightGrey, $secondColor, $lightGrey);
       z-index: -1;
       background: rgba($secondColor, 0.8);
     }

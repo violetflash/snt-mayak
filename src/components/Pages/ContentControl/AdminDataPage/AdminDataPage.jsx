@@ -6,12 +6,11 @@ import { ItemsList } from "./ItemsList/ItemsList";
 // import AdminNewsPopup from "./AdminNewsPopup";
 import ContentControlRootLink from "../ContentControlRootLink";
 // import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import {Button, ConfirmDeletePopup} from '../../../ui';
+import { Button, ConfirmDeletePopup, FlexContainer } from '../../../ui';
 import { SliderParams } from "./SliderParams/SliderParams";
 
 import AdminCreateOrEditPopup from "../../../ui/Popups/AdminCreateOrEditPopup/AdminCreateOrEditPopup";
-import {FlexContainer} from "../../../ui/Popups/styles";
-import {Section} from "../../../ui/sharedStyles";
+import { Section } from "../../../ui/";
 
 export const AdminDataPage = ({ type }) => {
   const createButtonText = type === 'alerts' ? 'Создать объявление' :

@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { setData } from '../../redux';
-import { SliderSlide } from "./SliderSlide/SliderSlide";
 import { SliderCarousel } from "../ui";
 
 import { getArrayFromDb, sortOptions } from "../../functions/functions";
 import { MAIN_REF, useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
+import { Announce } from "../Announce/Announce";
+import { NewsItem } from "../NewsItem/NewsItem";
 
 const newsStyles = css`
   position: relative;
@@ -164,7 +165,8 @@ export const Slider = ({ type }) => {
     .filter((item, index) => index < sliderParams.itemsToShow)
     .map((item) => {
       const { id } = item;
-      return <SliderSlide key={id} type={type} {...item}/>;
+      return type === 'alerts' ? <Announce key={id} type={type} {...item}/> :
+        type === 'news' ? <NewsItem key={id} type={type} {...item}/> : null;
     }) : null;
 
   const settings = {

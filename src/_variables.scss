@@ -31,9 +31,11 @@ $valid: rgba(green, 0.8);
 
 :root {
   --mainColor: #000;
+  --darkColor: #000;
   --logoColor: #92ccce;
   --secondColor: #bfaa99;
   --secondColorLight: #bfaa99b3;
+  --pageTitleColor: #4e4e4f;
 
   --inputFocusColor: #98c3e8;
   --inputsBgColor: #212c4b;
@@ -49,15 +51,21 @@ $valid: rgba(green, 0.8);
   //--alertsSectionBgColor: #467061;
   //--alertsSectionBgColor: #c8bea0;
   --alertsDescBgColor: #f5ece5;
+
+  //--announceDateTimeColor: #f6c971;
+  --announceDateTimeColor: #b9d084;
   //--buttonBgColor: #a7a9ac;
   --buttonBgColor: #7dbd99;
   --buttonOnHoverColor: #60d08c;
   --alertsButtonOnHoverColor: #9dd07c;
+  --newsItemTitleOnHoverColor: #FFFF00FF;
   --disabledButtonBg: #808285;
   --accentColor: #7deea1;
+
   --fontFamily: "Roboto", sans-serif;
   --fontFamily2: "Literata", sans-serif;
   --fontFamily3: "Roboto Slab", serif;
+  --defaultFontSize: 16px;
 }
 
 // <Шрифт по умолчанию>========================

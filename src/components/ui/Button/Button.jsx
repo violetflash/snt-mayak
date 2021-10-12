@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ButtonContainer = styled.button`
+  display: inline-block;
   margin: ${props => props.margin ? props.margin : 0};
   padding: ${props => props.padding ? props.padding : '5px 10px'};
   border-radius: 4px;

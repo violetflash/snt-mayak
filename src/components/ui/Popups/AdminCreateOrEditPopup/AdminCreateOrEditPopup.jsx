@@ -7,18 +7,13 @@ import { checkImageExist } from "../../../../functions/functions";
 
 import {
   AdminPopup,
-  AdminTitle,
   ClosePopup,
   Overlay,
-  PopupContainer,
-  Form,
   UnsplashLink,
   ErrorSpan,
-  PureLabel,
-  FlexContainer
 } from "../styles";
-import { TextInput, TextArea, Button } from "../../../ui";
-import { LabelText } from "../../sharedStyles";
+import { TextInput, TextArea, Button, Div, ParagraphText, FlexContainer, Form, PureLabel } from "../../../ui";
+import { LabelText } from "../../index";
 
 
 const AdminCreateOrEditPopup = ({ type }) => {
@@ -170,12 +165,14 @@ const AdminCreateOrEditPopup = ({ type }) => {
     </PureLabel> : null;
 
   return (
-    <PopupContainer>
+    <Div>
       <div className="container">
         <Overlay>
           <AdminPopup>
             <ClosePopup onClick={closePopup}/>
-            <AdminTitle >{titleText} {titleType}</AdminTitle>
+            <ParagraphText align="center" margin="0 0 20px" fw="700" ta="uppercase">
+              {titleText} {titleType}
+            </ParagraphText>
             <Form >
               <TextInput
                 name="title"
@@ -226,7 +223,7 @@ const AdminCreateOrEditPopup = ({ type }) => {
           </AdminPopup>
         </Overlay>
       </div>
-    </PopupContainer>
+    </Div>
   );
 
 };

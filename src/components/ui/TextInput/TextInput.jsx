@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { inputSharedStyles, LabelText } from "../sharedStyles";
+import { inputSharedStyles } from "../sharedStyles";
+import { LabelText } from "../index";
 
 const Label = styled.label`
   display: block;

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { inputSharedStyles, LabelText } from "../sharedStyles";
+import { inputSharedStyles } from "../sharedStyles";
 import React from "react";
+import { LabelText } from "../index";
 
 const Label = styled.label`
   width: 100%;

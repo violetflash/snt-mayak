@@ -1,14 +1,15 @@
 import React from 'react';
-import { Overlay, PopupContainer } from "../styles";
+import { Overlay } from "../styles";
+import { Div } from "../../index";
 
 export const PopupWrapper = ({ children }) => {
   return (
-    <PopupContainer>
+    <Div>
       <div className="container">
         <Overlay>
           {children}
         </Overlay>
       </div>
-    </PopupContainer>
+    </Div>
   );
 };
