@@ -28,8 +28,7 @@ export const ParagraphText = styled.p`
 export const Section = styled.section`
   ${MarginProps};
   ${PaddingProps};
-  background-color: ${props => props.bgColor === 'alertsBg' ?  'var(--announceSectionBgColor)' :
-  props.bgColor ? props.bgColor : 'none'};
+  background-color: ${props => props.bgColor ? props.bgColor : 'none'};
 `;
 
 export const Div = styled.div`

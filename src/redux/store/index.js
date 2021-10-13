@@ -5,7 +5,7 @@ import mainMenuReducer from '../slices/mainMenuSlice';
 import { adminMenuSlice } from "../slices/adminMenuSlice";
 import { authPopupSlice } from "../slices/authPopupSlice";
 import { navLinkSlice } from "../slices/navLinkSlice";
-import { dynamicDataSlice } from "../slices/newsSlice";
+import { dynamicDataSlice } from "../slices/dynamicDataSlice";
 import { sliderImageLoadedSlice } from "../slices/sliderImageLoadedSlice";
 import { adminEditItemSlice } from "../slices/adminEditItemSlice";
 

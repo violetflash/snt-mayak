@@ -17,7 +17,7 @@ const ButtonContainer = styled.button`
     background-color: ${props => {
      return props.deleteBtn ? 'var(--popupErrorMsgColor)' : 
              props.green ? 'var(--popupValidBgColor)' : 
-                     props.onHover ? props.onHover : 'var(--buttonOnHoverColor)'
+                     props.hoverBgColor ? props.hoverBgColor : 'var(--buttonOnHoverColor)'
     }}
   }
   
@@ -40,7 +40,7 @@ export const Button = (
     deleteBtn = null,
     green = null,
     bgColor = null,
-    onHover = null,
+    hoverBgColor = null,
   }) => {
   return (
     <ButtonContainer
@@ -54,7 +54,7 @@ export const Button = (
       deleteBtn={deleteBtn}
       green={green}
       bgColor={bgColor}
-      onHover={onHover}
+      hoverBgColor={hoverBgColor}
     >
       {text}
     </ButtonContainer>

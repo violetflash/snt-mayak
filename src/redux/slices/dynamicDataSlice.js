@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  onEmptyMsg: "Новостей пока что нет.",
   news: [],
-  alerts: []
+  announce: [],
 }
 
 export const dynamicDataSlice = createSlice({
-  name: "news",
+  name: "dynamicData",
   initialState,
   reducers: {
     setData(state, action) {
+      console.log(action.payload.name);
       state[action.payload.name] = action.payload.dataValue;
     }
   }

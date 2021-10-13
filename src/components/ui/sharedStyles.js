@@ -32,6 +32,11 @@ export const TransitionProps = css`
   transition: ${props => props.transition ? props.transition : 'none'};
 `;
 
+export const BlockElementProps = css`
+  ${MarginProps};
+  ${PaddingProps};
+`;
+
 export const TextBlockProps = css`
   ${DisplayProps};
   ${MarginProps};

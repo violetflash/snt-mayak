@@ -27,7 +27,7 @@ export const SliderParams = ({ setParams, name, paramsRenderData }) => {
   const { fdb } = useFirebase();
   const baseTitleText = 'Параметры слайдера';
   const sliderTitleText = name === "news" ? `${baseTitleText} новостей` :
-    name === "alerts" ? `${baseTitleText} объявлений` : null;
+    name === "announce" ? `${baseTitleText} объявлений` : null;
 
   useEffect(() => {
     const paramsRef = fdb.ref(MAIN_REF + `/params/${name}/`);

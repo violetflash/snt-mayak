@@ -3,7 +3,6 @@ import {Route, Switch, useRouteMatch, useParams} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
 import {setActiveAdminTab} from '../../../redux';
 import {Link} from "react-router-dom";
-// import { AdminAlerts } from "./AdminAlerts/AdminAlerts";
 import NoMatch from "../../NoMatch/";
 import {addConditionedStyle} from "../../../functions/functions";
 
@@ -12,18 +11,18 @@ import {AdminDataPage} from "./AdminDataPage/AdminDataPage";
 
 const ContentControl = () => {
   const dispatch = useDispatch();
-  const {activeAdminTab} = useSelector(state => state.adminMenu);
-  const {path, url} = useRouteMatch();
+  const { activeAdminTab } = useSelector(state => state.adminMenu);
+  const { path, url } = useRouteMatch();
 
   const tabsTitles = [
     {title: 'Новости', route: `news`},
-    {title: 'Объявления для СНТ', route: `alerts`},
+    {title: 'Объявления для СНТ', route: `announces`},
     {title: 'Частные объявления', route: `private-offers`},
     {title: 'Пользователи', route: `users`}]
   ;
 
   const tabHandler = (title) => {
-    dispatch(setActiveAdminTab({title}))
+    dispatch(setActiveAdminTab({ title }))
   };
 
   const tabs = tabsTitles.map(({title, route}) => {
@@ -38,7 +37,7 @@ const ContentControl = () => {
   const Topic = () => {
     const {topicId} = useParams();
     const content = topicId === 'news' ? <AdminDataPage type="news"/> :
-      topicId === 'alerts' ? <AdminDataPage type="alerts"/> : null;
+      topicId === 'announces' ? <AdminDataPage type="announce"/> : null;
     //добавить условный рендер остальных компонентов (частные объявления, пользователи)
     return (
       <>
@@ -48,7 +47,7 @@ const ContentControl = () => {
   };
 
   useEffect(() => {
-    return () => dispatch(setActiveAdminTab({activeAdminTab: null}));
+    return () => dispatch(setActiveAdminTab({ activeAdminTab: null }));
   }, [dispatch]);
 
   const content =

@@ -6,7 +6,7 @@ import { SliderCarousel } from "../ui";
 
 import { getArrayFromDb, sortOptions } from "../../functions/functions";
 import { MAIN_REF, useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
-import { Announce } from "../Announce/Announce";
+import { AnnounceItem } from "../AnnounceItem/AnnounceItem";
 import { NewsItem } from "../NewsItem/NewsItem";
 
 const newsStyles = css`
@@ -131,9 +131,10 @@ export const Slider = ({ type }) => {
     dataRef
       .on('value', (res) => {
         if (res.exists()) {
+
           dispatch(setData({ name: type, dataValue: getArrayFromDb(res.val()) }));
         } else {
-          dispatch(setData({ name: type, dataValue: [] }));
+          dispatch(setData({ name: type, dataValue: null }));
         }
       });
     dataSliderParamsRef
@@ -160,12 +161,12 @@ export const Slider = ({ type }) => {
     };
   }, [fdb, dispatch, setSliderStartParams, type]);
 
-  const dataToRender = data.length ? [...data]
+  const dataToRender = data?.length ? [...data]
     .sort(sortOptions)
     .filter((item, index) => index < sliderParams.itemsToShow)
     .map((item) => {
       const { id } = item;
-      return type === 'alerts' ? <Announce key={id} type={type} {...item}/> :
+      return type === 'announce' ? <AnnounceItem key={id} type={type} {...item}/> :
         type === 'news' ? <NewsItem key={id} type={type} {...item}/> : null;
     }) : null;
 
@@ -180,7 +181,7 @@ export const Slider = ({ type }) => {
     infinite: sliderParams.infinite,
   };
 
-  if (!data.length) {
+  if (!data?.length) {
     return null;
   }
 

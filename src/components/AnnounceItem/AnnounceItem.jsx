@@ -1,10 +1,10 @@
 import React from 'react';
-import { H3Title } from "../ui/";
 import styled from "styled-components";
-import {TextBlockProps} from "../ui/sharedStyles";
+import { TextBlockProps } from "../ui/sharedStyles";
 
 const AnnounceArticleWrapper = styled.article`
   padding: 20px;
+  
 `;
 
 const AnnounceArticle = styled.div`
@@ -44,26 +44,6 @@ const AnnounceTitle = styled.h3`
   top: -15px;
   z-index: 2;
   max-width: 250px;
-
-  
-  //&::before,
-  //&::after {
-  //  content: "";
-  //  position: absolute;
-  //  width: 4px;
-  //  height: 20px;
-  //  background-color: #8ebe9b;
-  //  transform: rotate(-20deg);
-  //  top: 11px;
-  //  left: 1px;
-  //  border-radius: 4px;
-  //}
-  //
-  //&::after {
-  //  left: unset;
-  //  right: 1px;
-  //  transform: rotate(20deg);
-  //}
 `;
 
 const AnnounceBody = styled.div`
@@ -111,7 +91,7 @@ const ProposalForm = styled.div`
   text-align: right;
 `;
 
-export const Announce = ({ date, time, title, desc }) => {
+export const AnnounceItem = ({ date, time, title, desc }) => {
   return (
     <AnnounceArticleWrapper>
       <AnnounceArticle>

@@ -21,7 +21,7 @@ const Title = styled.h3`
 
 export const ItemsList = ({ itemsToShow, type }) => {
   const titleName = type === 'news' ? 'новостей' :
-    type === 'alerts' ? 'объявлений' : null;
+    type === 'announce' ? 'объявлений' : null;
   const [itemsList, setItemsList] = useState([]);
   const {fdb} = useFirebase();
 

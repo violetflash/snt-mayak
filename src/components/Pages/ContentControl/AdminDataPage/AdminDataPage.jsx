@@ -13,7 +13,7 @@ import AdminCreateOrEditPopup from "../../../ui/Popups/AdminCreateOrEditPopup/Ad
 import { Section } from "../../../ui/";
 
 export const AdminDataPage = ({ type }) => {
-  const createButtonText = type === 'alerts' ? 'Создать объявление' :
+  const createButtonText = type === 'announce' ? 'Создать объявление' :
     type === 'news' ? 'Создать новость' : null;
   const dispatch = useDispatch();
   const { editorPopupOpened, confirmDeleteOpened } = useSelector(state => state.adminEditItem);

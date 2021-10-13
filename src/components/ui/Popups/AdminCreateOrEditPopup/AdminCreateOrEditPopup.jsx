@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetDataToEdit, closeEditorPopup } from "../../../../redux";
-
-import { useFirebase } from '../../../../context/FirebaseProvider/FirebaseProvider';
-import { checkImageExist } from "../../../../functions/functions";
+import { resetDataToEdit, closeEditorPopup, setData } from "../../../../redux";
+import { MAIN_REF, useFirebase } from '../../../../context/FirebaseProvider/FirebaseProvider';
+import { checkImageExist, getArrayFromDb } from "../../../../functions/functions";
 
 import {
   AdminPopup,
@@ -17,8 +16,26 @@ import { LabelText } from "../../index";
 
 
 const AdminCreateOrEditPopup = ({ type }) => {
+  const { fdb } = useFirebase();
   const dispatch = useDispatch();
   const { dataToEdit } = useSelector(state => state.adminEditItem);
+
+  useEffect(() => {
+    const dataRef = fdb.ref(MAIN_REF + `/${type}/`);
+    const refs = [dataRef];
+    dataRef
+      .on('value', (res) => {
+        if (res.exists()) {
+          dispatch(setData({ name: type, dataValue: getArrayFromDb(res.val()) }));
+        } else {
+          dispatch(setData({ name: type, dataValue: null }));
+        }
+      });
+
+    return () => {
+      refs.forEach((ref) => ref.off());
+    };
+  }, [fdb, dispatch, type]);
 
   const now = new Date();
   const dateNow = now.toLocaleDateString();
@@ -32,7 +49,7 @@ const AdminCreateOrEditPopup = ({ type }) => {
       time: dataToEdit.time,
       imageID: dataToEdit.imageID
     } :
-    dataToEdit && type === 'alerts' ?
+    dataToEdit && type === 'announce' ?
       {
         title: dataToEdit.title,
         desc: dataToEdit.desc,
@@ -66,8 +83,9 @@ const AdminCreateOrEditPopup = ({ type }) => {
 
     const id = dataToEdit ? dataToEdit.id : `${Date.now()}`;
     const data = type === 'news' ? { type, id, title, desc, date, time, imageID, imageUrlState } :
-      type = 'alerts' ? { type, id, title, desc, date, time } : {};
+      type = 'announce' ? { type, id, title, desc, date, time } : {};
     writeDataToDB(type, data);
+
 
     if (dataToEdit) {
       dispatch(resetDataToEdit());
