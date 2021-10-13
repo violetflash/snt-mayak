@@ -131,7 +131,6 @@ export const AdminDataPage = ({ type }) => {
     updateReduxDynamicDataState(type);
   }, [updateReduxDynamicDataState, type]);
 
-  // const editorPopup = editorPopupOpened ? <AdminNewsPopup/> : null;
   const editorPopup = editorPopupOpened ? <AdminCreateOrEditPopup type={type}/> : null;
   const confirmDeletePopup = confirmDeleteOpened ? <ConfirmDeletePopup type={type}/> : null;
 

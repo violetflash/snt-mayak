@@ -95,15 +95,15 @@ const FirebaseProvider = ({children}) => {
   const setSlidersStartParams = () => {
     const newsSliderParamsRef = fdb.ref(MAIN_REF + `/params/news/`);
     const announceSliderParamsRef = fdb.ref(MAIN_REF + `/params/announce/`);
-    const refs = [{ name: 'news', ref: newsSliderParamsRef },  { name: 'announce', ref: announceSliderParamsRef }];
+    const refs = [{ type: 'news', ref: newsSliderParamsRef },  { type: 'announce', ref: announceSliderParamsRef }];
     refs.forEach((elem) => {
       elem.ref.get()
         .then((snapshot) => {
           if (snapshot.exists()) {
-            dispatch(setSettings({ name: elem.name, settingsData: snapshot.val() }));
+            dispatch(setSettings({ type: elem.type, settingsData: snapshot.val() }));
           } else {
-            dispatch(setSettings({ name: elem.name, settingsData: {
-                type: elem.name,
+            dispatch(setSettings({ type: elem.type, settingsData: {
+                type: elem.type,
                 itemsToShow: 1,
                 animationType: "fadeout",
                 animationDuration: 300,

@@ -27,6 +27,11 @@ const App = () => {
     addConditionedStyle(mode === 'light', [s.App], s.lightTheme) :
     addConditionedStyle(mode === 'dark', [s.App], s.darkTheme);
 
+  const { setSlidersStartParams } = useFirebase();
+
+  useEffect(() => {
+    setSlidersStartParams();
+  }, [setSlidersStartParams]);
 
   useEffect(() => {
     const showEmailConfirmPopup = () => {
@@ -42,6 +47,8 @@ const App = () => {
 
     return showEmailConfirmPopup;
   }, [showPopup, setShowPopup]);
+
+
 
 
   const confirmEmailPopup = showPopup ? <EmailConfirmPopup/> : null;

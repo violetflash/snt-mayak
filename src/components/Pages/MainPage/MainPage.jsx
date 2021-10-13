@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -12,7 +12,6 @@ import Greetings from "./Greetings";
 import MainBgVector from '../../../assets/bg/vectorBg2.svg';
 import flower1 from '../../../assets/icons/flowers/floral-1.svg';
 import { AnnounceSection } from "../../AnnounceSection/AnnounceSection";
-import { useFirebase } from "../../../context/FirebaseProvider/FirebaseProvider";
 
 const MainPageSection = styled.section`
   //background-color: #eff6fa;
@@ -62,12 +61,6 @@ const HeroSection = styled.section`
 `;
 
 const MainPage = () => {
-  const { setSlidersStartParams } = useFirebase();
-
-  useEffect(() => {
-    setSlidersStartParams();
-  }, [setSlidersStartParams]);
-
 
   return (
     <MainPageSection>
@@ -86,7 +79,7 @@ const MainPage = () => {
           }}
           animate={{ opacity: 1, scale: 1, rotate: -180, }}
           transition={{
-            delay: 0.5,
+            delay: 1.5,
             duration: 1,
             // repeat: Infinity,
             repeatDelay: 1,
@@ -108,7 +101,7 @@ const MainPage = () => {
           }}
           animate={{ opacity: 1, scale: 1, rotate: -110, }}
           transition={{
-            delay: 0.8,
+            delay: 1,
             duration: 1,
             // repeat: Infinity,
             repeatDelay: 1,

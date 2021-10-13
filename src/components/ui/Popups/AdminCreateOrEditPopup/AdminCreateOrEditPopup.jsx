@@ -82,9 +82,9 @@ const AdminCreateOrEditPopup = ({ type }) => {
     e.preventDefault();
 
     const id = dataToEdit ? dataToEdit.id : `${Date.now()}`;
-    const data = type === 'news' ? { type, id, title, desc, date, time, imageID, imageUrlState } :
+    const data = type === 'news' ? { type, id, title, desc, date, time, imageID, imageUrl: imageUrlState } :
       type = 'announce' ? { type, id, title, desc, date, time } : {};
-    writeDataToDB(type, data);
+    writeDataToDB(data);
 
 
     if (dataToEdit) {

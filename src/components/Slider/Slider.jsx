@@ -119,42 +119,43 @@ export const Slider = ({ type }) => {
   const { fdb, setSliderStartParams, updateReduxDynamicDataState } = useFirebase();
 
   const data = useSelector(state => state.dynamicData[type]);
+  const sliderSettings = useSelector(state => state.sliderSettings);
 
   //cтейт для обновления компонента при изменении параметра настроек в другом компоненте
-  const [sliderParams, setSliderParams] = useState({});
+  // const [sliderParams, setSliderParams] = useState({});
 
-  useEffect(() => {
-    const dataSliderParamsRef = fdb.ref(MAIN_REF + `/params/${type}/`);
-    const refs = [dataSliderParamsRef];
-    dataSliderParamsRef
-      .on('value', (res) => {
-        if (res.exists()) {
-          setSliderParams(res.val());
-        } else {
-          setSliderStartParams(type, {
-            itemsToShow: 1,
-            animationType: "fadeout",
-            animationDuration: 300,
-            disableButtons: true,
-            disableDotsControls: false,
-            autoPlay: true,
-            autoPlayInterval: 5000,
-            disableSlideInfo: true,
-            infinite: true,
-          });
-        }
-      });
-
-    updateReduxDynamicDataState(type);
-
-    return () => {
-      refs.forEach((ref) => ref.off());
-    };
-  }, [fdb, dispatch, setSliderStartParams, updateReduxDynamicDataState, type]);
+  // useEffect(() => {
+  //   const dataSliderParamsRef = fdb.ref(MAIN_REF + `/params/${type}/`);
+  //   const refs = [dataSliderParamsRef];
+  //   dataSliderParamsRef
+  //     .on('value', (res) => {
+  //       if (res.exists()) {
+  //         setSliderParams(res.val());
+  //       } else {
+  //         setSliderStartParams(type, {
+  //           itemsToShow: 1,
+  //           animationType: "fadeout",
+  //           animationDuration: 300,
+  //           disableButtons: true,
+  //           disableDotsControls: false,
+  //           autoPlay: true,
+  //           autoPlayInterval: 5000,
+  //           disableSlideInfo: true,
+  //           infinite: true,
+  //         });
+  //       }
+  //     });
+  //
+  //   updateReduxDynamicDataState(type);
+  //
+  //   return () => {
+  //     refs.forEach((ref) => ref.off());
+  //   };
+  // }, [fdb, dispatch, setSliderStartParams, updateReduxDynamicDataState, type]);
 
   const dataToRender = data?.length ? [...data]
     .sort(sortOptions)
-    .filter((item, index) => index < sliderParams.itemsToShow)
+    .filter((item, index) => index < sliderSettings[type].itemsToShow)
     .map((item) => {
       const { id } = item;
       return type === 'announce' ? <AnnounceItem key={id} type={type} {...item}/> :
@@ -162,14 +163,14 @@ export const Slider = ({ type }) => {
     }) : null;
 
   const settings = {
-    animationType: sliderParams.animationType,
-    animationDuration: sliderParams.animationDuration,
-    disableButtonsControls: sliderParams.disableButtons,
-    disableSlideInfo: sliderParams.disableSlideInfo,
-    disableDotsControls: sliderParams.disableDotsControls,
-    autoPlay: sliderParams.autoPlay,
-    autoPlayInterval: sliderParams.autoPlayInterval,
-    infinite: sliderParams.infinite,
+    animationType: sliderSettings[type].animationType,
+    animationDuration: sliderSettings[type].animationDuration,
+    disableButtonsControls: sliderSettings[type].disableButtons,
+    disableSlideInfo: sliderSettings[type].disableSlideInfo,
+    disableDotsControls: sliderSettings[type].disableDotsControls,
+    autoPlay: sliderSettings[type].autoPlay,
+    autoPlayInterval: sliderSettings[type].autoPlayInterval,
+    infinite: sliderSettings[type].infinite,
   };
 
   if (!data?.length) {
