@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { openEditorPopup } from "../../../../redux";
 
 import { ItemsList } from "./ItemsList/ItemsList";
-// import AdminNewsPopup from "./AdminNewsPopup";
 import ContentControlRootLink from "../ContentControlRootLink";
-// import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import { Button, ConfirmDeletePopup, FlexContainer } from '../../../ui';
+import {Button, ConfirmDeletePopup, FlexContainer, NoContent} from '../../../ui';
 import { SliderParams } from "./SliderParams/SliderParams";
 
 import AdminCreateOrEditPopup from "../../../ui/Popups/AdminCreateOrEditPopup/AdminCreateOrEditPopup";
 import { Section } from "../../../ui/";
+import { useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
 
 export const AdminDataPage = ({ type }) => {
+  const { updateReduxDynamicDataState } = useFirebase();
   const createButtonText = type === 'announce' ? 'Создать объявление' :
     type === 'news' ? 'Создать новость' : null;
   const dispatch = useDispatch();
   const { editorPopupOpened, confirmDeleteOpened } = useSelector(state => state.adminEditItem);
+  const data = useSelector(state => state.dynamicData);
 
   //Вынесено сюда только с целью проброса параметра кол-ва новостей в слайдере в компонент NewsList
   const [params, setParams] = useState(
@@ -126,6 +127,10 @@ export const AdminDataPage = ({ type }) => {
     },
   ];
 
+  useEffect(() => {
+    updateReduxDynamicDataState(type);
+  }, [updateReduxDynamicDataState, type]);
+
   // const editorPopup = editorPopupOpened ? <AdminNewsPopup/> : null;
   const editorPopup = editorPopupOpened ? <AdminCreateOrEditPopup type={type}/> : null;
   const confirmDeletePopup = confirmDeleteOpened ? <ConfirmDeletePopup type={type}/> : null;
@@ -133,6 +138,13 @@ export const AdminDataPage = ({ type }) => {
   const createItem = () => dispatch(openEditorPopup());
 
   const { itemsToShow } = params;
+
+  const itemsData = data[type] ?
+    <>
+      <SliderParams name={type} setParams={setParams} paramsRenderData={sliderParamsData}/>
+      <ItemsList itemsToShow={itemsToShow} type={type}/>
+    </> :
+    <NoContent>Тут ничего пока нет</NoContent>;
 
   return (
     <Section>
@@ -142,12 +154,7 @@ export const AdminDataPage = ({ type }) => {
       </FlexContainer>
       {editorPopup}
       {confirmDeletePopup}
-      <SliderParams
-        name={type}
-        setParams={setParams}
-        paramsRenderData={sliderParamsData}
-      />
-      <ItemsList itemsToShow={itemsToShow} type={type}/>
+      {itemsData}
     </Section>
   );
 

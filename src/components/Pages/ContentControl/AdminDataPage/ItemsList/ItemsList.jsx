@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 
-import { useFirebase, MAIN_REF } from "../../../../../context/FirebaseProvider/FirebaseProvider";
-import { getArrayFromDb, sortOptions } from "../../../../../functions/functions";
-// import NewsItem from "./NewsItem/";
+import { useFirebase  } from "../../../../../context/FirebaseProvider/FirebaseProvider";
+import { sortOptions } from "../../../../../functions/functions";
 import Loader from "../../../../Loader";
 import { AdminEditableListItem } from "../../../../ui/";
 
@@ -22,30 +22,15 @@ const Title = styled.h3`
 export const ItemsList = ({ itemsToShow, type }) => {
   const titleName = type === 'news' ? 'новостей' :
     type === 'announce' ? 'объявлений' : null;
-  const [itemsList, setItemsList] = useState([]);
-  const {fdb} = useFirebase();
 
+  const { updateReduxDynamicDataState } = useFirebase();
+  const dynamicData = useSelector(state => state.dynamicData);
 
   useEffect(() => {
-    const newsRef = fdb.ref(MAIN_REF + `/${type}/`);
-    const refs = [newsRef];
-    newsRef
-      .on('value', (res) => {
-        if (res.exists()) {
-          setItemsList(getArrayFromDb(res.val()));
-        } else {
-          setItemsList([]);
-        }
-      })
+    updateReduxDynamicDataState(type);
+  }, [updateReduxDynamicDataState, type]);
 
-    return () => {
-      refs.forEach((ref) => ref.off());
-    }
-  }, [fdb, type]);
-
-
-
-  const data = itemsList.length ? itemsList
+  const data = dynamicData[type] ? [...dynamicData[type]]
     .sort(sortOptions)
     .map((item, index) => {
       const {id} = item;

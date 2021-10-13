@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PageTitle from "../ui/PageTitle";
 import { motion } from "framer-motion";
 import { Slider } from "../Slider/Slider";
-import { Div, Section } from "../ui";
+import {Div, NoContent, Section} from "../ui";
 import styled from "styled-components";
-import { MAIN_REF, useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
-import { setData } from "../../redux";
-import { getArrayFromDb } from "../../functions/functions";
+import { useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
+
 
 
 const DecorationWrapper = styled.div`
@@ -81,36 +80,18 @@ const announces =
   </DecorationWrapper>
 ;
 
-const NoContent = styled.div`
-  padding: 20px;
-  text-align: center;
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 
-`;
 
 export const AnnounceSection = () => {
   const type = 'announce';
-  const { fdb } = useFirebase();
-  const dispatch = useDispatch();
-  const { announce } = useSelector(state => state.dynamicData);
-  const data = announce ? announces : <NoContent>Объявлений пока нет</NoContent>;
+  const { updateReduxDynamicDataState } = useFirebase();
 
   useEffect(() => {
-    const dataRef = fdb.ref(MAIN_REF + `/${type}/`);
-    const refs = [dataRef];
-    dataRef
-      .on('value', (res) => {
-        if (res.exists()) {
-          dispatch(setData({ name: type, dataValue: getArrayFromDb(res.val()) }));
-        } else {
-          dispatch(setData({ name: type, dataValue: null }));
-        }
-      });
+    updateReduxDynamicDataState(type);
+  }, [updateReduxDynamicDataState]);
 
-    return () => {
-      refs.forEach((ref) => ref.off());
-    };
-  }, [fdb, dispatch, type]);
+  const { announce } = useSelector(state => state.dynamicData);
+  const data = announce ? announces : <NoContent>Объявлений пока нет</NoContent>;
 
   return (
     <Section padding="60px 0 40px" bgColor="var(--bgColor)">

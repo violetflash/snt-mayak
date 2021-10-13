@@ -6,7 +6,7 @@ import { adminMenuSlice } from "../slices/adminMenuSlice";
 import { authPopupSlice } from "../slices/authPopupSlice";
 import { navLinkSlice } from "../slices/navLinkSlice";
 import { dynamicDataSlice } from "../slices/dynamicDataSlice";
-import { sliderImageLoadedSlice } from "../slices/sliderImageLoadedSlice";
+import { sliderSettingsSlice } from "../slices/sliderSettingsSlice";
 import { adminEditItemSlice } from "../slices/adminEditItemSlice";
 
 export const store = configureStore({
@@ -17,7 +17,7 @@ export const store = configureStore({
     authPopup: authPopupSlice.reducer,
     navLinks: navLinkSlice.reducer,
     dynamicData: dynamicDataSlice.reducer,
-    sliderImageLoaded: sliderImageLoadedSlice.reducer,
+    sliderSettings: sliderSettingsSlice.reducer,
     adminEditItem: adminEditItemSlice.reducer
   }
 });

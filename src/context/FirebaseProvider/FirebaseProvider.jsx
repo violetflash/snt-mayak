@@ -1,7 +1,10 @@
 import React, {useState, useEffect, useContext, createContext} from "react";
+import { useDispatch } from 'react-redux';
+import {setData, setSettings} from '../../redux';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
+import { getArrayFromDb } from "../../functions/functions";
 
 const MAIN_REF = "mayak";
 
@@ -37,6 +40,7 @@ const LS_USERNAME = 'mayak-activeUser';
 
 //Provider hook that creates auth object and handles state
 const FirebaseProvider = ({children}) => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -66,6 +70,17 @@ const FirebaseProvider = ({children}) => {
       });
   };
 
+  const updateReduxDynamicDataState = (type) => {
+    fdb.ref(`${MAIN_REF}/${type}/`).get()
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          dispatch(setData({ name: type, dataValue: getArrayFromDb(snapshot.val()) }));
+        } else {
+          dispatch(setData({ name: type, dataValue: null }));
+        }
+      })
+  }
+
   const setSliderParams = (dbRef, name, value) => {
     fdb.ref(`${MAIN_REF}/params/${dbRef}`)
       .update({
@@ -76,6 +91,33 @@ const FirebaseProvider = ({children}) => {
   const setSliderStartParams = (dbRef, params) => {
     fdb.ref(`${MAIN_REF}/params/${dbRef}`).set(params);
   };
+
+  const setSlidersStartParams = () => {
+    const newsSliderParamsRef = fdb.ref(MAIN_REF + `/params/news/`);
+    const announceSliderParamsRef = fdb.ref(MAIN_REF + `/params/announce/`);
+    const refs = [{ name: 'news', ref: newsSliderParamsRef },  { name: 'announce', ref: announceSliderParamsRef }];
+    refs.forEach((elem) => {
+      elem.ref.get()
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            dispatch(setSettings({ name: elem.name, settingsData: snapshot.val() }));
+          } else {
+            dispatch(setSettings({ name: elem.name, settingsData: {
+                type: elem.name,
+                itemsToShow: 1,
+                animationType: "fadeout",
+                animationDuration: 300,
+                disableButtons: true,
+                disableDotsControls: false,
+                autoPlay: true,
+                autoPlayInterval: 5000,
+                disableSlideInfo: true,
+                infinite: true,
+              }}))
+          }
+        })
+    });
+  }
 
   const deleteRefFromDB = (ref) => {
     fdb.ref(`${MAIN_REF}/${ref}`).remove();
@@ -227,6 +269,8 @@ const FirebaseProvider = ({children}) => {
     deleteRefFromDB,
     setSliderParams,
     setSliderStartParams,
+    updateReduxDynamicDataState,
+    setSlidersStartParams
   }
 
   return (

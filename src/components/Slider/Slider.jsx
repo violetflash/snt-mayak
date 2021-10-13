@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { setData } from '../../redux';
 import { SliderCarousel } from "../ui";
 
-import { getArrayFromDb, sortOptions } from "../../functions/functions";
+import { sortOptions } from "../../functions/functions";
 import { MAIN_REF, useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
 import { AnnounceItem } from "../AnnounceItem/AnnounceItem";
 import { NewsItem } from "../NewsItem/NewsItem";
@@ -117,7 +116,7 @@ const SliderContainer = styled.div`
 
 export const Slider = ({ type }) => {
   const dispatch = useDispatch();
-  const { fdb, setSliderStartParams } = useFirebase();
+  const { fdb, setSliderStartParams, updateReduxDynamicDataState } = useFirebase();
 
   const data = useSelector(state => state.dynamicData[type]);
 
@@ -125,18 +124,8 @@ export const Slider = ({ type }) => {
   const [sliderParams, setSliderParams] = useState({});
 
   useEffect(() => {
-    const dataRef = fdb.ref(MAIN_REF + `/${type}/`);
     const dataSliderParamsRef = fdb.ref(MAIN_REF + `/params/${type}/`);
-    const refs = [dataRef, dataSliderParamsRef];
-    dataRef
-      .on('value', (res) => {
-        if (res.exists()) {
-
-          dispatch(setData({ name: type, dataValue: getArrayFromDb(res.val()) }));
-        } else {
-          dispatch(setData({ name: type, dataValue: null }));
-        }
-      });
+    const refs = [dataSliderParamsRef];
     dataSliderParamsRef
       .on('value', (res) => {
         if (res.exists()) {
@@ -156,10 +145,12 @@ export const Slider = ({ type }) => {
         }
       });
 
+    updateReduxDynamicDataState(type);
+
     return () => {
       refs.forEach((ref) => ref.off());
     };
-  }, [fdb, dispatch, setSliderStartParams, type]);
+  }, [fdb, dispatch, setSliderStartParams, updateReduxDynamicDataState, type]);
 
   const dataToRender = data?.length ? [...data]
     .sort(sortOptions)

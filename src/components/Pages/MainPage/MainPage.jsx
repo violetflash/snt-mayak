@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-
-import {Slider} from "../../Slider/Slider";
+import { Slider } from "../../Slider/Slider";
 import GardenerGirl from "../../Parallax/GardenerGirl/GardenerGirl";
 
 import s from "./MainPage.module.scss";
@@ -11,11 +10,13 @@ import PageTitle from "../../ui/PageTitle";
 import Greetings from "./Greetings";
 
 import MainBgVector from '../../../assets/bg/vectorBg2.svg';
+import flower1 from '../../../assets/icons/flowers/floral-1.svg';
 import { AnnounceSection } from "../../AnnounceSection/AnnounceSection";
-
+import { useFirebase } from "../../../context/FirebaseProvider/FirebaseProvider";
 
 const MainPageSection = styled.section`
   //background-color: #eff6fa;
+  padding-bottom: 100px;
 `;
 
 const NewsBlockWrapper = styled.div`
@@ -26,6 +27,17 @@ const NewsBlockWrapper = styled.div`
 const NewsSliderWrapper = styled(motion.div)`
   min-width: 520px;
   min-height: 420px;
+`;
+
+const Flower = styled.div`
+  position: absolute;
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  right: ${props => props.right ? props.right : "unset"};
+  bottom: ${props => props.bottom ? props.bottom : "unset"};
+  width: ${props => props.width ? props.width : "auto"};
+  height: ${props => props.height ? props.height : "auto"};
 `;
 
 const HeroSection = styled.section`
@@ -50,10 +62,61 @@ const HeroSection = styled.section`
 `;
 
 const MainPage = () => {
+  const { setSlidersStartParams } = useFirebase();
+
+  useEffect(() => {
+    setSlidersStartParams();
+  }, [setSlidersStartParams]);
+
+
   return (
     <MainPageSection>
       <Greetings/>
       <HeroSection style={{backgroundImage: `url(${MainBgVector})`}}>
+        <Flower
+          right="5%"
+          bottom="5%"
+          width="70px"
+          height="70px"
+          as={motion.div}
+          style={{backgroundImage: `url(${flower1})`}}
+          initial={{
+            scale: 0,
+            opacity: 0,
+          }}
+          animate={{ opacity: 1, scale: 1, rotate: -180, }}
+          transition={{
+            delay: 0.5,
+            duration: 1,
+            // repeat: Infinity,
+            repeatDelay: 1,
+            // repeatType: 'reverse',
+            type: 'just',
+            ease: 'backOut'
+          }}
+        />
+        <Flower
+          right="10%"
+          bottom="55%"
+          width="50px"
+          height="50px"
+          as={motion.div}
+          style={{backgroundImage: `url(${flower1})`}}
+          initial={{
+            scale: 0,
+            opacity: 0,
+          }}
+          animate={{ opacity: 1, scale: 1, rotate: -110, }}
+          transition={{
+            delay: 0.8,
+            duration: 1,
+            // repeat: Infinity,
+            repeatDelay: 1,
+            // repeatType: 'reverse',
+            type: 'just',
+            ease: 'backOut'
+          }}
+        />
         <div className="container">
           <div className={s.MainPage__content}>
             <div className={s.MainPage__hero}>
