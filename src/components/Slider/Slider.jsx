@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { SliderCarousel } from "../ui";
 
 import { sortOptions } from "../../functions/functions";
-import { MAIN_REF, useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
 import { AnnounceItem } from "../AnnounceItem/AnnounceItem";
 import { NewsItem } from "../NewsItem/NewsItem";
 
@@ -115,43 +114,10 @@ const SliderContainer = styled.div`
 `;
 
 export const Slider = ({ type }) => {
-  const dispatch = useDispatch();
-  const { fdb, setSliderStartParams, updateReduxDynamicDataState } = useFirebase();
-
   const data = useSelector(state => state.dynamicData[type]);
   const sliderSettings = useSelector(state => state.sliderSettings);
 
   //cтейт для обновления компонента при изменении параметра настроек в другом компоненте
-  // const [sliderParams, setSliderParams] = useState({});
-
-  // useEffect(() => {
-  //   const dataSliderParamsRef = fdb.ref(MAIN_REF + `/params/${type}/`);
-  //   const refs = [dataSliderParamsRef];
-  //   dataSliderParamsRef
-  //     .on('value', (res) => {
-  //       if (res.exists()) {
-  //         setSliderParams(res.val());
-  //       } else {
-  //         setSliderStartParams(type, {
-  //           itemsToShow: 1,
-  //           animationType: "fadeout",
-  //           animationDuration: 300,
-  //           disableButtons: true,
-  //           disableDotsControls: false,
-  //           autoPlay: true,
-  //           autoPlayInterval: 5000,
-  //           disableSlideInfo: true,
-  //           infinite: true,
-  //         });
-  //       }
-  //     });
-  //
-  //   updateReduxDynamicDataState(type);
-  //
-  //   return () => {
-  //     refs.forEach((ref) => ref.off());
-  //   };
-  // }, [fdb, dispatch, setSliderStartParams, updateReduxDynamicDataState, type]);
 
   const dataToRender = data?.length ? [...data]
     .sort(sortOptions)

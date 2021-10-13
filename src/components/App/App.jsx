@@ -1,5 +1,5 @@
-import React, {useContext, useEffect} from 'react';
-
+import React, { useLayoutEffect, useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {ThemeContext} from "../../context/ThemeProvider/ThemeProvider";
 import {addConditionedStyle} from "../../functions/functions";
@@ -21,17 +21,21 @@ import EmailConfirmPopup from "../EmailConfirmPopup";
 
 
 const App = () => {
-  const {showPopup, setShowPopup} = useFirebase();
-  const {mode} = useContext(ThemeContext);
+  const dynamicData = useSelector(state => state.dynamicData);
+  const { showPopup, setShowPopup } = useFirebase();
+  const { mode } = useContext(ThemeContext);
   const appClass = mode === 'light' ?
     addConditionedStyle(mode === 'light', [s.App], s.lightTheme) :
     addConditionedStyle(mode === 'dark', [s.App], s.darkTheme);
 
-  const { setSlidersStartParams } = useFirebase();
+  const { setSlidersStartParams, updateReduxDynamicDataState } = useFirebase();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSlidersStartParams();
-  }, [setSlidersStartParams]);
+    for (const key in dynamicData) {
+      updateReduxDynamicDataState(key);
+    }
+  }, [setSlidersStartParams, updateReduxDynamicDataState]);
 
   useEffect(() => {
     const showEmailConfirmPopup = () => {

@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import PageTitle from "../ui/PageTitle";
 import { motion } from "framer-motion";
 import { Slider } from "../Slider/Slider";
 import {Div, NoContent, Section} from "../ui";
 import styled from "styled-components";
-import { useFirebase } from "../../context/FirebaseProvider/FirebaseProvider";
-
 
 
 const DecorationWrapper = styled.div`
@@ -15,8 +13,6 @@ const DecorationWrapper = styled.div`
   z-index: 0;
   min-height: 450px;
 `;
-
-
 
 const AnnounceItemWrapper = styled.div`
   position: relative;
@@ -75,21 +71,11 @@ const announces =
       }}
     >
       <Slider type="announce"/>
-
     </AnnounceItemWrapper>
   </DecorationWrapper>
 ;
 
-
-
 export const AnnounceSection = () => {
-  const type = 'announce';
-  const { updateReduxDynamicDataState } = useFirebase();
-
-  useEffect(() => {
-    updateReduxDynamicDataState(type);
-  }, [updateReduxDynamicDataState]);
-
   const { announce } = useSelector(state => state.dynamicData);
   const data = announce ? announces : <NoContent>Объявлений пока нет</NoContent>;
 

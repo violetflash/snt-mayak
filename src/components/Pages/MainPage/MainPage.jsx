@@ -11,6 +11,7 @@ import Greetings from "./Greetings";
 
 import MainBgVector from '../../../assets/bg/vectorBg2.svg';
 import flower1 from '../../../assets/icons/flowers/floral-1.svg';
+import sun from '../../../assets/icons/sun.svg';
 import { AnnounceSection } from "../../AnnounceSection/AnnounceSection";
 
 const MainPageSection = styled.section`
@@ -28,12 +29,14 @@ const NewsSliderWrapper = styled(motion.div)`
   min-height: 420px;
 `;
 
-const Flower = styled.div`
+const AnimatedIcon = styled.div`
   position: absolute;
   background-position: center;
   background-size: 100%;
   background-repeat: no-repeat;
+  left: ${props => props.left ? props.left : "unset"};
   right: ${props => props.right ? props.right : "unset"};
+  top: ${props => props.top ? props.top : "unset"};
   bottom: ${props => props.bottom ? props.bottom : "unset"};
   width: ${props => props.width ? props.width : "auto"};
   height: ${props => props.height ? props.height : "auto"};
@@ -66,7 +69,7 @@ const MainPage = () => {
     <MainPageSection>
       <Greetings/>
       <HeroSection style={{backgroundImage: `url(${MainBgVector})`}}>
-        <Flower
+        <AnimatedIcon
           right="5%"
           bottom="5%"
           width="70px"
@@ -88,7 +91,7 @@ const MainPage = () => {
             ease: 'backOut'
           }}
         />
-        <Flower
+        <AnimatedIcon
           right="10%"
           bottom="55%"
           width="50px"
@@ -100,6 +103,29 @@ const MainPage = () => {
             opacity: 0,
           }}
           animate={{ opacity: 1, scale: 1, rotate: -110, }}
+          transition={{
+            delay: 1,
+            duration: 1,
+            // repeat: Infinity,
+            repeatDelay: 1,
+            // repeatType: 'reverse',
+            type: 'just',
+            ease: 'backOut'
+          }}
+        />
+        <AnimatedIcon
+          left="10%"
+          top="5%"
+          width="100px"
+          height="100px"
+          as={motion.div}
+          style={{backgroundImage: `url(${sun})`}}
+          initial={{
+            y: -60,
+            opacity: 0,
+            scale: 0,
+          }}
+          animate={{ opacity: 1, y: 0, scale: 1, }}
           transition={{
             delay: 1,
             duration: 1,
