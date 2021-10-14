@@ -19,8 +19,8 @@ class GardenerGirl extends Component {
   render() {
     return (
       <figure className={s.GardenerGirl} ref={el => this.scene = el}>
-        <Girl className={s.GardenerGirl__girl} data-depth="0.4"/>
-        <Bushes className={s.GardenerGirl__bushes} data-depth="0.3"/>
+        <Girl className={s.GardenerGirl__girl} data-depth="0.2"/>
+        <Bushes className={s.GardenerGirl__bushes} data-depth="0.4"/>
         <Tree className={s.GardenerGirl__tree} data-depth="0.3"/>
         <Bg className={s.GardenerGirl__bg} data-depth="0.1"/>
       </figure>

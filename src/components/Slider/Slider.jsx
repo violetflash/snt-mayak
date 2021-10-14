@@ -89,9 +89,9 @@ const newsStyles = css`
 
   .alice-carousel__dots {
     position: absolute;
-    bottom: -20px;
+    bottom: -35px;
     margin: 0;
-    left: 0;
+    right: 0;
   }
 
   .alice-carousel__dots-item {
@@ -100,7 +100,7 @@ const newsStyles = css`
     height: 6px;
 
     &.__active {
-      background-color: #ade8bf;
+      background-color: dodgerblue;
     }
 
     &:hover {
@@ -116,8 +116,6 @@ const SliderContainer = styled.div`
 export const Slider = ({ type }) => {
   const data = useSelector(state => state.dynamicData[type]);
   const sliderSettings = useSelector(state => state.sliderSettings);
-
-  //cтейт для обновления компонента при изменении параметра настроек в другом компоненте
 
   const dataToRender = data?.length ? [...data]
     .sort(sortOptions)

@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSettings } from '../../../../../redux';
 import styled from 'styled-components';
 
 import { MAIN_REF, useFirebase } from "../../../../../context/FirebaseProvider/FirebaseProvider";
@@ -22,43 +24,138 @@ const ListBox = styled.div`
   transition: all 0.3s ease-in-out;
 `;
 
-export const SliderParams = ({ setParams, name, paramsRenderData }) => {
-  const { setSliderParams } = useFirebase();
-  const { fdb } = useFirebase();
+export const SliderParams = ({ type }) => {
+  const dispatch = useDispatch();
+  const { fdb, setSliderParams } = useFirebase();
   const baseTitleText = 'Параметры слайдера';
-  const sliderTitleText = name === "news" ? `${baseTitleText} новостей` :
-    name === "announce" ? `${baseTitleText} объявлений` : null;
+  const sliderTitleText = type === "news" ? `${baseTitleText} новостей` :
+    type === "announce" ? `${baseTitleText} объявлений` : null;
+  const params = useSelector(state => state.sliderSettings[type]);
+
+
+  const sliderParamsData = [
+    {
+      type: "select",
+      value: params.itemsToShow,
+      label: "Новостей в слайдере на главной странице:",
+      name: 'itemsToShow',
+      options: [
+        { value: 1, text: 1 },
+        { value: 2, text: 2 },
+        { value: 3, text: 3 },
+        { value: 4, text: 4 },
+        { value: 5, text: 5 },
+      ]
+    },
+
+    {
+      type: "select",
+      value: params.autoPlayInterval,
+      label: "Время на слайд (сек.)",
+      name: 'autoPlayInterval',
+      options: [
+        { value: 2000, text: 2 },
+        { value: 3000, text: 3 },
+        { value: 5000, text: 5 },
+        { value: 7000, text: 7 },
+        { value: 10000, text: 10 },
+        { value: 15000, text: 15 },
+        { value: 20000, text: 20 },
+      ]
+    },
+
+    {
+      type: "select",
+      value: params.animationDuration,
+      label: "Скорость пролистывания слайда (сек.)",
+      name: 'animationDuration',
+      options: [
+        { value: 300, text: 0.3 },
+        { value: 500, text: 0.5 },
+        { value: 1000, text: 1 },
+        { value: 1500, text: 1.5 },
+        { value: 2000, text: 2 },
+        { value: 2500, text: 2.5 },
+      ]
+    },
+
+    {
+      type: "select",
+      value: params.animationType,
+      label: "Тип слайдера",
+      name: 'animationType',
+      options: [
+        { value: "fadeout", text: "Перекрытие" },
+        { value: "slide", text: "Листание" },
+      ]
+    },
+
+    {
+      type: "checkbox",
+      checked: params.infinite,
+      label: "Зациклен ?",
+      name: 'infinite',
+    },
+
+    {
+      type: "checkbox",
+      checked: params.autoPlay,
+      label: "Автом. прокрутка",
+      name: 'autoPlay',
+    },
+
+    {
+      type: "checkbox",
+      checked: params.disableButtons,
+      label: "Убрать стрелки слайдера",
+      name: 'disableButtons',
+    },
+
+    {
+      type: "checkbox",
+      checked: params.disableDotsControls,
+      label: "Убрать точки навигации (снизу)",
+      name: 'disableDotsControls',
+    },
+
+    {
+      type: "checkbox",
+      checked: params.disableSlideInfo,
+      label: "Убрать счетчик слайдов",
+      name: 'disableSlideInfo',
+    },
+  ];
 
   useEffect(() => {
-    const paramsRef = fdb.ref(MAIN_REF + `/params/${name}/`);
+    const paramsRef = fdb.ref(MAIN_REF + `/params/${type}/`);
     const refs = [paramsRef];
     paramsRef
       .on('value', (res) => {
         if (res.exists()) {
-          setParams(res.val());
+          dispatch(setSettings({ type: type, settingsData: res.val() }));
         } else {
-          setParams({});
         }
       });
 
     return () => {
       refs.forEach((ref) => ref.off());
     };
-  }, [fdb, setParams, name]);
+  }, [fdb, dispatch, type]);
 
   const onChangeHandler = (e) => {
     const target = e.target;
 
     if (target.type === "checkbox") {
-      setSliderParams(name, target.name, target.checked);
+      setSliderParams(type, target.name, target.checked);
       return;
     }
 
-    setSliderParams(name, target.name, target.value);
+    setSliderParams(type, target.name, target.value);
+
   };
 
 
-  const selectParams = paramsRenderData
+  const selectParams = sliderParamsData
     .filter(el => el.type === "select")
     .map(el => {
       const { name, label } = el;
@@ -76,7 +173,7 @@ export const SliderParams = ({ setParams, name, paramsRenderData }) => {
       );
     });
 
-  const checkboxParams = paramsRenderData
+  const checkboxParams = sliderParamsData
     .filter(el => el.type === "checkbox")
     .map(el => {
         const { name, label } = el;
@@ -84,7 +181,7 @@ export const SliderParams = ({ setParams, name, paramsRenderData }) => {
           <ListElement key={name}>
             <Checkbox
               name={name}
-              checked={el.checked}
+              checked={el.checked || false}
               onChange={onChangeHandler}
               labelText={label}
             />

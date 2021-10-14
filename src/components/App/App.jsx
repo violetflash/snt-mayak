@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, useEffect, useContext } from 'react';
-import { useSelector } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {ThemeContext} from "../../context/ThemeProvider/ThemeProvider";
 import {addConditionedStyle} from "../../functions/functions";
@@ -21,7 +20,6 @@ import EmailConfirmPopup from "../EmailConfirmPopup";
 
 
 const App = () => {
-  const dynamicData = useSelector(state => state.dynamicData);
   const { showPopup, setShowPopup } = useFirebase();
   const { mode } = useContext(ThemeContext);
   const appClass = mode === 'light' ?
@@ -30,11 +28,12 @@ const App = () => {
 
   const { setSlidersStartParams, updateReduxDynamicDataState } = useFirebase();
 
+  //TODO переделать эту инициализацию через итерацию ключей dynamicData в ReduxStore
   useLayoutEffect(() => {
     setSlidersStartParams();
-    for (const key in dynamicData) {
-      updateReduxDynamicDataState(key);
-    }
+    updateReduxDynamicDataState('news');
+    updateReduxDynamicDataState('announce');
+
   }, [setSlidersStartParams, updateReduxDynamicDataState]);
 
   useEffect(() => {

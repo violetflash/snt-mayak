@@ -102,18 +102,20 @@ const FirebaseProvider = ({children}) => {
           if (snapshot.exists()) {
             dispatch(setSettings({ type: elem.type, settingsData: snapshot.val() }));
           } else {
-            dispatch(setSettings({ type: elem.type, settingsData: {
-                type: elem.type,
-                itemsToShow: 1,
-                animationType: "fadeout",
-                animationDuration: 300,
-                disableButtons: true,
-                disableDotsControls: false,
-                autoPlay: true,
-                autoPlayInterval: 5000,
-                disableSlideInfo: true,
-                infinite: true,
-              }}))
+            const params = {
+              type: elem.type,
+              itemsToShow: 3,
+              animationType: "fadeout",
+              animationDuration: 300,
+              disableButtons: true,
+              disableDotsControls: false,
+              autoPlay: false,
+              autoPlayInterval: 5000,
+              disableSlideInfo: true,
+              infinite: true,
+            }
+            dispatch(setSettings({ type: elem.type, settingsData: params}));
+            setSliderStartParams(elem.type, params);
           }
         })
     });

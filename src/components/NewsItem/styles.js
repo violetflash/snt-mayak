@@ -8,10 +8,11 @@ export const BadgeWrapper = styled.div`
 `;
 
 export const Figure = styled.figure`
+  display: block;
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
   padding: 0;
   height: 420px;
 
@@ -21,6 +22,7 @@ export const Figure = styled.figure`
     height: 100%;
     object-fit: cover;
     backface-visibility: hidden;
+    transform: scale(1.01);
     transition: transform 4s ease;
   }
 `;
@@ -36,6 +38,7 @@ export const TextWrapper = styled.div`
   width: 100%;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.4);
+  transform: scale(1.01);
   transition: background-color 1s ease;
 `;
 
@@ -54,11 +57,10 @@ export const Details = styled.div`
 
 export const NewsCard = styled.article`
   position: relative;
-  align-items: center;
-  justify-content: center;
+  display: block;
   overflow: hidden;
-  border: 1px solid var(--secondColor);
-  border-radius: 4px;
+  //border: 1px solid var(--secondColor);
+  //border-radius: 4px;
   min-height: 410px;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   backface-visibility: hidden;

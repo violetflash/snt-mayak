@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const sliderSettingsSlice = createSlice({
-  name: 'sliderImageLoaded',
+  name: 'sliderSettings',
   initialState,
   reducers: {
     setSettings(state, action) {
