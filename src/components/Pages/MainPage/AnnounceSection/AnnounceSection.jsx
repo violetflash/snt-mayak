@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import styled from "styled-components";
+import { motion, useViewportScroll } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+
 import PageTitle from "../../../ui/PageTitle";
-import { motion } from "framer-motion";
 import { Slider } from "../../../Slider/Slider";
 import { Div, NoContent, Section } from "../../../ui";
-import styled from "styled-components";
 
 
 const DecorationWrapper = styled.div`
@@ -38,76 +40,51 @@ const AnnounceItemWrapper = styled.div`
   position: relative;
   padding: 0 0 15px;
   border-radius: 4px;
-
-  //box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color: var(--announceDescBgColor);
-  //z-index: 0;
-  //box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, .2);
-
-  //&::before,
-  //&::after {
-  //  content: "";
-  //  position: absolute;
-  //  top: 0;
-  //  left: -2px;
-  //  right: -2px;
-  //  //width: 101%;
-  //  height: 100%;
-  //  border-radius: 4px;
-  //
-  //  background: var(--announceDescBgColor);
-  //  transition: 0.5s;
-  //  //vertical-align: middle;
-  //  z-index: -1;
-  //  transform: rotate(1.5deg);
-  //  box-shadow: 0 2px 20px rgba(0, 0, 0, .2);
-  //}
-  //
-  //&::after {
-  //  z-index: -2;
-  //  transform: rotate(3deg);
-  //
-  //}
 `;
 
 const variants1 = {
-  hover: {
+  start: {
     rotate: 1.5,
   },
-  initial: {
-    rotate: 0,
-  }
 };
 
 const variants2 = {
-  hover: {
+  start: {
     rotate: 3,
   },
-  initial: {
-    rotate: 0,
-  }
 };
+
+//Нужен scrollProgress
+
+const contentVariants = {
+  opened: { scale: 1 },
+  closed: { scale: 0 }
+}
 
 
 export const AnnounceSection = () => {
-  const [isHovered, setIsHovered] = useState(null);
+  const { inView, entry, ref } = useInView();
+  console.log(inView);
+
+  // const [isHovered, setIsHovered] = useState(null);
   const { announce } = useSelector(state => state.dynamicData);
 
-  const setHoverHandle = () => setIsHovered(true);
-  const setLeaveHandle = () => setIsHovered(false);
+  // const setHoverHandle = () => setIsHovered(true);
+  // const setLeaveHandle = () => setIsHovered(false);
 
   const announces =
     <DecorationWrapper>
       <AnnounceItemWrapper
-        onMouseEnter={setHoverHandle}
-        onMouseLeave={setLeaveHandle}
+        // onMouseEnter={setHoverHandle}
+        // onMouseLeave={setLeaveHandle}
         as={motion.div}
         initial={{
-          x: -100,
+          x: -500,
           opacity: 0,
         }}
-        animate={{ x: 0, opacity: 1, }}
+        animate={{ x: 0, opacity: 1,}}
         transition={{
           delay: 2,
           duration: 1,
@@ -122,14 +99,16 @@ export const AnnounceSection = () => {
         <FakeAnnounceItem
           zx="-1"
           variants={variants1}
-          animate={isHovered ? "hover" : "initial"}
-          transition={{ duration: 0, delay: 0, type: 'just', ease: 'backOut'}}
+          // exit={{ rotate: 0 }}
+          animate={inView && "start"}
+          transition={{ duration: 0.4, delay: 2, type: 'just', ease: 'backOut'}}
         />
         <FakeAnnounceItem
           zx="-2"
           variants={variants2}
-          animate={isHovered ? "hover" : "initial"}
-          transition={{ duration: 0, delay: 0.05, type: 'just', ease: 'backOut'}}
+          // exit={{ rotate: 0 }}
+          animate={inView && "start"}
+          transition={{ duration: 0.4, delay: 2.05, type: 'just', ease: 'backOut'}}
         />
       </AnnounceItemWrapper>
     </DecorationWrapper>
@@ -140,9 +119,14 @@ export const AnnounceSection = () => {
 
 
   return (
-    <Section padding="60px 0 40px" bgColor="var(--bgColor)">
+    <Section padding="60px 0 40px" bgColor="var(--bgColor)" ref={ref}>
       <div className="container">
-        <Div>
+        <Div
+          // as={motion.div}
+          // variants={contentVariants}
+          // animate={inView ? "opened" : "closed"}
+          // transition={{ duration: 1, delay: 0, type: 'just', ease: 'easeOut'}}
+        >
           <PageTitle tag="h2" title="Объявления"/>
           {data}
         </Div>

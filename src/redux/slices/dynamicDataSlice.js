@@ -10,7 +10,6 @@ export const dynamicDataSlice = createSlice({
   initialState,
   reducers: {
     setData(state, action) {
-      console.log(action.payload.name);
       state[action.payload.name] = action.payload.dataValue;
     }
   }
