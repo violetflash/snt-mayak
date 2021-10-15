@@ -37,7 +37,7 @@ export const TextWrapper = styled.div`
   padding: 25px 15px;
   width: 100%;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   transform: scale(1.01);
   transition: background-color 1s ease;
 `;

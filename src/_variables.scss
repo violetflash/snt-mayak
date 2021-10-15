@@ -30,47 +30,47 @@ $error: rgba(#f00, 0.8);
 $valid: rgba(green, 0.8);
 
 :root {
+  // colors
   --mainColor: #000;
+  --accentColor: #7deea1;
+  --accentColor2: #223253;
   --darkColor: #000;
   --logoColor: #92ccce;
   --secondColor: #bfaa99;
   --secondColorLight: #bfaa99b3;
-  --pageTitleColor: #4e4e4f;
 
+  // elements colors
+  --pageTitleColor: #4e4e4f;
   --inputFocusColor: #98c3e8;
   --inputsBgColor: #212c4b;
 
+  // accordion colors
+  --accordionOpened: var(--secondColor);
+  --accordionClosed: var(--secondColorLight);
+
+  // popup colors
   --popupBgColor: #171d30;
   --popupInputError: #832415;
   --popupLabelTitle: #cbc9c9;
   --popupErrorMsgColor: #ff4500ff;
   --popupValidBgColor: #169e16;
 
+  // section colors
   --heroBgColor: #73a24e;
   --announceSectionBgColor: #f0f4feff;
-  //--announceSectionBgColor: #f5eec2;
-  //--announceSectionBgColor: #f6c453;
-  //--announceSectionBgColor: #81af9c;
-  //--announceSectionBgColor: #467061;
-  //--announceSectionBgColor: #c8bea0;
-  //--alertsDescBgColor: #f5ece5;
   --announceDescBgColor: #f5ece5;
-
   --announceDateTimeColor: #fff;
-  //--announceDateTimeColor: #f6c971;
-  //--announceDateTimeColor: #b9d084;
-  //--buttonBgColor: #a7a9ac;
   --buttonBgColor: #7dbd99;
   --buttonOnHoverColor: #60d08c;
   --alertsButtonOnHoverColor: #9dd07c;
   --newsItemTitleOnHoverColor: #FFFF00FF;
   --disabledButtonBg: #808285;
-  --accentColor: #7deea1;
 
+  // fonts settings
+  --defaultFontSize: 16px;
   --fontFamily: "Roboto", sans-serif;
   --fontFamily2: "Literata", sans-serif;
   --fontFamily3: "Roboto Slab", serif;
-  --defaultFontSize: 16px;
 }
 
 // <Шрифт по умолчанию>========================

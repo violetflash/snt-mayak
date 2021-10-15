@@ -65,5 +65,6 @@ export * from './TextArea/TextArea';
 export * from './TextInput/TextInput';
 export * from './Popups/ConfirmDeletePopup/ConfirmDeletePopup';
 export * from './NoContent/NoContent';
+export * from './Accordion/Accordion';
 
 

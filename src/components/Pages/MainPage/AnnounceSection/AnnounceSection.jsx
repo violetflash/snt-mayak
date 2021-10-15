@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PageTitle from "../../../ui/PageTitle";
 import { motion } from "framer-motion";
 import { Slider } from "../../../Slider/Slider";
-import {Div, NoContent, Section} from "../../../ui";
+import { Div, NoContent, Section } from "../../../ui";
 import styled from "styled-components";
 
 
@@ -99,7 +99,9 @@ export const AnnounceSection = () => {
 
   const announces =
     <DecorationWrapper>
-      <AnnounceItemWrapper onMouseEnter={setHoverHandle} onMouseLeave={setLeaveHandle}
+      <AnnounceItemWrapper
+        onMouseEnter={setHoverHandle}
+        onMouseLeave={setLeaveHandle}
         as={motion.div}
         initial={{
           x: -100,
@@ -121,13 +123,13 @@ export const AnnounceSection = () => {
           zx="-1"
           variants={variants1}
           animate={isHovered ? "hover" : "initial"}
-          transition={{ delay: 0, }}
+          transition={{ duration: 0, delay: 0, type: 'just', ease: 'backOut'}}
         />
         <FakeAnnounceItem
           zx="-2"
           variants={variants2}
           animate={isHovered ? "hover" : "initial"}
-          transition={{ delay: 0.05, }}
+          transition={{ duration: 0, delay: 0.05, type: 'just', ease: 'backOut'}}
         />
       </AnnounceItemWrapper>
     </DecorationWrapper>
@@ -135,7 +137,6 @@ export const AnnounceSection = () => {
 
 
   const data = announce ? announces : <NoContent>Объявлений пока нет</NoContent>;
-
 
 
   return (
