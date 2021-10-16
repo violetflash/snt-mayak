@@ -1,15 +1,15 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {setActiveNavLink} from '../../redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setActiveNavLink } from '../../redux';
 
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {addConditionedStyle} from "../../functions/functions";
 
 import s from './Nav.module.scss';
 
 const Nav = () => {
   const dispatch = useDispatch();
-  const { activeID } = useSelector(state => state.navLinks);
+  const { activeNavID } = useSelector(state => state.navigation);
 
   const linksData = [
     {id: 0, title: "Главная", route: "/main"},
@@ -21,12 +21,12 @@ const Nav = () => {
   ];
 
   const linkHandler = (id) => {
-    dispatch(setActiveNavLink({ activeID: id }));
+    dispatch(setActiveNavLink({ activeNavID: id }));
   };
 
   const links = linksData.map((link) => {
     const {id, route, title} = link;
-    const style = addConditionedStyle(activeID === id, [s.Nav__link], s.active);
+    const style = addConditionedStyle(activeNavID === id, [s.Nav__link], s.active);
     return (
       <Link
         className={style.join(' ')}

@@ -1,17 +1,17 @@
 import React, {useEffect} from 'react';
-import {Route, Switch, useRouteMatch, useParams} from "react-router-dom";
-import {useSelector, useDispatch} from 'react-redux'
-import {setActiveAdminTab} from '../../../redux';
-import {Link} from "react-router-dom";
-import NoMatch from "../../NoMatch/";
-import {addConditionedStyle} from "../../../functions/functions";
+import { Link } from "react-router-dom";
+import { Route, Switch, useRouteMatch, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 
+import { setActiveAdminTab } from '../../../redux';
+import NoMatch from "../../NoMatch/";
+import { addConditionedStyle } from "../../../functions/functions";
+import { AdminDataPage } from "./AdminDataPage/AdminDataPage";
 import s from './ContentControl.module.scss';
-import {AdminDataPage} from "./AdminDataPage/AdminDataPage";
 
 const ContentControl = () => {
   const dispatch = useDispatch();
-  const { activeAdminTab } = useSelector(state => state.adminMenu);
+  const { activeAdminTab } = useSelector(state => state.navigation);
   const { path, url } = useRouteMatch();
 
   const tabsTitles = [

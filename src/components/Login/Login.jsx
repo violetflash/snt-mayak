@@ -6,7 +6,7 @@ import LoginPopup from "./LoginPopup/";
 import s from './Login.module.scss';
 
 const Login = () => {
-    const { authPopupIsOpened } = useSelector(state => state.authPopup);
+    const { authPopupIsOpened } = useSelector(state => state.navigation);
     const loginClass = addConditionedStyle(authPopupIsOpened === true, [s.Login], s.opened);
 
     return (

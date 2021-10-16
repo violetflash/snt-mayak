@@ -8,7 +8,7 @@ import s from "./LoginPopup.module.scss";
 
 const LoginPopup = () => {
     const dispatch = useDispatch();
-    const { authPopupIsOpened } = useSelector(state => state.authPopup);
+    const { authPopupIsOpened } = useSelector(state => state.navigation);
     const [activeTab, setActiveTab] = useState('login');
 
     const closePopup = () => {

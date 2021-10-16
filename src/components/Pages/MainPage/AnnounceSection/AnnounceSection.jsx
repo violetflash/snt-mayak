@@ -48,12 +48,18 @@ const variants1 = {
   start: {
     rotate: 1.5,
   },
+  finish: {
+    rotate: 0,
+  }
 };
 
 const variants2 = {
   start: {
     rotate: 3,
   },
+  finish: {
+    rotate: 0,
+  }
 };
 
 //Нужен scrollProgress
@@ -84,12 +90,12 @@ export const AnnounceSection = () => {
           x: -500,
           opacity: 0,
         }}
-        animate={{ x: 0, opacity: 1,}}
+        animate={inView && { x: 0, opacity: 1,}}
         transition={{
-          delay: 2,
+          delay: 0,
           duration: 1,
           // repeat: Infinity,
-          repeatDelay: 1,
+          // repeatDelay: 1,
           // repeatType: 'reverse',
           type: 'just',
           ease: 'backOut'
@@ -99,16 +105,16 @@ export const AnnounceSection = () => {
         <FakeAnnounceItem
           zx="-1"
           variants={variants1}
-          // exit={{ rotate: 0 }}
-          animate={inView && "start"}
-          transition={{ duration: 0.4, delay: 2, type: 'just', ease: 'backOut'}}
+          animate={"start"}
+          exit={{ rotate: 0 }}
+          transition={{ duration: 0.4, delay: 0, type: 'just', ease: 'backOut'}}
         />
         <FakeAnnounceItem
           zx="-2"
           variants={variants2}
-          // exit={{ rotate: 0 }}
-          animate={inView && "start"}
-          transition={{ duration: 0.4, delay: 2.05, type: 'just', ease: 'backOut'}}
+          animate={"start"}
+          exit={ {rotate: 0} }
+          transition={{ duration: 0.4, delay: 0, type: 'just', ease: 'backOut' }}
         />
       </AnnounceItemWrapper>
     </DecorationWrapper>
