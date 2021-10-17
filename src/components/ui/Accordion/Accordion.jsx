@@ -45,10 +45,8 @@ const AccordionButtonText = styled.span`
 `;
 
 const ContentContainer = styled(motion.div)`
-  //
   border-radius: 0 0 4px 4px;
   overflow: hidden;
-
   background-color: #eee;
 `;
 
@@ -90,7 +88,7 @@ const ContentWrapper = ({ children }) => {
 export const Accordion = (
   { title, children, openedColor = "var(--accordionOpened)", closedColor = "var(--accordionClosed)" }
 ) => {
-  const [isOpened, setIsOpened] = useState(null);
+  const [isOpened, setIsOpened] = useState(false);
 
   const toggleHandler = () => setIsOpened(() => !isOpened);
 

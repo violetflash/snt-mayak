@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 import orangeFlower from "../../../../assets/icons/flowers/floral-1.svg";
 import sunIcon from "../../../../assets/icons/sun.svg";
-import PageTitle from "../../../ui/PageTitle";
+import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
 import GardenerGirl from "../../../Parallax/GardenerGirl/GardenerGirl";
 import HeroBgVector from "../../../../assets/bg/vectorBg2.svg";
@@ -21,7 +21,7 @@ const NewsBlockWrapper = styled.div`
   max-width: 520px;
 `;
 
-const NewsSliderWrapper = styled(motion.div)`
+const NewsSliderWrapper = styled.div`
   min-width: 520px;
   min-height: 420px;
   border: 10px solid var(--bgColor);
@@ -140,22 +140,7 @@ const sun =
 ;
 
 const newsSlider =
-  <NewsSliderWrapper
-    initial={{
-      x: -200,
-      opacity: 0,
-    }}
-    animate={{ x: 0, opacity: 1, }}
-    transition={{
-      delay: 0.5,
-      duration: 1,
-      // repeat: Infinity,
-      repeatDelay: 1,
-      // repeatType: 'reverse',
-      type: 'just',
-      ease: 'backOut'
-    }}
-  >
+  <NewsSliderWrapper>
     <Slider type="news"/>
   </NewsSliderWrapper>
 ;

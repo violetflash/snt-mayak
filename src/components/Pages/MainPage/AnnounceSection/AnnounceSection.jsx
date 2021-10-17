@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { motion, useViewportScroll } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-import PageTitle from "../../../ui/PageTitle";
+import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
 import { Div, NoContent, Section } from "../../../ui";
 
@@ -85,6 +85,7 @@ export const AnnounceSection = () => {
       <AnnounceItemWrapper
         // onMouseEnter={setHoverHandle}
         // onMouseLeave={setLeaveHandle}
+        ref={ref}
         as={motion.div}
         initial={{
           x: -500,
@@ -104,16 +105,18 @@ export const AnnounceSection = () => {
         <Slider type="announce"/>
         <FakeAnnounceItem
           zx="-1"
-          variants={variants1}
-          animate={"start"}
-          exit={{ rotate: 0 }}
+          // variants={variants1}
+          initial={{rotate: 1.5,}}
+          animate={{ rotate: 0, }}
+          // exit={{ rotate: 0 }}
           transition={{ duration: 0.4, delay: 0, type: 'just', ease: 'backOut'}}
         />
         <FakeAnnounceItem
           zx="-2"
-          variants={variants2}
-          animate={"start"}
-          exit={ {rotate: 0} }
+          // variants={variants2}
+          initial={{rotate: 1.5,}}
+          animate={{ rotate: 0, }}
+          // exit={ {rotate: 0} }
           transition={{ duration: 0.4, delay: 0, type: 'just', ease: 'backOut' }}
         />
       </AnnounceItemWrapper>
@@ -125,7 +128,7 @@ export const AnnounceSection = () => {
 
 
   return (
-    <Section padding="60px 0 40px" bgColor="var(--bgColor)" ref={ref}>
+    <Section padding="60px 0 40px" bgColor="var(--bgColor)">
       <div className="container">
         <Div
           // as={motion.div}
