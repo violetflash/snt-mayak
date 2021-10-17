@@ -249,6 +249,7 @@ const FirebaseProvider = ({children}) => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setIsLoading(false);
       setUser(user);
+      // dispatch(setActiveUser({ activeUser: user }))
     });
 
     // Cleanup subscription on unmount

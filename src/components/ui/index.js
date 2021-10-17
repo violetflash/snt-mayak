@@ -40,7 +40,9 @@ export const FlexContainer = styled.div`
   display: flex;
   align-items: ${props => props.align ? props.align : 'auto'};
   justify-content: ${props => props.justify ? props.justify : 'auto'};
-  ${MarginProps}
+  flex-direction: ${props => props.direction ? props.direction : 'row'};
+  ${MarginProps};
+  ${PaddingProps};
 `;
 
 export const Form = styled.form`
@@ -66,5 +68,6 @@ export * from './TextInput/TextInput';
 export * from './Popups/ConfirmDeletePopup/ConfirmDeletePopup';
 export * from './NoContent/NoContent';
 export * from './Accordion/Accordion';
+export * from './AnimatedText/AnimatedText';
 
 

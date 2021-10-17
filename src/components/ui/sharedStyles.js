@@ -32,19 +32,26 @@ export const TransitionProps = css`
   transition: ${props => props.transition ? props.transition : 'none'};
 `;
 
+export const BgColorProps = css`
+  background-color: ${props => props.bgColor ? props.bgColor : 'none'};
+`;
+
 export const BlockElementProps = css`
   ${MarginProps};
   ${PaddingProps};
+  ${BgColorProps};
 `;
 
 export const TextBlockProps = css`
   ${DisplayProps};
   ${MarginProps};
+  ${PaddingProps};
   ${TextAlignProps};
   ${TextTransformProps}
-  ${FontSizeProps}
+  ${FontSizeProps};
   ${FontWeightProps};
-  ${TransitionProps}
+  ${TransitionProps};
+  ${BgColorProps};
 `;
 
 

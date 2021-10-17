@@ -1,10 +1,10 @@
-import eact, {useEffect } from 'react';
+import {useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { openEditorPopup } from "../../../../redux";
 
 import { ItemsList } from "./ItemsList/ItemsList";
 import ContentControlRootLink from "../ContentControlRootLink";
-import {Button, ConfirmDeletePopup, FlexContainer, NoContent} from '../../../ui';
+import {Button, ConfirmDeletePopup, FlexContainer, H2Title, NoContent} from '../../../ui';
 import { SliderParams } from "./SliderParams/SliderParams";
 
 import AdminCreateOrEditPopup from "../../../ui/Popups/AdminCreateOrEditPopup/AdminCreateOrEditPopup";
@@ -12,9 +12,10 @@ import { Section } from "../../../ui/";
 import { useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvider";
 
 export const AdminDataPage = ({ type }) => {
-  const { updateReduxDynamicDataState } = useFirebase();
+  const { updateReduxData } = useFirebase();
   const createButtonText = type === 'announce' ? 'Создать объявление' :
     type === 'news' ? 'Создать новость' : null;
+  const titleText = type === 'news' ? 'Настройки новостей' : 'Настройки объявлений';
   const dispatch = useDispatch();
   const { editorPopupOpened, confirmDeleteOpened } = useSelector(state => state.interface);
   const data = useSelector(state => state.data[type]);
@@ -24,8 +25,8 @@ export const AdminDataPage = ({ type }) => {
 
 
   useEffect(() => {
-    updateReduxDynamicDataState(type);
-  }, [updateReduxDynamicDataState, type]);
+    updateReduxData(type);
+  }, [updateReduxData, type]);
 
   const editorPopup = editorPopupOpened ? <AdminCreateOrEditPopup type={type}/> : null;
   const confirmDeletePopup = confirmDeleteOpened ? <ConfirmDeletePopup type={type}/> : null;
@@ -45,6 +46,7 @@ export const AdminDataPage = ({ type }) => {
         <ContentControlRootLink/>
         <Button text={createButtonText} padding="10px" onClick={createItem}/>
       </FlexContainer>
+      <H2Title fz="20px" align="center" margin="20px 0">{titleText}</H2Title>
       {editorPopup}
       {confirmDeletePopup}
       {itemsData}

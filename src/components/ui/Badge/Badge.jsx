@@ -1,17 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TextBlockProps } from "../sharedStyles";
 
 const BadgeContainer = styled.span`
-  padding: 10px;
-  border-radius: 4px;
-  background-color: #e0dcb0;
-  color: #000000;
-  font-size: 16px;
+  ${TextBlockProps};
 `;
 
-export const Badge = ({ date }) => {
+export const Badge = (
+  {text, bgColor = null, fz = null, fw = null, padding = null, margin = null, display = null}
+) => {
   return (
-    <BadgeContainer>{date}</BadgeContainer>
+    <BadgeContainer
+      bgColor={bgColor}
+      fz={fz}
+      fw={fw}
+      padding={padding}
+      margin={margin}
+      display={display}
+    >
+      {text}
+    </BadgeContainer>
   )
 
 };

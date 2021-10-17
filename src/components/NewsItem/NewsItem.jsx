@@ -28,7 +28,7 @@ export const NewsItem = ({ title, desc, date, time, imageUrl }) => {
         </Details>
       </TextWrapper>
       <BadgeWrapper>
-        <Badge date={date}/>
+        <Badge text={date}/>
       </BadgeWrapper>
     </NewsCard>
   );

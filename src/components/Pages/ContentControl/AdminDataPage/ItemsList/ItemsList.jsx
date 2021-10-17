@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useFirebase  } from "../../../../../context/FirebaseProvider/FirebaseProvider";
 import { sortOptions } from "../../../../../functions/functions";
 import Loader from "../../../../Loader";
-import { AdminEditableListItem } from "../../../../ui/";
+import {AdminEditableListItem, H3Title} from "../../../../ui/";
 
 const List = styled.ul`
   
@@ -15,20 +15,16 @@ const List = styled.ul`
   }
 `;
 
-const Title = styled.h3`
-  text-align:center;
-`;
-
 export const ItemsList = ({ itemsToShow, type }) => {
   const titleName = type === 'news' ? 'новостей' :
     type === 'announce' ? 'объявлений' : null;
 
-  const { updateReduxDynamicDataState } = useFirebase();
+  const { updateReduxData } = useFirebase();
   const data = useSelector(state => state.data[type]);
 
   useEffect(() => {
-    updateReduxDynamicDataState(type);
-  }, [updateReduxDynamicDataState, type]);
+    updateReduxData(type);
+  }, [updateReduxData, type]);
 
   const dataToRender = data ? [...data]
     .sort(sortOptions)
@@ -42,7 +38,7 @@ export const ItemsList = ({ itemsToShow, type }) => {
 
   return (
     <>
-      <Title>Список всех {titleName} (на главной: {itemsToShow})</Title>
+      <H3Title fz="18px" margin="30px 0 10px">Список всех {titleName} (на главной: {itemsToShow})</H3Title>
       <List>
         {dataToRender}
       </List>
