@@ -38,6 +38,8 @@ $valid: rgba(green, 0.8);
   --logoColor: #92ccce;
   --secondColor: #bfaa99;
   --secondColorLight: #bfaa99b3;
+  //--colorToTry1: #eaeaea;
+  --colorToTry1: var(--bgColor);
 
   // elements colors
   --pageTitleColor: #4e4e4f;
@@ -56,8 +58,9 @@ $valid: rgba(green, 0.8);
   --popupValidBgColor: #169e16;
 
   // section colors
-  --heroBgColor: #73a24e;
-  --announceSectionBgColor: #f0f4feff;
+  //--heroBgColor: #8bbb80;
+  --heroBgColor: #8bbb80;
+  --announceSectionBgColor: #eaeaea;
   --announceDescBgColor: #f5ece5;
   --announceDateTimeColor: #fff;
   --buttonBgColor: #7dbd99;

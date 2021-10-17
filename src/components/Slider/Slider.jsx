@@ -12,7 +12,7 @@ const newsStyles = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 520px;
+  width: 620px;
   min-height: 400px;
 
   .alice-carousel__prev-btn,
@@ -100,7 +100,7 @@ const newsStyles = css`
     height: 6px;
 
     &.__active {
-      background-color: dodgerblue;
+      background-color: #E0B799;
     }
 
     &:hover {

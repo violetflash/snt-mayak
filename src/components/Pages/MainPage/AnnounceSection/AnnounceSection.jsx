@@ -128,7 +128,7 @@ export const AnnounceSection = () => {
 
 
   return (
-    <Section padding="60px 0 40px" bgColor="var(--bgColor)">
+    <Section padding="60px 0 40px" bgColor="var(--colorToTry1)">
       <div className="container">
         <Div
           // as={motion.div}

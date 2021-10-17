@@ -17,12 +17,12 @@ const HeroContent = styled.div`
 `;
 
 const NewsBlockWrapper = styled.div`
-  margin-right: 60px;
-  max-width: 520px;
+  //margin-right: 60px;
+  max-width: 620px;
 `;
 
 const NewsSliderWrapper = styled.div`
-  min-width: 520px;
+  min-width: 620px;
   min-height: 420px;
   border: 10px solid var(--bgColor);
   transition: border-color 0.3s ease;
@@ -154,7 +154,7 @@ export const HeroSection = () => {
       {sun}
       <div className="container">
         <HeroContent>
-          <FlexContainer align="flex-end">
+          <FlexContainer align="flex-end" justify="space-between">
             <NewsBlockWrapper>
               <PageTitle tag="h2" title="Новости"/>
               {newsSlider}
