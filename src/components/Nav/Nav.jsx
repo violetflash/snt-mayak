@@ -9,7 +9,7 @@ import s from './Nav.module.scss';
 
 const Nav = () => {
   const dispatch = useDispatch();
-  const { activeNavID } = useSelector(state => state.navigation);
+  const { activeNavID } = useSelector(state => state.interface);
 
   const linksData = [
     {id: 0, title: "Главная", route: "/main"},

@@ -30,7 +30,7 @@ export const SliderParams = ({ type }) => {
   const baseTitleText = 'Параметры слайдера';
   const sliderTitleText = type === "news" ? `${baseTitleText} новостей` :
     type === "announce" ? `${baseTitleText} объявлений` : null;
-  const params = useSelector(state => state.sliderSettings[type]);
+  const params = useSelector(state => state.data.sliderSettings[type]);
 
 
   const sliderParamsData = [

@@ -18,7 +18,7 @@ import { LabelText } from "../../index";
 const AdminCreateOrEditPopup = ({ type }) => {
   const { fdb } = useFirebase();
   const dispatch = useDispatch();
-  const { dataToEdit } = useSelector(state => state.adminEditItem);
+  const { dataToEdit } = useSelector(state => state.data);
 
   useEffect(() => {
     const dataRef = fdb.ref(MAIN_REF + `/${type}/`);

@@ -6,7 +6,7 @@ import { useFirebase } from "../../../../context/FirebaseProvider/FirebaseProvid
 import { addConditionedStyle, capitalizer } from "../../../../functions/functions";
 import s from './Methods.module.scss';
 
-const Methods = ({ activeTab, setActiveTab, loginIsOpened }) => {
+const Methods = ({ activeTab, setActiveTab }) => {
     const dispatch = useDispatch();
 
     const {

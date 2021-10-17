@@ -24,13 +24,13 @@ export const ItemsList = ({ itemsToShow, type }) => {
     type === 'announce' ? 'объявлений' : null;
 
   const { updateReduxDynamicDataState } = useFirebase();
-  const dynamicData = useSelector(state => state.dynamicData);
+  const data = useSelector(state => state.data[type]);
 
   useEffect(() => {
     updateReduxDynamicDataState(type);
   }, [updateReduxDynamicDataState, type]);
 
-  const data = dynamicData[type] ? [...dynamicData[type]]
+  const dataToRender = data ? [...data]
     .sort(sortOptions)
     .map((item, index) => {
       const {id} = item;
@@ -44,7 +44,7 @@ export const ItemsList = ({ itemsToShow, type }) => {
     <>
       <Title>Список всех {titleName} (на главной: {itemsToShow})</Title>
       <List>
-        {data}
+        {dataToRender}
       </List>
     </>
   )

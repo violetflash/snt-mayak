@@ -114,12 +114,17 @@ const SliderContainer = styled.div`
 `;
 
 export const Slider = ({ type }) => {
-  const data = useSelector(state => state.dynamicData[type]);
-  const sliderSettings = useSelector(state => state.sliderSettings);
+  const data = useSelector(state => state.data[type]);
+  const sliderSettings = useSelector(state => state.data.sliderSettings[type]);
+
+  const {
+    itemsToShow, animationType, animationDuration, disableButtons, disableSlideInfo,
+    disableDotsControls, autoPlay, autoPlayInterval, infinite
+  } = sliderSettings;
 
   const dataToRender = data?.length ? [...data]
     .sort(sortOptions)
-    .filter((item, index) => index < sliderSettings[type].itemsToShow)
+    .filter((item, index) => index < itemsToShow)
     .map((item) => {
       const { id } = item;
       return type === 'announce' ? <AnnounceItem key={id} type={type} {...item}/> :
@@ -127,14 +132,14 @@ export const Slider = ({ type }) => {
     }) : null;
 
   const settings = {
-    animationType: sliderSettings[type].animationType,
-    animationDuration: sliderSettings[type].animationDuration,
-    disableButtonsControls: sliderSettings[type].disableButtons,
-    disableSlideInfo: sliderSettings[type].disableSlideInfo,
-    disableDotsControls: sliderSettings[type].disableDotsControls,
-    autoPlay: sliderSettings[type].autoPlay,
-    autoPlayInterval: sliderSettings[type].autoPlayInterval,
-    infinite: sliderSettings[type].infinite,
+    animationType,
+    animationDuration,
+    disableButtonsControls: disableButtons,
+    disableSlideInfo,
+    disableDotsControls,
+    autoPlay,
+    autoPlayInterval,
+    infinite,
   };
 
   if (!data?.length) {

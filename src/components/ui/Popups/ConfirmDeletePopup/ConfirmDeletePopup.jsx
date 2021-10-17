@@ -11,8 +11,8 @@ import { H2Title, ParagraphText } from "../../index";
 
 export const ConfirmDeletePopup = ({ type }) => {
   const dispatch = useDispatch();
-  const { activeReference } = useSelector(state => state.adminEditItem)
-  const { deleteRefFromDB, updateReduxDynamicDataState } = useFirebase();
+  const { activeReference } = useSelector(state => state.data)
+  const { deleteRefFromDB, updateReduxData } = useFirebase();
 
   const closeAndResetDeletionState = () => {
     dispatch(closeConfirmPopup());
@@ -21,7 +21,7 @@ export const ConfirmDeletePopup = ({ type }) => {
 
   const deleteHandler = () => {
     deleteRefFromDB(`${type}/${activeReference.id}`);
-    updateReduxDynamicDataState(type);
+    updateReduxData(type);
     closeAndResetDeletionState();
   };
 

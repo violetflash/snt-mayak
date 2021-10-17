@@ -11,7 +11,7 @@ import s from './ContentControl.module.scss';
 
 const ContentControl = () => {
   const dispatch = useDispatch();
-  const { activeAdminTab } = useSelector(state => state.navigation);
+  const { activeAdminTab } = useSelector(state => state.interface);
   const { path, url } = useRouteMatch();
 
   const tabsTitles = [
