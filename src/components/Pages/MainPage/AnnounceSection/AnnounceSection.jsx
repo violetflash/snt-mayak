@@ -75,7 +75,7 @@ export const AnnounceSection = () => {
   console.log(inView);
 
   // const [isHovered, setIsHovered] = useState(null);
-  const { announce } = useSelector(state => state.dynamicData);
+  const { announce } = useSelector(state => state.data);
 
   // const setHoverHandle = () => setIsHovered(true);
   // const setLeaveHandle = () => setIsHovered(false);

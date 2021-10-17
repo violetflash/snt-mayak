@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext, createContext} from "react";
 import { useDispatch } from 'react-redux';
-import {setData, setSettings} from '../../redux';
+import { setData, setSettings, setActiveUser, clearActiveUser } from '../../redux';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
@@ -44,7 +44,7 @@ const FirebaseProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false); // verify your email popup
 
   //firebase methods we want to use
   const writeUserDataToDB = (userId, name, email) => {
@@ -70,7 +70,7 @@ const FirebaseProvider = ({children}) => {
       });
   };
 
-  const updateReduxDynamicDataState = (type) => {
+  const updateReduxData = (type) => {
     fdb.ref(`${MAIN_REF}/${type}/`).get()
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -140,6 +140,7 @@ const FirebaseProvider = ({children}) => {
     auth.signInWithPopup(provider)
       .then((result) => {
         setUser(result.user);
+        dispatch(setActiveUser({ activeUser: result.user }));
         console.log(result.user);
         writeUserDataToDB(result.user.uid, result.user.displayName, result.user.email);
       })
@@ -271,7 +272,7 @@ const FirebaseProvider = ({children}) => {
     deleteRefFromDB,
     setSliderParams,
     setSliderStartParams,
-    updateReduxDynamicDataState,
+    updateReduxData,
     setSlidersStartParams
   }
 

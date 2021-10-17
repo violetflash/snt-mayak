@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import eact, {useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { openEditorPopup } from "../../../../redux";
 
@@ -16,9 +16,9 @@ export const AdminDataPage = ({ type }) => {
   const createButtonText = type === 'announce' ? 'Создать объявление' :
     type === 'news' ? 'Создать новость' : null;
   const dispatch = useDispatch();
-  const { editorPopupOpened, confirmDeleteOpened } = useSelector(state => state.adminEditItem);
-  const data = useSelector(state => state.dynamicData);
-  const { itemsToShow } = useSelector(state => state.sliderSettings[type]);
+  const { editorPopupOpened, confirmDeleteOpened } = useSelector(state => state.interface);
+  const data = useSelector(state => state.data[type]);
+  const { itemsToShow } = useSelector(state => state.data.sliderSettings[type]);
 
   //Вынесено сюда только с целью проброса параметра кол-ва новостей в слайдере в компонент NewsList
 
@@ -32,7 +32,7 @@ export const AdminDataPage = ({ type }) => {
 
   const createItem = () => dispatch(openEditorPopup());
 
-  const itemsData = data[type] ?
+  const itemsData = data ?
     <>
       <SliderParams type={type}/>
       <ItemsList itemsToShow={itemsToShow} type={type}/>

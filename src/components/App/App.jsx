@@ -26,15 +26,15 @@ const App = () => {
     addConditionedStyle(mode === 'light', [s.App], s.lightTheme) :
     addConditionedStyle(mode === 'dark', [s.App], s.darkTheme);
 
-  const { setSlidersStartParams, updateReduxDynamicDataState } = useFirebase();
+  const { setSlidersStartParams, updateReduxData } = useFirebase();
 
   //TODO переделать эту инициализацию через итерацию ключей dynamicData в ReduxStore
   useLayoutEffect(() => {
     setSlidersStartParams();
-    updateReduxDynamicDataState('news');
-    updateReduxDynamicDataState('announce');
+    updateReduxData('news');
+    updateReduxData('announce');
 
-  }, [setSlidersStartParams, updateReduxDynamicDataState]);
+  }, [setSlidersStartParams, updateReduxData]);
 
   useEffect(() => {
     const showEmailConfirmPopup = () => {
