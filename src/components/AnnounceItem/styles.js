@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 export const AnnounceContainer = styled(motion.div)`
   display: flex;
   justify-content: space-between;
-  margin: 0 0 30px;
+  //margin: 0 0 30px;
   overflow: hidden;
-  
+  height: 200px;
 `;
 
 export const AnnounceInfo = styled(motion.div)`
@@ -15,6 +15,7 @@ export const AnnounceInfo = styled(motion.div)`
   flex-direction: column;
   align-items: flex-start;
   margin-right: 40px;
+  overflow: hidden;
 `;
 
 export const DateTime = styled.span`
@@ -43,9 +44,11 @@ export const Title = styled.h3`
   }
 `;
 
-export const AnnounceDesc = styled.p`
+export const AnnounceDesc = styled(motion.p)`
   //flex-basis: 70%;
   line-height: 1.6;
   text-indent: 40px;
-  text-align: justify;;
+  text-align: justify;
+  overflow: hidden;
+
 `;

@@ -27,7 +27,9 @@ const AnnounceButton = styled.button`
 
 const Content = styled.div`
   //display: flex;
+  overflow: hidden;
   //align-items: center;
+  height: 300px;
 `;
 
 export const AnnounceSection = () => {
