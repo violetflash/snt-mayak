@@ -25,6 +25,11 @@ const AnnounceButton = styled.button`
   transition: all 0.3s ease 0s;
 `;
 
+const Content = styled.div`
+  //display: flex;
+  //align-items: center;
+`;
+
 export const AnnounceSection = () => {
   // const { inView, entry, ref } = useInView();
   const dispatch = useDispatch();
@@ -62,7 +67,9 @@ export const AnnounceSection = () => {
       <AnnounceControls>
         {controls}
       </AnnounceControls>
-      {dataToRender}
+      <Content>
+        {dataToRender}
+      </Content>
     </>;
 
   // const noContent = <NoContent>Объявлений пока нет</NoContent>;

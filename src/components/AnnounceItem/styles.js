@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-export const AnnounceContainer = styled.div`
+export const AnnounceContainer = styled(motion.div)`
   display: flex;
   justify-content: space-between;
   margin: 0 0 30px;
@@ -8,7 +9,7 @@ export const AnnounceContainer = styled.div`
   
 `;
 
-export const AnnounceInfo = styled.div`
+export const AnnounceInfo = styled(motion.div)`
   display: flex;
   flex: 1 0 35%;
   flex-direction: column;

@@ -32,28 +32,31 @@ const infoVariants = {
 
 export const AnnounceItem = ({ date, time, title, desc, index, activeAnnounce }) => {
 
-  if (index !== +activeAnnounce) return null;
+  // if (index !== +activeAnnounce) return null;
 
   return (
-    <AnnounceContainer>
-      <AnimatePresence>
-        <AnnounceInfo
-          as={motion.div}
-          variants={infoVariants}
-          initial="initial"
-          animate="enter"
-          exit="exit"
-          transition={{duration: 1}}
-          // transition={{ ease: [0.455, 0.03, 0.515, 0.955], duration: 0.55 }}
+    <AnimatePresence>
+      {index === +activeAnnounce && (
+        <AnnounceContainer
+          // animate={{x: 0}}
+          exit={{x: 100, opacity: 0}}
+          transition={{duration: 1,}}
         >
-          <DateTime>{date} - {time}</DateTime>
-          <Title>{title}</Title>
-          <AnimatedText text={title}/>
-        </AnnounceInfo>
-      </AnimatePresence>
-      <AnnounceDesc>
-        {desc}
-      </AnnounceDesc>
-    </AnnounceContainer>
+          <AnnounceInfo
+
+          >
+            <DateTime>{date} - {time}</DateTime>
+            <Title>{title}</Title>
+            {/*<AnimatedText text={title}/>*/}
+          </AnnounceInfo>
+          <AnnounceDesc
+
+          >
+            {desc}
+          </AnnounceDesc>
+        </AnnounceContainer>
+      )}
+    </AnimatePresence>
+
   );
 };
