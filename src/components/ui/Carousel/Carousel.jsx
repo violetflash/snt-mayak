@@ -1,11 +1,5 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
-import { SliderCarousel } from "../ui";
-
-import { sortOptions } from "../../functions/functions";
-import { AnnounceItem } from "../AnnounceItem/AnnounceItem";
-import { NewsItem } from "../NewsItem/NewsItem";
+import styled, { css } from "styled-components";
 
 const newsStyles = css`
   position: relative;
@@ -109,27 +103,17 @@ const newsStyles = css`
   }
 `;
 
-const SliderContainer = styled.div`
+const CarouselWrapper = styled.div`
   ${props => props.type === 'news' ? newsStyles : null}
 `;
 
-export const Slider = ({ type, children }) => {
-  const data = useSelector(state => state.data[type]);
+export const Carousel = ({ children, type }) => {
   const sliderSettings = useSelector(state => state.data.sliderSettings[type]);
 
   const {
-    itemsToShow, animationType, animationDuration, disableButtons, disableSlideInfo,
+    animationType, animationDuration, disableButtons, disableSlideInfo,
     disableDotsControls, autoPlay, autoPlayInterval, infinite
   } = sliderSettings;
-
-  const dataToRender = data?.length ? [...data]
-    .sort(sortOptions)
-    .filter((item, index) => index < itemsToShow)
-    .map((item) => {
-      const { id } = item;
-      return type === 'announce' ? <AnnounceItem key={id} type={type} {...item}/> :
-        type === 'news' ? <NewsItem key={id} type={type} {...item}/> : null;
-    }) : null;
 
   const settings = {
     animationType,
@@ -142,17 +126,21 @@ export const Slider = ({ type, children }) => {
     infinite,
   };
 
-  if (!data?.length) {
-    return null;
+  if (children.length === 1) {
+    settings.disableButtonsControls = true;
+    settings.disableDotsControls = true;
   }
+  // else {
+  //   sliderSettings.disableButtonsControls = settings.disableButtonsControls;
+  //   sliderSettings.disableDotsControls = settings.disableDotsControls;
+  // }
 
   return (
-    <SliderContainer type={type}>
-      <SliderCarousel settings={settings}>
-        {dataToRender}
-      </SliderCarousel>
-    </SliderContainer>
+    <CarouselWrapper type={type}>
+      <Carousel {...sliderSettings} >
+        {children}
+      </Carousel>
+    </CarouselWrapper>
+
   );
-
 };
-

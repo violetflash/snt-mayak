@@ -30,6 +30,7 @@ const App = () => {
 
   //TODO переделать эту инициализацию через итерацию ключей dynamicData в ReduxStore
   useLayoutEffect(() => {
+    // console.log('updateReduxData from App');
     setSlidersStartParams();
     updateReduxData('news');
     updateReduxData('announce');
@@ -50,9 +51,6 @@ const App = () => {
 
     return showEmailConfirmPopup;
   }, [showPopup, setShowPopup]);
-
-
-
 
   const confirmEmailPopup = showPopup ? <EmailConfirmPopup/> : null;
 

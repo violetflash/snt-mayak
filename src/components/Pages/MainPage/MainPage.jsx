@@ -10,11 +10,12 @@ const MainPageSection = styled.section`
 `;
 
 const MainPage = () => {
+
   return (
     <MainPageSection>
       <Greetings/>
-      <HeroSection/>
       <AnnounceSection/>
+      <HeroSection/>
     </MainPageSection>
   );
 };

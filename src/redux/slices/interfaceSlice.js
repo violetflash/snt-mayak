@@ -3,13 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   activeNavID: 0,
   activeAdminTab: null,
+  activeAnnounce: 0,
   authPopupIsOpened: false,
   editorPopupOpened: false,
   confirmDeleteOpened: false
 };
 
 export const interfaceSlice = createSlice({
-  name: 'navigation',
+  name: 'interface',
   initialState,
   reducers: {
     setActiveNavLink(state, action) {
@@ -43,6 +44,9 @@ export const interfaceSlice = createSlice({
     closeConfirmPopup(state) {
       state.confirmDeleteOpened = false;
     },
+    setActiveAnnounce(state, action) {
+      state.activeAnnounce = action.payload.activeAnnounce;
+    },
   }
 });
 
@@ -52,5 +56,6 @@ export const {
   setActiveAdminTab,
   openAuthPopup, closeAuthPopup,
   openEditorPopup, closeEditorPopup,
-  openConfirmPopup, closeConfirmPopup
+  openConfirmPopup, closeConfirmPopup,
+  setActiveAnnounce
 } = interfaceSlice.actions;

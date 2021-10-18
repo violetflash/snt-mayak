@@ -25,8 +25,9 @@ export const AnimatedText = ({ text }) => {
   // main array
   const words = text.split(' ');
 
+  // console.log('hit');
   const animated = words.map((word) => {
-    console.log(word);
+    // console.log(word);
   })
 
   return (

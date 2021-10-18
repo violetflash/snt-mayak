@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export const AnnounceContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 30px;
+  overflow: hidden;
+  
+`;
+
 export const AnnounceInfo = styled.div`
   display: flex;
   flex: 1 0 35%;

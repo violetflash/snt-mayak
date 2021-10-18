@@ -6,14 +6,26 @@ const initialState = {
   announce: [],
   dataToEdit: null,
   activeReference: null,
+  activeAnnounce: 0,
   sliderSettings: {
-    news: {},
-    announce: {}
+    news: {
+      animationType: "fadeout",
+      animationDuration: 300,
+      disableButtons: true,
+      disableDotsControls: false,
+      autoPlay: false,
+      autoPlayInterval: 5000,
+      disableSlideInfo: true,
+      infinite: true,
+    },
+    announce: {
+      itemsToShow: 1,
+    }
   }
 };
 
 export const dataSlice = createSlice({
-  name: "dynamicData",
+  name: "data",
   initialState,
   reducers: {
     setData(state, action) {
@@ -39,7 +51,7 @@ export const dataSlice = createSlice({
     },
     clearActiveUser(state) {
       state.activeUser = null;
-    }
+    },
   }
 });
 
