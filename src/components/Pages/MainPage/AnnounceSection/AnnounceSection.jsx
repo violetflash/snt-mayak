@@ -1,13 +1,19 @@
-
 import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
-// import { motion, useViewportScroll } from "framer-motion";
+import { motion } from "framer-motion";
 // import { useInView } from "react-intersection-observer";
-import { setActiveAnnounce, setData } from "../../../../redux";
+import { setActiveAnnounce } from "../../../../redux";
 import { PageTitle } from "../../../ui";
-import { Div, NoContent, Section } from "../../../ui";
+import { Div } from "../../../ui";
 import { AnnounceItem } from "../../../AnnounceItem/AnnounceItem";
-import { getArrayFromDb, sortOptions } from "../../../../functions/functions";
+import { sortOptions } from "../../../../functions/functions";
+import sunIcon from "../../../../assets/icons/sun.svg";
+
+const AnnounceSectionContainer = styled.section`
+  position: relative;
+  padding: 60px 0 40px;
+  background-color: var(--colorToTry1);
+`;
 
 const AnnounceControls = styled.div`
   display: flex;
@@ -26,11 +32,42 @@ const AnnounceButton = styled.button`
 `;
 
 const Content = styled.div`
-  //display: flex;
   overflow: hidden;
-  //align-items: center;
-  height: 300px;
 `;
+
+const AnimatedIcon = styled.div`
+  position: absolute;
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  right: 10%;
+  top: 5%;
+  width: 100px;
+  height: 100px;
+`;
+
+const sun =
+  <AnimatedIcon
+    as={motion.div}
+    style={{ backgroundImage: `url(${sunIcon})` }}
+    initial={{
+      y: -90,
+      opacity: 0,
+      rotate: 0,
+      scale: 0,
+    }}
+    animate={{ opacity: 1, y: 0, scale: 1, rotate: 90 }}
+    transition={{
+      delay: 1,
+      duration: 1,
+      // repeat: Infinity,
+      repeatDelay: 1,
+      // repeatType: 'reverse',
+      type: 'just',
+      ease: 'backOut'
+    }}
+  />
+;
 
 export const AnnounceSection = () => {
   // const { inView, entry, ref } = useInView();
@@ -77,13 +114,14 @@ export const AnnounceSection = () => {
   // const noContent = <NoContent>Объявлений пока нет</NoContent>;
 
   return (
-    <Section padding="60px 0 40px" bgColor="var(--colorToTry1)">
+    <AnnounceSectionContainer>
+      {sun}
       <div className="container">
         <Div>
           <PageTitle tag="h2" title="Объявления"/>
           {data.length > 0  ? announceSectionContent : null}
         </Div>
       </div>
-    </Section>
+    </AnnounceSectionContainer>
   );
 };

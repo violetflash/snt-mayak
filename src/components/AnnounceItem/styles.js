@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-export const AnnounceContainer = styled(motion.div)`
+export const AnnounceContainer = styled.div`
   display: flex;
   justify-content: space-between;
   //margin: 0 0 30px;
   overflow: hidden;
-  height: 200px;
+  min-height: 200px;
 `;
 
 export const AnnounceInfo = styled(motion.div)`
@@ -32,16 +32,15 @@ export const Title = styled.h3`
   padding: 30px 0;
   font-size: 24px;
   text-transform: uppercase;
-  
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 60%;
-    height: 3px;
-    background-color:#f1b067;
-  }
+`;
+
+export const TitleDecoration = styled(motion.span)`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60%;
+  height: 3px;
+  background-color:#f1b067;
 `;
 
 export const AnnounceDesc = styled(motion.p)`

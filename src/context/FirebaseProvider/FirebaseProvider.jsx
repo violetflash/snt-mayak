@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext, createContext} from "react";
 import { useDispatch } from 'react-redux';
-import { setData, setSettings, setActiveUser, clearActiveUser } from '../../redux';
+import { setData, setSettings, setActiveUser } from '../../redux';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';

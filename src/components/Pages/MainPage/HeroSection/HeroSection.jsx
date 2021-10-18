@@ -3,7 +3,6 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import orangeFlower from "../../../../assets/icons/flowers/floral-1.svg";
-import sunIcon from "../../../../assets/icons/sun.svg";
 import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
 import GardenerGirl from "../../../Parallax/GardenerGirl/GardenerGirl";
@@ -112,33 +111,6 @@ const flower2 =
   />
 ;
 
-const sun =
-  <AnimatedIcon
-    left="10%"
-    top="5%"
-    width="100px"
-    height="100px"
-    as={motion.div}
-    style={{ backgroundImage: `url(${sunIcon})` }}
-    initial={{
-      y: -90,
-      opacity: 0,
-      rotate: 0,
-      scale: 0,
-    }}
-    animate={{ opacity: 1, y: 0, scale: 1, rotate: 90 }}
-    transition={{
-      delay: 1,
-      duration: 1,
-      // repeat: Infinity,
-      repeatDelay: 1,
-      // repeatType: 'reverse',
-      type: 'just',
-      ease: 'backOut'
-    }}
-  />
-;
-
 const newsSlider =
   <NewsSliderWrapper>
     <Slider type="news"/>
@@ -151,7 +123,6 @@ export const HeroSection = () => {
     <HeroSectionContainer style={{ backgroundImage: `url(${HeroBgVector})` }}>
       {flower1}
       {flower2}
-      {sun}
       <div className="container">
         <HeroContent>
           <FlexContainer align="flex-end" justify="space-between">

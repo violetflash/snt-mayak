@@ -6,7 +6,7 @@ import { HeroSection } from "./HeroSection/HeroSection";
 
 const MainPageSection = styled.section`
   //background-color: #eff6fa;
-  padding-bottom: 100px;
+  //padding-bottom: 100px;
 `;
 
 const MainPage = () => {
