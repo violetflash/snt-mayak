@@ -1,34 +1,18 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from "styled-components";
 import { motion } from "framer-motion";
 // import { useInView } from "react-intersection-observer";
-import { setActiveAnnounce } from "../../../../redux";
 import { PageTitle } from "../../../ui";
 import { Div } from "../../../ui";
 import { AnnounceItem } from "../../../AnnounceItem/AnnounceItem";
 import { sortOptions } from "../../../../functions/functions";
 import sunIcon from "../../../../assets/icons/sun.svg";
+import { AnnounceControls } from "./AnnounceControls/AnnounceControls";
 
 const AnnounceSectionContainer = styled.section`
   position: relative;
   padding: 60px 0 40px;
   background-color: var(--colorToTry1);
-`;
-
-const AnnounceControls = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 40px 0 30px;
-`;
-
-const AnnounceButton = styled.button`
-  margin: 0 15px;
-  padding: 5px 10px;
-  border-radius: 50%;
-  border: 1px solid darksalmon;
-  background-color: ${props => props.active ? 'darksalmon' : "transparent"};
-  transition: all 0.3s ease 0s;
 `;
 
 const Content = styled.div`
@@ -71,7 +55,6 @@ const sun =
 
 export const AnnounceSection = () => {
   // const { inView, entry, ref } = useInView();
-  const dispatch = useDispatch();
   const type = 'announce';
   const data = useSelector(state => state.data[type]);
   const itemsToShow = useSelector(state => state.data.sliderSettings[type].itemsToShow);
@@ -86,26 +69,13 @@ export const AnnounceSection = () => {
       return <AnnounceItem key={id} index={index} {...item} activeAnnounce={activeAnnounce}/>;
     });
 
-  const announceBtnHandler = (index) => {
-    dispatch(setActiveAnnounce({ activeAnnounce: index }))
-  };
 
-  const numOfAnnouncesToShow = dataToRender.length < itemsToShow ? dataToRender.length : +itemsToShow;
-  const btnArray = Array.from(Array(numOfAnnouncesToShow).keys());
 
-  const controls = btnArray.map(el => {
-    return (
-      <AnnounceButton key={el} onClick={() => announceBtnHandler(el)} active={el === activeAnnounce}>
-        {el + 1}
-      </AnnounceButton>
-    );
-  })
+  const numOfButtons = dataToRender.length < itemsToShow ? dataToRender.length : +itemsToShow;
 
   const announceSectionContent =
     <>
-      <AnnounceControls>
-        {controls}
-      </AnnounceControls>
+      <AnnounceControls numOfButtons={numOfButtons} activeAnnounce={activeAnnounce} />
       <Content>
         {dataToRender}
       </Content>
