@@ -8,10 +8,10 @@ import { PageLayout } from "../../PageLayout/PageLayout";
 
 const AboutPage = () => {
   return (
-    <PageLayout>
+    <div className="container">
       <PageTitle tag="h2" title="О снт" margin="30px 0"/>
       <p>About Page: Правление, Сотрудники, Предложения по благоустройству поселка</p>
-      <Collapsible title="Toggle some page content">
+      <Collapsible title="Проверка динамическим контентом">
         <p>
           <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias asperiores debitis dolores, dolorum exercitationem iusto minima nihil numquam rerum. Corporis, cumque ex nihil nobis obcaecati officia perferendis possimus totam.</span>
           <span>Doloremque illo, impedit iste maiores nihil obcaecati odio voluptates! Aliquid aspernatur, aut debitis enim est in numquam pariatur perspiciatis quo reiciendis sit, suscipit tempora, voluptates. Culpa incidunt, temporibus! Eveniet, excepturi.</span>
@@ -25,7 +25,7 @@ const AboutPage = () => {
           <span>Aspernatur assumenda distinctio doloremque inventore laboriosam laborum maiores maxime necessitatibus. Cumque doloribus minima officiis optio possimus quisquam saepe ut veniam! Autem consequuntur dolorum maiores molestias quis. Doloremque est impedit sint.</span>
         </p>
       </Collapsible>
-    </PageLayout>
+    </div>
   );
 
 };

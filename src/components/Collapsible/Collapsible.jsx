@@ -27,7 +27,16 @@ export const Collapsible = ({ children, title = 'click me' }) => {
       <AnimatePresence>
         {
           isVisible && (
-            <Div as={motion.div} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+            <Div
+              as={motion.div}
+              initial={{opacity: 0, height: 0}}
+              animate={{opacity: 1, height: 'auto'}}
+              exit={{opacity: 0, height: 0}}
+              transition={{
+                duration: 0.5,
+                type: 'just',
+                ease: "backOut"
+              }}>
               <ContentContainer>
                 {children}
               </ContentContainer>
@@ -39,5 +48,3 @@ export const Collapsible = ({ children, title = 'click me' }) => {
   );
 
 };
-
-export default Collapsible;

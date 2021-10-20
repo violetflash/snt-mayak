@@ -15,7 +15,7 @@ const MainPage = () => {
     <MainPageSection>
       <Greetings/>
       <AnnounceSection/>
-      <HeroSection/>
+      {/*<HeroSection/>*/}
     </MainPageSection>
   );
 };

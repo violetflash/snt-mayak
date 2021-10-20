@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const PageContainer = styled.div`
   position: relative;
-  height: calc(100% - 129px); //header вне процентов страницы, поэтому он выпадает из 100%. Нужно его точно посчитать
+  min-height: calc(100% - 132px); //header вне процентов страницы, поэтому он выпадает из 100%. Нужно его точно посчитать
   
   &::before {
     content: "";
