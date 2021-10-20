@@ -16,7 +16,6 @@ import ContactsPage from '../Pages/ContactsPage/';
 import ContentControl from '../Pages/ContentControl/';
 import Login from "../Login/";
 import UserSettings from "../Pages/UserSettings";
-import s from './App.module.scss';
 import EmailConfirmPopup from "../EmailConfirmPopup";
 import Footer from "../Footer/Footer";
 import {ContentFlexWrapper, PageContainer, PageContent} from "./styles";
@@ -75,8 +74,6 @@ const App = () => {
           </PageContent>
           <Footer num={activeNavID}/>
         </ContentFlexWrapper>
-
-
         <Login/>
         {confirmEmailPopup}
       </PageContainer>

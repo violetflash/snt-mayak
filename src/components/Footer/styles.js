@@ -11,19 +11,18 @@ export const FooterContainer = styled.div`
     content: "";
     position: absolute;
     bottom: 0;
-    //border-bottom: 2px solid saddlebrown;
     width: 100%;
     height: 80px;
-    //background-color: var(--announceSectionBgColor);
     background-color: var(--heroBgColor);
   }
 `;
 
 export const FooterContent = styled.section`
   display: flex;
-  
+  justify-content: flex-end;
+  align-items: flex-end;
 `;
 
 export const GirlWrapper = styled.div`
-  margin: ${props => props.position === 'left' ? '0 0 0 auto' : '0 auto 0 0'};
+  //margin: ${props => props.position === 'left' ? '0 0 0 auto' : '0 auto 0 0'};
 `;
