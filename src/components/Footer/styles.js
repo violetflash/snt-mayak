@@ -25,5 +25,5 @@ export const FooterContent = styled.section`
 `;
 
 export const GirlWrapper = styled.div`
-  margin: ${props => props.position === 'left' ? '0 auto 0 0' : '0 0 0 auto'};
+  margin: ${props => props.position === 'left' ? '0 0 0 auto' : '0 auto 0 0'};
 `;
