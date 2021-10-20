@@ -1,9 +1,10 @@
 .GardenerGirl {
-  display: block;
   position: relative;
-  margin: 0 0 0 50px;
+  display: block;
+  margin: 0 0 30px auto;
+  width: 400px;
   height: 500px;
-  flex-basis: 400px;
+
 
   &__girl {
     position: absolute !important;

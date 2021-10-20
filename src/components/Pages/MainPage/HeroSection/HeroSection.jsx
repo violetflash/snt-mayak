@@ -44,7 +44,7 @@ const HeroSectionContainer = styled.section`
   padding: 50px 0 40px;
   position: relative;
   //background-size: 100%;
-  background-position: 900px;
+  background-position: 700px -70px;
   background-size: 60%;
   background-repeat: no-repeat;
   transform: scaleX(-1);
@@ -126,10 +126,10 @@ export const HeroSection = () => {
       <div className="container">
         <HeroContent>
           <FlexContainer align="flex-end" justify="space-between">
-            <NewsBlockWrapper>
-              <PageTitle tag="h2" title="Новости"/>
-              {newsSlider}
-            </NewsBlockWrapper>
+            {/*<NewsBlockWrapper>*/}
+            {/*  <PageTitle tag="h2" title="Новости"/>*/}
+            {/*  {newsSlider}*/}
+            {/*</NewsBlockWrapper>*/}
             <GardenerGirl/>
           </FlexContainer>
         </HeroContent>

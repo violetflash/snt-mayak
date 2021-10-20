@@ -114,8 +114,13 @@ a {
 .container {
   margin: 0 auto;
   padding: 0 15px;
+  height: 100%;
   width: 100%;
   max-width: $maxWidthContainer + px;
+}
+
+#root {
+  height: 100%;
 }
 
 //loader
