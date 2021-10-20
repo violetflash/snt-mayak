@@ -23,6 +23,13 @@ export const FooterContent = styled.section`
   align-items: flex-end;
 `;
 
+export const DynamicContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+`;
+
 export const GirlWrapper = styled.div`
   //margin: ${props => props.position === 'left' ? '0 0 0 auto' : '0 auto 0 0'};
 `;
