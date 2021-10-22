@@ -1,29 +1,46 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useState } from 'react';
 import {Div} from "../ui";
 
-const Button = styled.button`
-  background-color:#ddd;
-  width: 300px;
+const buttonStyles = css`
   padding: 0.8rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform:uppercase;
+`;
+
+const Button = styled.button`
+  background-color: #eee;
+  ${buttonStyles};
+  
+`;
+
+const QuestionButton = styled.button`
+  ${buttonStyles};
+  border: 2px dashed darkorange;
 `;
 
 const ContentContainer = styled.div`
-  background-color: #eee;
-  padding: 0.8rem 1.2rem;
 `;
 
-export const Collapsible = ({ children, title = 'click me' }) => {
+export const Collapsible = ({ children, question = null, title = 'click me' }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleVisibility = () => setIsVisible(!isVisible);
 
+  const button = question ?
+    <QuestionButton onClick={handleVisibility}>
+      {title}
+    </QuestionButton> :
+    <Button onClick={handleVisibility}>
+      {title}
+    </Button>;
+
   return (
     <>
-      <Button onClick={handleVisibility}>
-        {title}
-      </Button>
+      {button}
       <AnimatePresence>
         {
           isVisible && (
@@ -35,7 +52,8 @@ export const Collapsible = ({ children, title = 'click me' }) => {
               transition={{
                 duration: 0.5,
                 type: 'just',
-                ease: "backOut"
+                // ease: "backOut"
+                ease: "easeOut"
               }}>
               <ContentContainer>
                 {children}

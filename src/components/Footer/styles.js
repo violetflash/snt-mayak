@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const FooterContainer = styled.div`
   position: relative;
   display: flex;
+  
   flex: 0 0 auto;
   padding: 50px 0 0;
   //min-height: calc(100% - 132px); //header вне процентов страницы, поэтому он выпадает из 100%. Нужно его точно посчитать
@@ -19,17 +20,34 @@ export const FooterContainer = styled.div`
 
 export const FooterContent = styled.section`
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: space-between;
+  //align-items: flex-end;
+  height: 100%;
 `;
 
 export const DynamicContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
+  margin-right: 20px;
+  flex-grow: 1;
   
 `;
 
 export const GirlWrapper = styled.div`
   //margin: ${props => props.position === 'left' ? '0 0 0 auto' : '0 auto 0 0'};
+  display: flex;
+  align-items: flex-end;
+  
+`;
+
+export const ContentWrapper = styled.div`
+  //display: flex;
+  //flex-direction: column;
+  //align-items: center;
+  //justify-content: center;
+  margin: 40px 0 0 50px;
+  flex-grow: 1;
+  width: 100%;
 `;

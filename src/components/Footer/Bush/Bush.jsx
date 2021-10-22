@@ -26,7 +26,7 @@ const AnimatedIcon = styled.div`
 
 const flower1 =
   <AnimatedIcon
-    right="5%"
+    left="30%"
     bottom="5%"
     width="70px"
     height="70px"
@@ -51,7 +51,7 @@ const flower1 =
 
 const flower2 =
   <AnimatedIcon
-    right="10%"
+    right="30%"
     bottom="55%"
     width="50px"
     height="50px"
