@@ -12,8 +12,15 @@ const newsStyles = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 620px;
+  //width: 620px;
   min-height: 400px;
+
+  //li.alice-carousel__stage-item :not(.__cloned) {
+  //  width: auto !important;
+  //  margin-right: 1rem;
+  //}
+  
+  
 
   .alice-carousel__prev-btn,
   .alice-carousel__next-btn {
@@ -140,6 +147,17 @@ export const Slider = ({ type, children }) => {
     autoPlay,
     autoPlayInterval,
     infinite,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      1024: {
+        items: 3
+      }
+    },
+    // autoWidth: true
+    mouseTracking: true,
+
   };
 
   if (!data?.length) {

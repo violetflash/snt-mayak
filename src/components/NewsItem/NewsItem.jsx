@@ -27,9 +27,9 @@ export const NewsItem = ({ title, desc, date, time, imageUrl }) => {
           </FlexContainer>
         </Details>
       </TextWrapper>
-      <BadgeWrapper>
-        <Badge text={date}/>
-      </BadgeWrapper>
+      {/*<BadgeWrapper>*/}
+      {/*  <Badge text={date}/>*/}
+      {/*</BadgeWrapper>*/}
     </NewsCard>
   );
 };

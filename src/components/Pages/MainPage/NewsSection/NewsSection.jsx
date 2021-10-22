@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import React from "react";
+import { motion } from 'framer-motion';
 import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
-import { FlexContainer } from "../../../ui";
 
 const HeroContent = styled.div`
   position: relative;
@@ -11,7 +11,7 @@ const HeroContent = styled.div`
 
 const NewsBlockWrapper = styled.div`
   margin: 0 auto;
-  max-width: 620px;
+  //max-width: 620px;
 `;
 
 const NewsSliderWrapper = styled.div`
@@ -21,7 +21,7 @@ const NewsSliderWrapper = styled.div`
   transition: border-color 0.3s ease;
 `;
 
-const HeroSectionContainer = styled.section`
+const HeroSectionContainer = styled(motion.section)`
   padding: 50px 0 40px;
   position: relative;
   //background-size: 100%;
@@ -39,9 +39,13 @@ const newsSlider =
 ;
 
 
-export const HeroSection = () => {
+export const NewsSection = () => {
   return (
-    <HeroSectionContainer>
+    <HeroSectionContainer
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.5, duration: 0.5 }}
+    >
       <div className="container">
         <HeroContent>
           <NewsBlockWrapper>

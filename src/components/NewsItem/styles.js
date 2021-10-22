@@ -15,6 +15,7 @@ export const Figure = styled.figure`
   //justify-content: center;
   padding: 0;
   height: 420px;
+  pointer-events: none;
 
   img {
     display: block;
@@ -33,11 +34,12 @@ export const Title = styled.h3`
 
 export const TextWrapper = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   padding: 25px 15px;
   width: 100%;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--mainColor);
+  //background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--bgColor);
   transform: scale(1.01);
   transition: background-color 1s ease;
 `;
@@ -46,10 +48,12 @@ export const DateTime = styled.time`
   display: block;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  color: #fff;
+  //color: var();
 `;
 
 export const Details = styled.div`
+  //position: absolute;
+  top: 0;
   max-height: 0;
   opacity: 0;
   transition: max-height 0.5s ease, opacity 0.5s ease;
@@ -59,11 +63,17 @@ export const NewsCard = styled.article`
   position: relative;
   display: block;
   overflow: hidden;
-  //border: 1px solid var(--secondColor);
+  border: 1px solid var(--secondColor);
   //border-radius: 4px;
   min-height: 410px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  //box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   backface-visibility: hidden;
+  //width: calc(100% - 20px);
+  //margin: 0 30px;
+  
+  &:last-child {
+    //margin-right: 0;
+  }
 
   &:hover {
     ${Details} {
@@ -72,15 +82,15 @@ export const NewsCard = styled.article`
     }
 
     ${TextWrapper} {
-      background-color: rgba(0, 0, 0, 0.6);
+      //background-color: rgba(0, 0, 0, 0.6);
     }
 
     ${Figure} img {
-      transform: scale(1.2);
+      //transform: scale(1.2);
     }
     
     ${Title} {
-      color: var(--newsItemTitleOnHoverColor);
+      //color: var(--newsItemTitleOnHoverColor);
     }
   }
 `;

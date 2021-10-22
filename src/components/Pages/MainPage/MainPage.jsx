@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Greetings from "./Greetings";
 import { AnnounceSection } from "./AnnounceSection/AnnounceSection";
-import { HeroSection } from "./HeroSection/HeroSection";
+import { NewsSection } from "./NewsSection/NewsSection";
 import { Collapsible } from "../../Collapsible/Collapsible";
 
 const MainPageSection = styled.section`
@@ -32,7 +32,7 @@ const MainPage = () => {
           </p>
         </Collapsible>
       </div>
-      <HeroSection/>
+      <NewsSection/>
     </MainPageSection>
   );
 };
