@@ -69,7 +69,7 @@ export const NewsCard = styled.article`
   //box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   backface-visibility: hidden;
   //width: calc(100% - 20px);
-  //margin: 0 30px;
+  margin: 0 30px;
   
   &:last-child {
     //margin-right: 0;
