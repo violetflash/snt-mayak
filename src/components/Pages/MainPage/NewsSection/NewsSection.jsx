@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components/macro';
 import React from "react";
 import { motion } from 'framer-motion';
 import { PageTitle } from "../../../ui";
@@ -21,7 +21,7 @@ const NewsSliderWrapper = styled.div`
   transition: border-color 0.3s ease;
 `;
 
-const HeroSectionContainer = styled(motion.section)`
+const NewsSectionContainer = styled(motion.section)`
   padding: 50px 0 40px;
   position: relative;
   //background-size: 100%;
@@ -41,7 +41,7 @@ const newsSlider =
 
 export const NewsSection = () => {
   return (
-    <HeroSectionContainer
+    <NewsSectionContainer
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.5 }}
@@ -54,6 +54,6 @@ export const NewsSection = () => {
           </NewsBlockWrapper>
         </HeroContent>
       </div>
-    </HeroSectionContainer>
+    </NewsSectionContainer>
   );
 };
