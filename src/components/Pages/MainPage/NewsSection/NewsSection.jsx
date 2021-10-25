@@ -3,6 +3,13 @@ import React from "react";
 import { motion } from 'framer-motion';
 import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
+import leafs from '../../../../assets/bg/leafsBig.svg';
+import {Leafs} from "../../../decorations/Leafs/Leafs";
+
+const NewsSectionContainer = styled(motion.section)`
+  position: relative;
+  padding: 50px 0 40px;
+`;
 
 const HeroContent = styled.div`
   position: relative;
@@ -21,16 +28,6 @@ const NewsSliderWrapper = styled.div`
   transition: border-color 0.3s ease;
 `;
 
-const NewsSectionContainer = styled(motion.section)`
-  padding: 50px 0 40px;
-  position: relative;
-  //background-size: 100%;
-  background-position: 700px -70px;
-  background-size: 60%;
-  background-repeat: no-repeat;
-`;
-
-
 
 const newsSlider =
   <NewsSliderWrapper>
@@ -46,9 +43,11 @@ export const NewsSection = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.5 }}
     >
+      <Leafs/>
       <div className="container">
         <HeroContent>
           <NewsBlockWrapper>
+
             <PageTitle tag="h2" title="Новости"/>
             {newsSlider}
           </NewsBlockWrapper>
