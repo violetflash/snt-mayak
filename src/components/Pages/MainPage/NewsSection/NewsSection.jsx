@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
 import bg from '../../../../assets/bg/backGroup.svg';
+import {NewsCard} from "../../../NewsCard/NewsCard";
 // import { Leafs } from "../../../decorations/Leafs/Leafs";
 
 const NewsSectionContainer = styled(motion.section)`
@@ -28,7 +29,6 @@ const NewsBlockWrapper = styled.div`
 const NewsSliderWrapper = styled.div`
   min-width: 620px;
   min-height: 420px;
-  border: 10px solid var(--bgColor);
   transition: border-color 0.3s ease;
 `;
 

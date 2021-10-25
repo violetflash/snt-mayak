@@ -63,7 +63,7 @@ export const NewsCard = styled.article`
   position: relative;
   display: block;
   overflow: hidden;
-  border: 1px solid var(--secondColor);
+  //border: 1px solid var(--secondColor);
   //border-radius: 4px;
   min-height: 410px;
   //box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;

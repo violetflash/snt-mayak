@@ -4,6 +4,7 @@ import { Collapsible } from '../../Collapsible/Collapsible';
 import s from './AboutPage.module.scss';
 import { PageTitle } from "../../ui";
 import { PageLayout } from "../../PageLayout/PageLayout";
+import {NewsCard} from "../../NewsCard/NewsCard";
 
 
 const AboutPage = () => {
@@ -25,6 +26,11 @@ const AboutPage = () => {
           <span>Aspernatur assumenda distinctio doloremque inventore laboriosam laborum maiores maxime necessitatibus. Cumque doloribus minima officiis optio possimus quisquam saepe ut veniam! Autem consequuntur dolorum maiores molestias quis. Doloremque est impedit sint.</span>
         </p>
       </Collapsible>
+
+      <NewsCard>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid dignissimos dolor dolorem eveniet id ipsam iste minus mollitia natus, nemo, nobis non provident quaerat quasi ratione saepe. Ipsam, similique!
+      </NewsCard>
+
     </div>
   );
 
