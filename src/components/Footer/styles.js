@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import bg from '../../assets/bg/backdown.svg';
 
 export const FooterContainer = styled.div`
   position: relative;
@@ -6,6 +7,10 @@ export const FooterContainer = styled.div`
   
   flex: 0 0 auto;
   padding: 50px 0 0;
+  background-image: url(${bg});
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: 2400px;
   //min-height: calc(100% - 132px); //header вне процентов страницы, поэтому он выпадает из 100%. Нужно его точно посчитать
   
   &::before {

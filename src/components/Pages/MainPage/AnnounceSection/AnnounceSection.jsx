@@ -7,12 +7,12 @@ import { Div } from "../../../ui";
 import { AnnounceItem } from "../../../AnnounceItem/AnnounceItem";
 import { sortOptions } from "../../../../functions/functions";
 import sunIcon from "../../../../assets/icons/sun.svg";
+
 import { AnnounceControls } from "./AnnounceControls/AnnounceControls";
 
 const AnnounceSectionContainer = styled.section`
   position: relative;
   padding: 60px 0 40px;
-  background-color: var(--colorToTry1);
 `;
 
 const Content = styled.div`

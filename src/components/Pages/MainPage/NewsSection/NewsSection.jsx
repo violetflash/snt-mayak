@@ -3,12 +3,16 @@ import React from "react";
 import { motion } from 'framer-motion';
 import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
-import leafs from '../../../../assets/bg/leafsBig.svg';
-import {Leafs} from "../../../decorations/Leafs/Leafs";
+import bg from '../../../../assets/bg/backGroup.svg';
+// import { Leafs } from "../../../decorations/Leafs/Leafs";
 
 const NewsSectionContainer = styled(motion.section)`
   position: relative;
   padding: 50px 0 40px;
+  background-image: url(${bg});
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: 2400px;
 `;
 
 const HeroContent = styled.div`
@@ -43,7 +47,7 @@ export const NewsSection = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.5 }}
     >
-      <Leafs/>
+      {/*<Leafs/>*/}
       <div className="container">
         <HeroContent>
           <NewsBlockWrapper>
