@@ -6,6 +6,7 @@ import { SliderCarousel } from "../ui";
 import { sortOptions } from "../../functions/functions";
 import { AnnounceItem } from "../AnnounceItem/AnnounceItem";
 import { NewsItem } from "../NewsItem/NewsItem";
+import { NewsCard } from "../NewsCard/NewsCard";
 
 const newsStyles = css`
   position: relative;
@@ -135,7 +136,7 @@ export const Slider = ({ type, children }) => {
     .map((item) => {
       const { id } = item;
       return type === 'announce' ? <AnnounceItem key={id} type={type} {...item}/> :
-        type === 'news' ? <NewsItem key={id} type={type} {...item}/> : null;
+        type === 'news' ? <NewsCard key={id} {...item}/> : null;
     }) : null;
 
   const settings = {

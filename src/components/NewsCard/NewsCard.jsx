@@ -1,20 +1,50 @@
-import styled from 'styled-components/macro';
-import bg from '../../assets/bg/card.svg';
+import { CardDesc, CardTitle, Date, Day, FigCaption, Image, Month, StyledNewsCard } from "./style";
+import { getDay, getMonth } from "../../functions/functions";
 
-const StyledCard = styled.div`
-  max-width: 400px;
-  min-height: 600px;
-  background-image: url(${bg});
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: initial;
-  //box-shadow: 1px 1px 2px #000;
-`;
+const captionMotion = {
+  rest: {
+    position: 'relative',
+    transition: {
+      duration: 0.4,
+      type: "tween",
+      ease: "easeIn"
+    }
+  },
+  hover: {
 
-export const NewsCard = ({ children }) => {
+    margin: 0,
+    transition: {
+      duration: 0.2,
+      type: "tween",
+      ease: "easeIn"
+    }
+  }
+}
+
+export const NewsCard = ({ date, title, desc, imageUrl, time, author }) => {
+  const day = getDay(date);
+  const month = getMonth(date);
+
   return (
-    <StyledCard>
-      {children}
-    </StyledCard>
+    <StyledNewsCard>
+      <Image />
+      <FigCaption
+        variants={captionMotion}
+        initial="rest"
+        whileHover="hover"
+        // animate="hover"
+      >
+        <Date>
+          <Day>{day}</Day>
+          <Month>{month}</Month>
+        </Date>
+        <CardTitle>
+          {title}
+        </CardTitle>
+        <CardDesc>
+          {desc}
+        </CardDesc>
+      </FigCaption>
+    </StyledNewsCard>
   )
 };

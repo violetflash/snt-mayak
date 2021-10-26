@@ -23,7 +23,7 @@ export const DateTime = styled.span`
   //margin: 0 0 30px;
   padding: 5px 10px;
   font-size: 20px;
-  background-color: #f1b067;
+  background-color: var(--datesColor);
 `;
 
 export const Title = styled.h3`
@@ -40,7 +40,7 @@ export const TitleDecoration = styled(motion.span)`
   bottom: 0;
   width: 60%;
   height: 3px;
-  background-color:#f1b067;
+  background-color: var(--datesColor);
 `;
 
 export const AnnounceDesc = styled(motion.p)`

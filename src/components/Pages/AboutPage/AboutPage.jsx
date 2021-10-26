@@ -1,13 +1,33 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 import { Collapsible } from '../../Collapsible/Collapsible';
 
 import s from './AboutPage.module.scss';
 import { PageTitle } from "../../ui";
-import { PageLayout } from "../../PageLayout/PageLayout";
+import { useSelector } from 'react-redux';
 import {NewsCard} from "../../NewsCard/NewsCard";
+import { sortOptions } from "../../../functions/functions";
 
+
+const NewsContainer = styled.div`
+  display: flex;
+  //align-items: center;
+  justify-content: space-between;
+  padding: 50px 0;
+`;
 
 const AboutPage = () => {
+  const { news } = useSelector(state => state.data);
+
+  const cards = [...news]
+    .sort(sortOptions)
+    .map(el => {
+    const { date, title, desc, id, imageUrl, time, author } = el;
+    return (
+      <NewsCard date={date} title={title} desc={desc} key={id} imageUrl={imageUrl} time={time} author={author}/>
+    )
+  })
+
   return (
     <div className="container">
       <PageTitle tag="h2" title="О снт" margin="30px 0"/>
@@ -27,10 +47,9 @@ const AboutPage = () => {
         </p>
       </Collapsible>
 
-      <NewsCard>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid dignissimos dolor dolorem eveniet id ipsam iste minus mollitia natus, nemo, nobis non provident quaerat quasi ratione saepe. Ipsam, similique!
-      </NewsCard>
-
+      <NewsContainer>
+        {cards}
+      </NewsContainer>
     </div>
   );
 

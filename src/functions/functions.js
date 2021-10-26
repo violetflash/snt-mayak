@@ -51,7 +51,43 @@ const getRandomIDsFromArr = (arr, num) => {
 
 const getFirstName = name => {
     return name.split(' ')[0];
+};
+
+const getDay = (date) => {
+    return date.slice(0, date.indexOf('.'));
 }
+
+const getMonth = (date) => {
+    const month = date.slice(date.indexOf('.') + 1, date.indexOf('.') + 3);
+    switch (month) {
+    case '01':
+        return 'янв';
+    case '02':
+        return 'фев';
+    case '03':
+        return 'мар';
+    case '04':
+        return 'апр';
+    case '05':
+        return 'май';
+    case '06':
+        return 'июн';
+    case '07':
+        return 'июл';
+    case '08':
+        return 'авг';
+    case '09':
+        return 'сен';
+    case '10':
+        return 'окт';
+    case '11':
+        return 'ноя';
+    case '12':
+        return 'дек';
+    default:
+        return month;
+    }
+};
 
 export {
     addClass,
@@ -63,5 +99,7 @@ export {
     getFirstName,
     checkImageExist,
     textCutter,
-    sortOptions
+    sortOptions,
+    getDay,
+    getMonth
 };
