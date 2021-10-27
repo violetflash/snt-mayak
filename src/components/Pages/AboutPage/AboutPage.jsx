@@ -22,11 +22,12 @@ const AboutPage = () => {
   const cards = [...news]
     .sort(sortOptions)
     .map(el => {
-    const { date, title, desc, id, imageUrl, time, author } = el;
-    return (
-      <NewsCard date={date} title={title} desc={desc} key={id} imageUrl={imageUrl} time={time} author={author}/>
-    )
-  })
+      const { date, title, desc, id, imageUrl, time, author } = el;
+      return (
+        <NewsCard date={date} title={title} desc={desc} key={id} imageUrl={imageUrl} time={time} author={author}/>
+      )
+    })
+  ;
 
   return (
     <div className="container">

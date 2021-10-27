@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import { motion } from 'framer-motion';
 import newsDefault from '../../assets/images/news-default.jpg';
 
-export const StyledNewsCard = styled.figure`
+export const StyledNewsCard = styled(motion.figure)`
   position: relative;
   overflow: hidden;
   margin: 0;
@@ -24,10 +24,11 @@ export const Image = styled.div`
 
 export const FigCaption = styled(motion.figcaption)`
   position: relative;
-  margin: -40px 15px 0;
+  margin: 0 15px;
   padding: 15px;
   background-color: var(--bgColor);
   transition: all 0.3s ease 0s;
+  //background-color: orange;
 `;
 
 export const Date = styled.div`

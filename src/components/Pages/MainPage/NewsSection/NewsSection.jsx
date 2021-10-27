@@ -1,46 +1,35 @@
-import styled from 'styled-components/macro';
 import React from "react";
-import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
 import bg from '../../../../assets/bg/backGroup.svg';
 import {NewsCard} from "../../../NewsCard/NewsCard";
+import {News, NewsContent, NewsSectionContainer, NewsSliderWrapper} from "./style";
+import {sortOptions} from "../../../../functions/functions";
 // import { Leafs } from "../../../decorations/Leafs/Leafs";
 
-const NewsSectionContainer = styled(motion.section)`
-  position: relative;
-  padding: 50px 0 40px;
-  background-image: url(${bg});
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: 2400px;
-`;
-
-const HeroContent = styled.div`
-  position: relative;
-  height: auto;
-`;
-
-const NewsBlockWrapper = styled.div`
-  margin: 0 auto;
-  //max-width: 620px;
-`;
-
-const NewsSliderWrapper = styled.div`
-  min-width: 620px;
-  min-height: 420px;
-  transition: border-color 0.3s ease;
-`;
 
 
-const newsSlider =
-  <NewsSliderWrapper>
-    <Slider type="news"/>
-  </NewsSliderWrapper>
-;
+// const newsSlider =
+//   <NewsSliderWrapper>
+//     <Slider type="news"/>
+//   </NewsSliderWrapper>
+// ;
 
 
 export const NewsSection = () => {
+  const { news } = useSelector(state => state.data);
+
+  const cards = [...news]
+    .sort(sortOptions)
+    .map(el => {
+      const { date, title, desc, id, imageUrl, time, author } = el;
+      return (
+        <NewsCard date={date} title={title} desc={desc} key={id} imageUrl={imageUrl} time={time} author={author}/>
+      )
+    })
+  ;
+
   return (
     <NewsSectionContainer
       initial={{ y: 100, opacity: 0 }}
@@ -49,13 +38,13 @@ export const NewsSection = () => {
     >
       {/*<Leafs/>*/}
       <div className="container">
-        <HeroContent>
-          <NewsBlockWrapper>
-
-            <PageTitle tag="h2" title="Новости"/>
-            {newsSlider}
-          </NewsBlockWrapper>
-        </HeroContent>
+        <NewsContent>
+          <PageTitle tag="h2" title="Новости"/>
+          <News>
+            {cards}
+          </News>
+          {/*{newsSlider}*/}
+        </NewsContent>
       </div>
     </NewsSectionContainer>
   );
