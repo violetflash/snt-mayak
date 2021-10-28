@@ -6,23 +6,16 @@ const captionMotion = {
     position: 'relative',
     y: -30,
     // height: 'auto',
-    duration: 0.2,
-
-    transition: {
-      duration: 0.2,
-      // type: "tween",
-      // ease: "easeIn"
-    }
+    // duration: 0.2,
   },
   hover: {
-
     y: -200,
-    x: -15,
+    // x: -15,
     height: '100%',
 
     // margin: 0,
     transition: {
-      duration: 0.2,
+      // duration: 0.1,
       // type: "tween",
       // ease: "easeIn"
     }

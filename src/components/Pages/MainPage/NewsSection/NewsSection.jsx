@@ -2,19 +2,17 @@ import React from "react";
 import { useSelector } from 'react-redux';
 import { PageTitle } from "../../../ui";
 import { Slider } from "../../../Slider/Slider";
-import bg from '../../../../assets/bg/backGroup.svg';
 import {NewsCard} from "../../../NewsCard/NewsCard";
 import {News, NewsContent, NewsSectionContainer, NewsSliderWrapper} from "./style";
 import {sortOptions} from "../../../../functions/functions";
-// import { Leafs } from "../../../decorations/Leafs/Leafs";
 
 
 
-// const newsSlider =
-//   <NewsSliderWrapper>
-//     <Slider type="news"/>
-//   </NewsSliderWrapper>
-// ;
+const newsSlider =
+  <NewsSliderWrapper>
+    <Slider type="news"/>
+  </NewsSliderWrapper>
+;
 
 
 export const NewsSection = () => {
@@ -40,10 +38,10 @@ export const NewsSection = () => {
       <div className="container">
         <NewsContent>
           <PageTitle tag="h2" title="Новости"/>
-          <News>
-            {cards}
-          </News>
-          {/*{newsSlider}*/}
+          {/*<News>*/}
+          {/*  {cards}*/}
+          {/*</News>*/}
+          {newsSlider}
         </NewsContent>
       </div>
     </NewsSectionContainer>

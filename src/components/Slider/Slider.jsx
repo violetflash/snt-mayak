@@ -158,7 +158,6 @@ export const Slider = ({ type, children }) => {
     },
     // autoWidth: true
     mouseTracking: true,
-
   };
 
   if (!data?.length) {

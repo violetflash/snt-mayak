@@ -8,6 +8,7 @@ export const StyledNewsCard = styled(motion.figure)`
   margin: 0;
   min-width: 250px;
   max-width: 360px;
+  //height: auto;
   width: 100%;
   background-color: var(--bgColor);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);

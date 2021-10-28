@@ -22,11 +22,11 @@ export const NewsContent = styled.div`
 //   //max-width: 620px;
 // `;
 
-// export const NewsSliderWrapper = styled.div`
-//   min-width: 620px;
-//   min-height: 420px;
-//   transition: border-color 0.3s ease;
-// `;
+export const NewsSliderWrapper = styled.div`
+  min-width: 620px;
+  min-height: 420px;
+  transition: border-color 0.3s ease;
+`;
 
 export const News = styled.ul`
   display: flex;
